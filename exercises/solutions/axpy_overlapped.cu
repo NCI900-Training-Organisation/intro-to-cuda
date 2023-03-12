@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "../cuda_helpers.cuh"
 
+// Default to 128 blocks per stream = 32768 threads per stream
+#ifndef BLOCKS_PER_STREAM
+#define BLOCKS_PER_STREAM 128
+#endif
 
 /*
  axpy kernel function
@@ -49,17 +53,18 @@ void destroy_streams(Streams streams) {
     - Copy X and Y to the device
     - Run the kernel
     - Copy Z back to the host
-  TODO: MODIFY THIS FUNCTION TO USE OVERLAPPING STREAMS.
-        Don't forget to call cudaStreamDestroy at the end!
+  TODO: MODIFY THIS TO USE STREAMS FOR OVERLAPPED COMPUTE AND DATA TRANSFER
+        Consider taking an array of streams and the stream size as extra input
+        arguments to avoid creating/destroying the streams every time.
 */
 
-// PER_STREAM:
-//  0 = launch all streams of one operation before starting on next (default)
-//  1 = launch all operations in a stream before moving to next stream
-#ifndef PER_STREAM
-#define PER_STREAM 0
+// STREAM_BY_STREAM:
+//  0 = launch all operations in one stream before moving to next stream (default)
+//  1 = launch all streams of one operation before launching the next operation
+#ifndef STREAM_BY_STREAM
+#define STREAM_BY_STREAM 0
 #endif
-#if PER_STREAM == 1
+#if STREAM_BY_STREAM == 0
 void run_axpy(
   const float a, 
   float* X, float* X_d,
@@ -163,10 +168,13 @@ void run_axpy(
     cudaMemcpyDeviceToHost, s.streams[s.n_streams-1]);
     
   cuda_check(cudaGetLastError());
-  //cuda_check(cudaDeviceSynchronize());
+  cuda_check(cudaDeviceSynchronize());
 }
 
 #endif
+
+
+
 
 /*
   Test the axpy function to make sure it gives correct results
@@ -175,9 +183,10 @@ typedef enum {SUCCESS=0, FAIL} TestResult;
 
 TestResult test_axpy(const int N) {
   // Allocate memory
-  float* X = (float*)malloc(sizeof(*X) * N);
-  float* Y = (float*)malloc(sizeof(*Y) * N);
-  float* Z = (float*)malloc(sizeof(*Z) * N);
+  // TODO: Change this to use cudaHostMalloc
+  float* X; cuda_check(cudaMallocHost((void**)&X, sizeof(*X)*N));
+  float* Y; cuda_check(cudaMallocHost((void**)&Y, sizeof(*Y)*N));
+  float* Z; cuda_check(cudaMallocHost((void**)&Z, sizeof(*Z)*N));
   
   // Set up initial values of a, X and Y
   float a = 2.0;
@@ -191,8 +200,8 @@ TestResult test_axpy(const int N) {
   float* Y_d; cuda_check(cudaMalloc((void**)&Y_d, sizeof(*Y_d) * N));
   float* Z_d; cuda_check(cudaMalloc((void**)&Z_d, sizeof(*Z_d) * N));
   
-  // Set up streams
-  const int STREAM_SIZE = 256*64; // 64 blocks per stream = 16384 threads
+  // TODO: SET UP STREAMS
+  const int STREAM_SIZE = DEF_BLOCK * BLOCKS_PER_STREAM;
   Streams streams = create_streams(N, STREAM_SIZE);
   
   // Run the kernel a number of times for better statistics
@@ -223,14 +232,32 @@ TestResult test_axpy(const int N) {
   printf("%10g ms  ...  ", millis_total / N_TESTS);
   cudaEventDestroy(start);
   cudaEventDestroy(stop);
-  destroy_streams(streams);
   
   // Check the results are correct
+  TestResult status = SUCCESS;
   for (int i = 0; i < N; ++i) {
-    if (Z[i] != a*X[i] + Y[i]) return FAIL;
+    if (Z[i] != a*X[i] + Y[i]) {
+      status = FAIL;
+      break;
+    }
   }
-  return SUCCESS;
+  
+  // Clean up memory
+  // TODO: USE cudaFreeHost() FOR PINNED MEMORY
+  cudaFreeHost(X);
+  cudaFreeHost(Y);
+  cudaFreeHost(Z);
+  cudaFree(X_d);
+  cudaFree(Y_d);
+  cudaFree(Z_d);
+  
+  // TODO: CLEAN UP STREAMS
+  destroy_streams(streams);
+  
+  return status;
 }
+
+
 
 
 int main(void) {

@@ -16,6 +16,9 @@ __global__ void axpy(const float a, const float* X, const float* Y, float* Z, co
     - Copy X and Y to the device
     - Run the kernel
     - Copy Z back to the host
+  TODO: MODIFY THIS TO USE STREAMS FOR OVERLAPPED COMPUTE AND DATA TRANSFER
+        Consider taking an array of streams and the stream size as extra input
+        arguments to avoid creating/destroying the streams every time.
 */
 void run_axpy(
   const float a, 
@@ -46,6 +49,7 @@ typedef enum {SUCCESS=0, FAIL} TestResult;
 
 TestResult test_axpy(const int N) {
   // Allocate memory
+  // TODO: CHANGE THIS TO USE cudaHostMalloc() FOR PINNED MEMORY
   float* X = (float*)malloc(sizeof(*X) * N);
   float* Y = (float*)malloc(sizeof(*Y) * N);
   float* Z = (float*)malloc(sizeof(*Z) * N);
@@ -61,6 +65,9 @@ TestResult test_axpy(const int N) {
   float* X_d; cuda_check(cudaMalloc((void**)&X_d, sizeof(*X_d) * N));
   float* Y_d; cuda_check(cudaMalloc((void**)&Y_d, sizeof(*Y_d) * N));
   float* Z_d; cuda_check(cudaMalloc((void**)&Z_d, sizeof(*Z_d) * N));
+  
+  
+  // TODO: SET UP STREAMS
   
   // Run the kernel 100 times for better statistics
   cudaEvent_t start, stop;
@@ -99,12 +106,15 @@ TestResult test_axpy(const int N) {
   }
   
   // Clean up memory
+  // TODO: USE cudaFreeHost() FOR PINNED MEMORY
   free(X);
   free(Y);
   free(Z);
   cudaFree(X_d);
   cudaFree(Y_d);
   cudaFree(Z_d);
+  
+  // TODO: CLEAN UP STREAMS
   
   return status;
 }
