@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "cuda_helpers.cuh"
+#include "cuda_helpers.h"
 
 /*
  axpy kernel function

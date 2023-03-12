@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../cuda_helpers.cuh"
+#include "../cuda_helpers.h"
 
 /*
  TODO: Add your axpy function here
@@ -45,10 +45,25 @@ TestResult test_axpy(const int N) {
   cuda_check(cudaMemcpy(Z, Z_d, sizeof(*Z)*N, cudaMemcpyDeviceToHost));
   
   // Check the results are correct
+  TestResult status = SUCCESS;
   for (int i = 0; i < N; ++i) {
-    if (Z[i] != a*X[i] + Y[i]) return FAIL;
+    if (Z[i] != a*X[i] + Y[i]) {
+      status = FAIL;
+      break;
+    }
   }
-  return SUCCESS;
+  
+  // Clean up memory
+  free(X);
+  free(Y);
+  free(Z);
+
+  // TODO: Clean up GPU memory
+  cudaFree(X_d);
+  cudaFree(Y_d);
+  cudaFree(Z_d);
+ 
+  return status;
 }
 
 

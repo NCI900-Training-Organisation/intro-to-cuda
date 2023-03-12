@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "cuda_helpers.cuh"
+#include "cuda_helpers.h"
 
 /*
  TODO: Add your axpy kernel function here
@@ -46,9 +46,8 @@ TestResult test_axpy(const int N) {
   free(X);
   free(Y);
   free(Z);
-  cudaFree(X_d);
-  cudaFree(Y_d);
-  cudaFree(Z_d);
+  
+  // TODO: Clean up GPU memory
   
   return status;
 }

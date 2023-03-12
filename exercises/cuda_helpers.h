@@ -1,5 +1,5 @@
-#ifndef CUDA_HELPERS_CUH
-#define CUDA_HELPERS_CUH
+#ifndef CUDA_HELPERS_H
+#define CUDA_HELPERS_H
 
 /*
   Helper functions for error checking

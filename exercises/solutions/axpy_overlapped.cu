@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../cuda_helpers.cuh"
+#include "../cuda_helpers.h"
 
 // Default to 128 blocks per stream = 32768 threads per stream
 #ifndef BLOCKS_PER_STREAM
