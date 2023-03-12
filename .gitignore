@@ -1,1 +1,4 @@
 .ipynb_checkpoints/
+exercises/axpy
+exercises/axpy_overlapped
+exercises/axpy_non_overlapped
