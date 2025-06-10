@@ -46,3 +46,4 @@ Describe the tutorial here.
     tutorial/gpu.rst
     tutorial/gpu_exec_model.rst
     tutorial/GPU_workflow.rst
+    tutorial/asynchronous.rst
