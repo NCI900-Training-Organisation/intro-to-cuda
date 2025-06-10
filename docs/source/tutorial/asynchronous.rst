@@ -1,5 +1,5 @@
 Asynchronous CUDA Calls
------------------------
+========================
 
 .. admonition:: Overview
    :class: Overview
