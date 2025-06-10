@@ -44,3 +44,4 @@ Describe the tutorial here.
 .. toctree::
 
     tutorial/gpu.rst
+    tutorial/gpu_exec_model.rst

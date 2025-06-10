@@ -252,7 +252,7 @@ Shared memory and DRAM (Global Memory) are two types of memory used in NVIDIA GP
      - Input/output, persistent global data
 
 
-Summary: How They Work Together
+How They Work Together
 -------------------------------
 
 1. **Threads** are scheduled and executed on **CUDA cores** inside an **SM**.
