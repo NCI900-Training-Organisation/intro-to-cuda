@@ -122,6 +122,8 @@ Streaming Multiprocessors (SMs)
 CUDA Cores
 ----------
 
+
+
 .. list-table::
    :header-rows: 1
    :widths: 25 75
@@ -136,6 +138,35 @@ CUDA Cores
      - Varies by architecture (e.g., 64 in Volta, up to 128 or more in newer GPUs)
    * - Highly Parallel
      - Thousands of CUDA cores on a GPU enable massive parallel execution
+
+
+While CUDA cores are often thought of as "identical tiny processors," in practice, not all CUDA cores are the same in capability or function, especially 
+within an SM (Streaming Multiprocessor). 
+
+
+.. image:: ./figs/cuda_cores.png
+   :width: 600px
+   :align: center
+   :alt: CUDA Cores
+   :caption: CUDA Cores
+
+
+CUDA cores are primarily designed to handle:
+
+* Integer operations
+* 32-bit floating-point (FP32) arithmetic
+
+However, other types of operations like:
+
+* 64-bit floating point (FP64)
+* Tensor operations (for AI)
+* Special function math (e.g., sin, sqrt)
+
+For example:
+
+* Multiply two FP32 arrays → goes to CUDA cores
+* Apply sin() → goes to SFU (Special Function Unit)
+* Multiply matrices → goes to Tensor cores 
 
 L1 Cache (Level 1)
 ------------------
