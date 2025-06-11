@@ -5,10 +5,12 @@ Prerequisite
  #.  Experience with C programming.
  #.  Experience with heap memory in C.
  #.  Experience with bash or similar Unix shells.
+ #.  Experience with text editors such as ``vim``, ``emacs`` or ``nano``.
 
-This workshop assumes that you have experience coding in Python and are familiar with using Unix shell. 
+This workshop assumes that you have experience coding in ``C`` and are familiar with using Unix shell. 
 If you are using a Windows machine please make sure you have a shell that supports SSH. Windows users can either use 
-`PowerShell <https://learn.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell>`_ or the `Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_ 
+`PowerShell <https://learn.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell>`_ or 
+the `Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_ 
 
 .. important::
  For a smooth setup on the supercomputer system, please register for an NCI account if you don't have one:
