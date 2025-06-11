@@ -46,6 +46,7 @@ Describe the tutorial here.
     tutorial/gpu.rst
     tutorial/gpu_exec_model.rst
     tutorial/GPU_workflow.rst
+    tutorial/warps.rst
     tutorial/asynchronous.rst
     tutorial/shared_memory.rst
     tutorial/events.rst
