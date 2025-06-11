@@ -49,3 +49,4 @@ Describe the tutorial here.
     tutorial/asynchronous.rst
     tutorial/shared_memory.rst
     tutorial/events.rst
+    tutorial/unified_mem.rst
