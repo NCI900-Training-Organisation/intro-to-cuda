@@ -1,7 +1,9 @@
 Tutorial
 ========
 
-Describe the tutorial here.
+This hands-on CUDA workshop is designed to introduce developers, researchers, and engineers to GPU 
+programming using NVIDIA CUDA. Through a combination of theory, practical examples, and guided exercises, 
+participants will learn how to harness the computational power of GPUs to accelerate their applications.
 
 **Basic Topics**:
 
@@ -71,7 +73,7 @@ Describe the tutorial here.
     - 20 minutes
 
 
-  .. toctree::
+.. toctree::
     
     tutorial/cuda_graphs.rst
   
