@@ -53,12 +53,18 @@ Describe the tutorial here.
     tutorial/exercise_3.rst
     tutorial/shared_memory.rst
     tutorial/events.rst
+    tutorial/exercise_4.rst
     tutorial/unified_mem.rst
+    tutorial/exercise_5.rst
     tutorial/dynamic.rst
+    docs/source/tutorial/exercise_6.rst
 
   
 Advanced Topics
 
+.. list-table::   
+  :widths: 20 20 20 20
+  :header-rows: 1 
 
   * - Topics
     - Material

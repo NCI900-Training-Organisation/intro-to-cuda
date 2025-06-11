@@ -8,7 +8,6 @@ step-by-step tutorials, practical examples, and exercises to help you get starte
 running CUDA programs in C.
 
 
-No prior experience with CUDA is required, but familiarity with C programming is recommended.
 
 .. note::
 
@@ -21,8 +20,5 @@ Contents
 
    prerequisite
    outcomes
-   modules
-   packages
-   are_errors.rst
    tutorial
    references

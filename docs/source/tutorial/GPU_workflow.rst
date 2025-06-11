@@ -11,6 +11,7 @@ GPU Workflow
 
 
 The workflow for programming GPUs using CUDA involves several key steps that are essential for efficient execution of parallel tasks. Below is a high-level overview of the GPU workflow:
+
 1. **Kernel Definition**: 
    - Define a CUDA kernel using the `__global__` keyword. This kernel will be executed on the GPU.
    - The kernel contains the code that will run on the GPU, typically involving parallel computations.
@@ -102,6 +103,7 @@ The above code copies data from host arrays `h_a`, `h_b`, and `h_c` to device ar
 The above code copies data back from device arrays `d_a`, `d_b`, and `d_c` to host arrays `h_a`, `h_b`, and `h_c`. ``cudaMemcpyDeviceToHost`` specifies that data is being transferred from device memory back to host memory.
 
 Finally, it is important to free the allocated memory on the GPU, after kernel execution, to avoid memory leaks:
+
 .. code-block:: cpp
 
    // Free device memory
