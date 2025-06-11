@@ -57,7 +57,7 @@ Describe the tutorial here.
     tutorial/unified_mem.rst
     tutorial/exercise_5.rst
     tutorial/dynamic.rst
-    docs/source/tutorial/exercise_6.rst
+    tutorial/exercise_6.rst
 
   
 Advanced Topics
