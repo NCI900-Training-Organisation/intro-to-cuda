@@ -3,42 +3,39 @@ Tutorial
 
 Describe the tutorial here.
 
+**Basic Topics**:
+
 .. list-table::   
-  :widths: 20 20 20 20
+  :widths: 50 50
   :header-rows: 1   
  
   * - Topics
-    - Material
-    - Exercises
     - Duration
-  * - Requesting a Job
-    - 10 minutes
-    - 10 minutes
-    - 20 minutes
-  * - High-level HPC Architecture
-    - 20 minutes
-    - 15 minutes
-    - 35 minutes
-  * - Basic of Parallelism
-    - 20 minutes
-    - 15 minutes
-    - 35 minutes
-  * - Vector Parallelism
-    - 20 minutes
-    - 10 minutes
+  * - GPU Overview
     - 30 minutes
-  * - Multi-core Parallelism
+  * - Exercise 1
     - 20 minutes
-    - 10 minutes
-    - 30 minutes
-  * - GPU Parallelism
-    - 30 minutes
-    - 15 minutes
-    - 45 minutes
-  * - Multi-node Parallelism
+  * - GPU Execution Model
+    - 60 minutes
+  * - GPU Workflow
+    - 60 minutes
+  * - Exercise 2
     - 20 minutes
-    - 15 minutes
-    - 35 minutes
+  * - Asynchronous CUDA Calls
+    - 60 minutes
+  * - Exercise 3
+    - 20 minutes
+  * - Shared Memory
+    - 30 minutes
+  * - CUDA Events
+    - 30 minutes
+  * - Exercise 4
+    - 20 minutes
+  * - Unified Memory
+    - 30 minutes
+  * - Exercise 5
+    - 20 minutes
+
 
 
 .. toctree::
@@ -60,47 +57,21 @@ Describe the tutorial here.
     tutorial/exercise_6.rst
 
   
-Advanced Topics
+**Advanced Topics**:
 
 .. list-table::   
-  :widths: 20 20 20 20
-  :header-rows: 1 
-
+  :widths: 50 50
+  :header-rows: 1   
+ 
   * - Topics
-    - Material
-    - Exercises
     - Duration
-  * - Requesting a Job
-    - 10 minutes
-    - 10 minutes
-    - 20 minutes
-  * - High-level HPC Architecture
-    - 20 minutes
-    - 15 minutes
-    - 35 minutes
-  * - Basic of Parallelism
-    - 20 minutes
-    - 15 minutes
-    - 35 minutes
-  * - Vector Parallelism
-    - 20 minutes
-    - 10 minutes
+  * - CUDA Graphs
     - 30 minutes
-  * - Multi-core Parallelism
+  * - Exercise 7
     - 20 minutes
-    - 10 minutes
-    - 30 minutes
-  * - GPU Parallelism
-    - 30 minutes
-    - 15 minutes
-    - 45 minutes
-  * - Multi-node Parallelism
-    - 20 minutes
-    - 15 minutes
-    - 35 minutes
+
 
   .. toctree::
-    
     
     tutorial/cuda_graphs.rst
   
