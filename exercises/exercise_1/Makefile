@@ -4,7 +4,7 @@ NVCC = nvcc
 NVCC_FLAGS = -O2
 
 # List of source files
-SRCS = 1_architecture.cu 2_file.cu
+SRCS = 1_architecture.cu 
 
 # Generate target executables by stripping .cu extension
 TARGETS = $(SRCS:.cu=)
