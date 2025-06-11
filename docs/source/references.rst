@@ -1,8 +1,8 @@
 Reference
 =========
-#. https://numba.pydata.org/numba-doc/latest/user/index.html
-#. https://dl.acm.org/doi/pdf/10.1145/2833157.2833162
-#. https://numba.readthedocs.io/en/stable/index.html
+#. https://docs.nvidia.com/cuda/cuda-c-programming-guide/
+#. https://www.irisa.fr/alf/downloads/collange/cours/hpca2020_gpu_2.pdf
+#. https://www.hpcadmintech.com/wp-content/uploads/2016/03/Carlo_Nardone_presentation.pdf
 
 *ChatGPT has been utilized to enhance and generate texts in this document*. 
 *OpenAI. (2024). ChatGPT (August 2024 version).*
@@ -11,5 +11,6 @@ Reference
 Contributers
 =========
 
-1.  `Your Name , Your position, NCI <your website>`_
+* `Joseph John, Staff Scientist, NCI <https://josephjohn.org>`_
+
 
