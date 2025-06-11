@@ -55,8 +55,7 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercise_4.rst
     tutorial/unified_mem.rst
     tutorial/exercise_5.rst
-    tutorial/dynamic.rst
-    tutorial/exercise_6.rst
+  
 
   
 **Advanced Topics**:
@@ -67,6 +66,10 @@ participants will learn how to harness the computational power of GPUs to accele
  
   * - Topics
     - Duration
+  * - Dynamic Parallelism
+    - 30 minutes
+  * - Exercise 6
+    - 20 minutes
   * - CUDA Graphs
     - 30 minutes
   * - Exercise 7
@@ -75,5 +78,7 @@ participants will learn how to harness the computational power of GPUs to accele
 
 .. toctree::
     
+    tutorial/dynamic.rst
+    tutorial/exercise_6.rst
     tutorial/cuda_graphs.rst
   
