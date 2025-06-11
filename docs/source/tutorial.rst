@@ -51,3 +51,4 @@ Describe the tutorial here.
     tutorial/shared_memory.rst
     tutorial/events.rst
     tutorial/unified_mem.rst
+    tutorial/dynamic.rst
