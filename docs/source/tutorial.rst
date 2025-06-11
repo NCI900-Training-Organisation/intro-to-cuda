@@ -44,8 +44,10 @@ Describe the tutorial here.
 .. toctree::
 
     tutorial/gpu.rst
+    tutorial/exercise_1.rst
     tutorial/gpu_exec_model.rst
     tutorial/GPU_workflow.rst
+    tutorial/exercise_2.rst
     tutorial/warps.rst
     tutorial/asynchronous.rst
     tutorial/shared_memory.rst
