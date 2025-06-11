@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
-#include <chrono>
 #include <stdlib.h>
+#include <math.h>
 
 #define NUM_STREAMS 4
 #define NUM_ITERATIONS 10
@@ -22,17 +22,20 @@ int main()
     const int N = 1 << 20; // 1 million elements per vector
     size_t size = N * sizeof(float);
 
-    // Allocate host and device buffers per iteration
+    // Host and device buffers per iteration
     float *h_A[NUM_ITERATIONS], *h_B[NUM_ITERATIONS], *h_C[NUM_ITERATIONS];
     float *d_A[NUM_ITERATIONS], *d_B[NUM_ITERATIONS], *d_C[NUM_ITERATIONS];
     cudaStream_t streams[NUM_STREAMS];
+
+    // CUDA events for timing each iteration
+    cudaEvent_t startEvents[NUM_ITERATIONS], stopEvents[NUM_ITERATIONS];
 
     // Create CUDA streams
     for (int s = 0; s < NUM_STREAMS; ++s) {
         cudaStreamCreate(&streams[s]);
     }
 
-    // Allocate host memory (regular malloc) and device memory
+    // Allocate host and device memory
     for (int i = 0; i < NUM_ITERATIONS; ++i) {
         h_A[i] = (float*)malloc(size);
         h_B[i] = (float*)malloc(size);
@@ -41,6 +44,10 @@ int main()
         cudaMalloc(&d_A[i], size);
         cudaMalloc(&d_B[i], size);
         cudaMalloc(&d_C[i], size);
+
+        // Create events
+        cudaEventCreate(&startEvents[i]);
+        cudaEventCreate(&stopEvents[i]);
     }
 
     // Configure 2D block and grid
@@ -49,10 +56,7 @@ int main()
     int gridSize = (N + totalThreads - 1) / totalThreads;
     dim3 gridDim((int)ceil(sqrt((float)gridSize)), (int)ceil(sqrt((float)gridSize)));
 
-    // Start total timer
-    auto start = std::chrono::high_resolution_clock::now();
-
-    // Launch async vector addition operations
+    // Launch async vector addition operations and record timings
     for (int iter = 0; iter < NUM_ITERATIONS; ++iter) {
         int stream_id = iter % NUM_STREAMS;
 
@@ -62,7 +66,10 @@ int main()
             h_B[iter][i] = float(i % 100);
         }
 
-        // Asynchronous memory transfer and kernel execution
+        // Record event before starting memcpy and kernel
+        cudaEventRecord(startEvents[iter], streams[stream_id]);
+
+        // Async copies and kernel launch
         cudaMemcpyAsync(d_A[iter], h_A[iter], size, cudaMemcpyHostToDevice, streams[stream_id]);
         cudaMemcpyAsync(d_B[iter], h_B[iter], size, cudaMemcpyHostToDevice, streams[stream_id]);
 
@@ -71,6 +78,9 @@ int main()
         );
 
         cudaMemcpyAsync(h_C[iter], d_C[iter], size, cudaMemcpyDeviceToHost, streams[stream_id]);
+
+        // Record event after memcpy back (kernel + copies finished)
+        cudaEventRecord(stopEvents[iter], streams[stream_id]);
     }
 
     // Wait for all streams to finish
@@ -78,12 +88,12 @@ int main()
         cudaStreamSynchronize(streams[s]);
     }
 
-    // Stop timer
-    auto stop = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> duration = stop - start;
-
-    printf("Total GPU time across %d iterations using %d streams: %.4f ms\n",
-           NUM_ITERATIONS, NUM_STREAMS, duration.count());
+    // Calculate and print elapsed time per iteration
+    for (int iter = 0; iter < NUM_ITERATIONS; ++iter) {
+        float milliseconds = 0;
+        cudaEventElapsedTime(&milliseconds, startEvents[iter], stopEvents[iter]);
+        printf("Iteration %d took %.4f ms\n", iter, milliseconds);
+    }
 
     // Verify results
     bool allPassed = true;
@@ -109,6 +119,8 @@ int main()
         free(h_A[i]);
         free(h_B[i]);
         free(h_C[i]);
+        cudaEventDestroy(startEvents[i]);
+        cudaEventDestroy(stopEvents[i]);
     }
 
     for (int s = 0; s < NUM_STREAMS; ++s) {
