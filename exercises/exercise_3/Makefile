@@ -4,7 +4,7 @@ NVCC = nvcc
 NVCC_FLAGS = -O2
 
 # List of source files
-SRCS = 2_vector_add.cu
+SRCS = 3_vector_add.cu 4_vector_add_async.cu
 
 # Generate target executables by stripping .cu extension
 TARGETS = $(SRCS:.cu=)

@@ -50,6 +50,7 @@ Describe the tutorial here.
     tutorial/exercise_2.rst
     tutorial/warps.rst
     tutorial/asynchronous.rst
+    tutorial/exercise_3.rst
     tutorial/shared_memory.rst
     tutorial/events.rst
     tutorial/unified_mem.rst
