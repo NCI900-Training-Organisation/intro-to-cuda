@@ -48,3 +48,4 @@ Describe the tutorial here.
     tutorial/GPU_workflow.rst
     tutorial/asynchronous.rst
     tutorial/shared_memory.rst
+    tutorial/events.rst
