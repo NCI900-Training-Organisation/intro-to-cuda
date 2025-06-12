@@ -75,7 +75,7 @@ participants will learn how to harness the computational power of GPUs to accele
   * - Exercise 7
     - 20 minutes
   * - CUDA Graphs
-    - 30 minutes
+    - 60 minutes
   
 
 
@@ -86,4 +86,5 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/occupancy.rst
     tutorial/exercise_7.rst
     tutorial/cuda_graphs.rst
+    tutorial/exercise_8.rst
   
