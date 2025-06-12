@@ -69,7 +69,14 @@ Create CUDA Stream:
     cudaStreamBeginCapture(stream, cudaStreamCaptureModeGlobal);
 
 * Starts capturing all GPU operations submitted to stream.
-* cudaStreamCaptureModeGlobal means all GPU work in the stream is recorded as graph nodes.
+
+
+.. admonition:: Explanation
+   :class: attention
+
+   ``cudaStreamCaptureModeGlobal`` means all GPU work in the stream is recorded as graph nodes.
+
+
 
 Record each operation as a node in the graph:
 
@@ -104,6 +111,12 @@ Instantiate the CUDA graph for execution
     cudaGraphInstantiate(&graphExec, graph, NULL, NULL, 0);
 
 * Creates an executable instance of the CUDA graph (graphExec) from the captured graph.
+
+.. admonition:: Explanation
+   :class: attention
+
+   The third, fourth and fifth parameters in ``cudaGraphInstantiate``are optional and can be used 
+   for error handling and debugging.
 
 Launch the CUDA graph multiple times
 
@@ -192,6 +205,14 @@ Then we create an empty CUDA graph:
     cudaGraph_t graph;
     check(cudaGraphCreate(&graph, 0), "Create graph");
 
+
+.. admonition:: Explanation
+   :class: attention
+
+   The second parameter is flags, which can be set to 0 for default behavior.
+   It is reserved for future use — currently must be 0.
+
+
 Now create the first node in the graph which is a memset operation:
 
 .. code-block:: c
@@ -209,6 +230,37 @@ Now create the first node in the graph which is a memset operation:
     check(cudaGraphAddMemsetNode(&memsetNode, graph, NULL, 0, &memsetParams), "Add memset");
 
 
+``cudaMemsetParams`` is a structure used with CUDA Graph API to describe a memory set operation
+as part of a graph node.
+
+.. list-table:: `cudaMemsetParams` Field Explanation
+   :header-rows: 1
+   :widths: 20 20 60
+
+   * - Field
+     - Type
+     - Description
+   * - dst
+     - void\*
+     - Device pointer to the start of the memory you want to set.
+   * - pitch
+     - size_t
+     - Row size in bytes. Use 0 if setting a 1D memory block.
+   * - value
+     - unsigned int
+     - Byte value to set (e.g., 0 for zeroing memory).
+   * - elementSize
+     - size_t
+     - Size of each element to set (must be 1, 2, or 4 bytes).
+   * - width
+     - size_t
+     - Number of elements per row to set.
+   * - height
+     - size_t
+     - Number of rows to set. Use 1 for 1D arrays.
+
+
+
 The we create a H2D copy node to copy the input data from host to device:
 
 .. code-block:: c
@@ -223,6 +275,65 @@ The we create a H2D copy node to copy the input data from host to device:
     cudaGraphNode_t memcpyH2DNode;
     check(cudaGraphAddMemcpyNode(&memcpyH2DNode, graph, NULL, 0, &copyH2D), "Add memcpy H2D");
 
+
+.. admonition:: Explanation
+   :class: attention
+
+    ``cudaGraphAddMemsetNode``, ``cudaGraphAddMemcpyNode`` and ``cudaGraphAddKernelNode``
+    are functions used to add nodes to a CUDA graph. Each function creates a specific type of node
+    in the graph. The third parameter is an array of dependencies, which can be NULL if there are
+    no dependencies. The fourth parameter is the number of dependencies, which can be 0 if there 
+    are none.
+
+
+``cudaMemcpy3DParms`` is a structure used to describe complex memory copy operations, including 
+1D, 2D, and 3D copies between host and device memory. It provides fine-grained control over 
+how data is moved, including layout, pitch, and depth.
+
+.. list-table:: `cudaMemcpy3DParms` Field Summary
+   :header-rows: 1
+   :widths: 20 20 60
+
+   * - Field
+     - Type
+     - Description
+   * - srcArray
+     - cudaArray_t
+     - Source CUDA array (used for array-to-array or array-to-linear copies).
+   * - srcPtr
+     - cudaPitchedPtr
+     - Source pitched pointer (used for copying from linear or pitched memory).
+   * - dstArray
+     - cudaArray_t
+     - Destination CUDA array.
+   * - dstPtr
+     - cudaPitchedPtr
+     - Destination pitched pointer.
+   * - extent
+     - cudaExtent
+     - Dimensions of the memory copy in bytes (width, height, depth).
+   * - kind
+     - cudaMemcpyKind
+     - Type of memory transfer (e.g., ``cudaMemcpyHostToDevice``).
+
+
+.. admonition:: Explanation
+   :class: attention
+
+   In CUDA, pitched memory is a way of allocating 2D (or 3D) memory that aligns rows in memory to 
+   improve memory access performance on the GPU. CUDA provides ``cudaPitchedPtr`` and ``cudaExtent`` 
+   to describe such memory layouts.
+
+    ``cudaPitchedPtr``is a structure,which contains a pointer to the memory, the pitch (the width 
+    in bytes of each row), and the height (number of rows). This is useful for 2D arrays where 
+    each row may not be tightly packed in memory.
+
+   ``make_cudaPitchedPtr`` is a utility function that creates a ``cudaPitchedPtr`` structure,
+
+   ``cudaExtent`` is a structure that describes the size of a 3D region in memory, including width, height, and depth.
+   It is used to specify the dimensions of the memory copy operation.
+
+   ``make_cudaExtent`` is a utility function that creates a ``cudaExtent`` structure, which contains the width, height, and depth of the memory region to be copied.    
 
 Next we add a kernel node to launch the square kernel:
 
@@ -255,6 +366,12 @@ Finally, we add a D2H copy node to copy the output data from device to host:
 
     cudaGraphNode_t memcpyD2HNode;
     check(cudaGraphAddMemcpyNode(&memcpyD2HNode, graph, NULL, 0, &copyD2H), "Add memcpy D2H");
+
+
+.. admonition:: Explanation
+   :class: attention
+
+
 
 So we have created for nodes in the graph. Now we need to specify the dependencies between them:
 
@@ -298,6 +415,15 @@ To do this we can update memcpy H2D node parameters:
     copyH2D.srcPtr = make_cudaPitchedPtr(h_input[i], size, N, 1);
     copyH2D.dstPtr = make_cudaPitchedPtr(d_data[i], size, N, 1);
     check(cudaGraphExecMemcpyNodeSetParams(graphExec, memcpyH2DNode, &copyH2D), "Update memcpy H2D params");
+
+
+.. admonition:: Explanation
+   :class: attention
+
+   ``cudaGraphExecMemcpyNodeSetParams`` and ``cudaGraphExecKernelNodeSetParams`` are functions used 
+   to update the parameters of existing nodes in a CUDA graph execution instance. They allow you to 
+   change the source and destination pointers, sizes, and other parameters of memory copy and kernel 
+   nodes without needing to recreate the entire graph.  
 
 
 Then we can launch the graph again with the updated parameters:

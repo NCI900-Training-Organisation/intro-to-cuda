@@ -1,20 +1,23 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
 
-__global__ void square(float *d_data, int N) {
+__global__ void square(float *d_data, int N) 
+{
     int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if (idx < N)
         d_data[idx] = d_data[idx] * d_data[idx];
 }
 
-void check(cudaError_t err, const char* msg) {
+void check(cudaError_t err, const char* msg) 
+{
     if (err != cudaSuccess) {
         fprintf(stderr, "CUDA Error: %s: %s\n", msg, cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
 }
 
-int main() {
+int main() 
+{
     const int N = 1 << 16;
     const int size = N * sizeof(float);
 
