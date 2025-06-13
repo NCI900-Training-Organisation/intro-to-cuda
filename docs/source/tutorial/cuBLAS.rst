@@ -38,7 +38,13 @@ The operation is: `C = alpha * A * B + beta * C`, where `A`, `B`, and `C` are ma
 Column and Row Major Order
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Matrix A (Row-major):
+Row-Major Order stores matrix row by row in memory while Column-Major Order Stores matrix column 
+by column in memory.
+
+
+Example for `matrix A[2][2] = {{1, 2}, {3, 4}}` is stored as 
+
+Row-major:
 
 .. list-table::
    :header-rows: 0
@@ -49,7 +55,7 @@ Matrix A (Row-major):
    * - 3
      - 4
 
-Matrix A (Column-major):
+and Column-major:
 
 .. list-table::
    :header-rows: 0
