@@ -82,6 +82,10 @@ participants will learn how to harness the computational power of GPUs to accele
     - 45 minutes
   * - Exercise 9
     - 30 minutes
+  * - cuBLAS
+    - 30 minutes
+  * - Exercise 10
+    - 30 minutes
   
 
 
@@ -95,4 +99,6 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercise_8.rst
     tutorial/mempool.rst
     tutorial/exercise_9.rst
+    tutorial/cuBLAS.rst
+    tutorial/exercise_10.rst
   

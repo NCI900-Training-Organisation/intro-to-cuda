@@ -252,9 +252,9 @@ memory back to the operating system or underlying system allocator.
 .. admonition:: Key Points
    :class: hint
 
-    - Memory pools in CUDA allow for efficient memory management by reducing allocation overhead.
-    - The default memory pool grows dynamically and reuses memory for faster allocations.
-    - Custom memory pools provide more control over allocation limits, reuse policies, and release thresholds.
-    - Use `cudaMallocFromPoolAsync()` to allocate from a custom memory pool.
-    - Pool trimming helps manage memory usage by releasing unused chunks back to the system.
+    * Memory pools in CUDA allow for efficient memory management by reducing allocation overhead.
+    * The default memory pool grows dynamically and reuses memory for faster allocations.
+    * Custom memory pools provide more control over allocation limits, reuse policies, and release thresholds.
+    * Use `cudaMallocFromPoolAsync()` to allocate from a custom memory pool.
+    * Pool trimming helps manage memory usage by releasing unused chunks back to the system.
 
