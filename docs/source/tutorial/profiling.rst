@@ -7,7 +7,7 @@ Profiling
     * **Time:** 30 min
 
     * Learn how to use **nsys** for performance analysis.
-    * Leran how to generate detailed reports for optimization.
+    * Learn how to generate detailed reports for optimization.
 
 
 NVIDIA Nsight Systems (nsys)

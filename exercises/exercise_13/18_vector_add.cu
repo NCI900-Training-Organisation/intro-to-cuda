@@ -24,7 +24,7 @@ int main()
     size_t size = N * sizeof(float); // Size in bytes for each vector
 
     // Allocate memory on the host (CPU)
-    float *h_A = (float *)malloc(size);
+    float *h_A = NULL; // (float *)malloc(size);
     float *h_B = (float *)malloc(size);
     float *h_C = (float *)malloc(size);
 
