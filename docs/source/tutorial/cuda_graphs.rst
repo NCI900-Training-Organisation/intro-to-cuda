@@ -390,6 +390,7 @@ Edges the nodes will be automatically created by the CUDA graph API.
 
 
 Finally instantiate the graph and launch it:
+
 .. code-block:: c
     :linenos:
 

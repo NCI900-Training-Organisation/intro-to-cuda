@@ -39,6 +39,7 @@ Column and Row Major Order
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Matrix A (Row-major):
+
 .. list-table::
    :header-rows: 0
    :widths: auto
@@ -49,6 +50,7 @@ Matrix A (Row-major):
      - 4
 
 Matrix A (Column-major):
+
 .. list-table::
    :header-rows: 0
    :widths: auto

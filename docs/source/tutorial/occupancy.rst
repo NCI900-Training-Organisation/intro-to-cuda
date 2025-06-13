@@ -18,7 +18,7 @@ can lead to better performance,
     Occupancy is not the only factor that determines performance; memory bandwidth and instruction throughput 
     also play significant roles.
 
-``cudaOccupancyMaxPotentialBlockSize()`` 
+cudaOccupancyMaxPotentialBlockSize() 
 ---------------------------------------
 
 ``cudaOccupancyMaxPotentialBlockSize()``  is a CUDA API function that helps determine the maximum number of 
@@ -40,7 +40,7 @@ and grid configuration for their specific kernel and GPU architecture.
         0,             // Per-block dynamic shared memory usage intended, in bytes
         0)
 
-``cudaOccupancyMaxActiveBlocksPerMultiprocessor()``
+cudaOccupancyMaxActiveBlocksPerMultiprocessor
 ------------------------------------------------
 
 ``cudaOccupancyMaxActiveBlocksPerMultiprocessor()`` is a CUDA API function that calculates the maximum number
