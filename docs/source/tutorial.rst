@@ -90,6 +90,10 @@ participants will learn how to harness the computational power of GPUs to accele
     - 20 minutes
   * - Exercise 11
     - 15 minutes
+  * - Nsight Systems
+    - 15 minutes
+  * - Exercise 12
+    - 20 minutes
   
 
 
@@ -107,5 +111,7 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercise_10.rst
     tutorial/multi-GPU.rst
     tutorial/exercise_11.rst
+    tutorial/exercise_12.rst
+    tutorial/profiling.rst
 
   
