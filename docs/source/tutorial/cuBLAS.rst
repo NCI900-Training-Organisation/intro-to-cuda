@@ -90,6 +90,10 @@ to track:
     handle. This state influences how the functions behave and allows the library to manage things like 
     configuration, resources, or execution context over time.
 
+    You can have multiple cuBLAS kernels running in the same program — and even concurrently.
+
+
+
 This design allows:
 
 * Multiple independent cuBLAS contexts
@@ -127,6 +131,14 @@ cuBLAS Operations
 * `beta` is a scalar multiplier for the existing matrix C   
 
 
+.. admonition:: Explanation
+   :class: attention
+   
+    The leading dimension (ld) is the distance in memory between the start of one column and the start 
+    of the next column. For column-major storage (used by cuBLAS), it refers to the number of rows in 
+    the matrix. For row-major storage (used by C/C++), it refers to the number of columns, but 
+    cuBLAS doesn't use this directly unless you transpose manually.
+
 .. code-block:: c
     :linenos:
 
@@ -147,13 +159,18 @@ cuBLAS Operations
         N);          // Leading dimension of C
 
 
+
 .. admonition:: Explanation
    :class: attention
-   
-    The leading dimension (ld) is the distance in memory between the start of one column and the start 
-    of the next column. For column-major storage (used by cuBLAS), it refers to the number of rows in 
-    the matrix. For row-major storage (used by C/C++), it refers to the number of columns, but 
-    cuBLAS doesn't use this directly unless you transpose manually.
+
+    In cuBLAS don't have to manually configure thread blocks and grids like you do in raw CUDA kernel 
+    launches. cuBLAS internally
+
+    * Inspects the matrix sizes and layout
+    * Picks the best kernel and block/thread/grid configuration
+    * Launches the kernel using its own internal logic
+
+
 
 
 The final result `C` is in column-major order, which is the default for cuBLAS. So tp print the result,
