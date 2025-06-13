@@ -59,3 +59,12 @@ the maximum number of active blocks that can be launched per multiprocessor for 
         0)           // Per-block dynamic shared memory usage intended, in bytes
 
 
+
+.. admonition:: Key Points
+   :class: hint
+   
+    - GPU occupancy is a measure of how well the GPU's resources are utilized by a kernel.
+    - High occupancy can lead to better performance, but it is not the only factor.
+    - Use `cudaOccupancyMaxPotentialBlockSize()` to find the optimal block size for maximum occupancy.
+    - Use `cudaOccupancyMaxActiveBlocksPerMultiprocessor()` to determine the maximum number of active blocks per multiprocessor.
+    - Consider other factors like memory bandwidth and instruction throughput when optimizing performance.

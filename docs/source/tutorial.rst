@@ -76,6 +76,12 @@ participants will learn how to harness the computational power of GPUs to accele
     - 20 minutes
   * - CUDA Graphs
     - 60 minutes
+  * - Exercise 8
+    - 45 minutes
+  * - Memory pools
+    - 45 minutes
+  * - Exercise 9
+    - 30 minutes
   
 
 
@@ -87,4 +93,6 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercise_7.rst
     tutorial/cuda_graphs.rst
     tutorial/exercise_8.rst
+    tutorial/mempool.rst
+    tutorial/exercise_9.rst
   
