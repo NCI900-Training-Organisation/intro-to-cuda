@@ -17,6 +17,3 @@ Topics to Cover
 
 - **Low-Level PTX and Inline Assembly**  
   Writing or inspecting PTX assembly; inline PTX usage for fine control and optimization.
-
-- **CUDA Profiler and Nsight Tools**  
-  Tools like Nsight Compute and Nsight Systems for profiling and bottleneck analysis.

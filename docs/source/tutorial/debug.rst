@@ -1,5 +1,5 @@
-Debugging
-==============
+Debug using cuda-gdb
+=============================
 
 .. admonition:: Overview
    :class: Overview

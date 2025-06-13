@@ -1,5 +1,5 @@
-Profiling
-===============
+Profile using Nsight Systems
+==============================
 
 .. admonition:: Overview
    :class: Overview
