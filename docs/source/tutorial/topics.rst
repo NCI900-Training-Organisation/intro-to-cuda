@@ -15,12 +15,6 @@ Topics to Cover
 - **Texture and Surface Memory**  
   Specialized memory for 2D/3D spatial locality; useful in image processing and rendering.
 
-- **Multi-GPU Programming**  
-  Peer-to-peer GPU memory access; using CUDA-aware MPI or NCCL for multi-GPU communication.
-
-- **CUDA Libraries and Frameworks**  
-  Using high-performance libraries like cuBLAS, cuFFT, cuDNN and integrating them.
-
 - **Low-Level PTX and Inline Assembly**  
   Writing or inspecting PTX assembly; inline PTX usage for fine control and optimization.
 
