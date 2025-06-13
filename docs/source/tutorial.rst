@@ -86,6 +86,10 @@ participants will learn how to harness the computational power of GPUs to accele
     - 30 minutes
   * - Exercise 10
     - 30 minutes
+  * - Multi-GPU Workflow
+    - 20 minutes
+  * - Exercise 11
+    - 15 minutes
   
 
 
@@ -101,4 +105,7 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercise_9.rst
     tutorial/cuBLAS.rst
     tutorial/exercise_10.rst
+    tutorial/multi-GPU.rst
+    tutorial/exercise_11.rst
+
   
