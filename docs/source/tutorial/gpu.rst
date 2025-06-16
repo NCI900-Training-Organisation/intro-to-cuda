@@ -91,6 +91,14 @@ GPUs are composed of multiple Streaming Multiprocessors (SMs), an on-chip L2 cac
    :caption: GPU Architecture
 
 
+
+.. important::
+  
+  CUDA (Compute Unified Device Architecture) is a parallel computing platform and programming model 
+  developed by NVIDIA that allows software to utilize the processing power of NVIDIA GPUs for 
+  general-purpose computing.
+
+
 Modern NVIDIA GPUs use a hierarchical memory and compute architecture designed for high throughput and parallelism. This document explains the roles of:
 
 
