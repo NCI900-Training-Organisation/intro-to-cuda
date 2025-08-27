@@ -96,7 +96,7 @@ participants will learn how to harness the computational power of GPUs to accele
     - 20 minutes
   * - Debugging using cuda-gdb
     - 15 minutes
-  * - Exercise 12
+  * - Exercise 13
     - 15 minutes
   
 
