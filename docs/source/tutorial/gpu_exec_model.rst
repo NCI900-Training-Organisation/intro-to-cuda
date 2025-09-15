@@ -260,17 +260,16 @@ To compute the global thread index in 2D you can extend the formula as follows:
 
 This formula accounts for both dimensions, allowing each thread to have a unique index in a 2D grid.
 
-.. image:: ../figs/thread_index.drawio.png
-    :width: 600px
-    :align: center
-    :alt: CUDA Thread Indexing
-    :caption: CUDA Thread Indexing
+.. figure:: ../figs/thread_index.drawio.png
+   :width: 600px
+   :align: center
+   :alt: CUDA Thread Indexing
+
+   CUDA Thread Indexing
 
 
 
 To compute the global thread index in 3D, you can further extend it:
-
-
 .. code-block:: cpp
 
    int idx = (blockIdx.x * blockDim.x + threadIdx.x) +
@@ -278,8 +277,6 @@ To compute the global thread index in 3D, you can further extend it:
              (blockIdx.z * blockDim.z + threadIdx.z) * gridDim.x * gridDim.y * blockDim.x * blockDim.y;
 
 This formula accounts for all three dimensions, ensuring that each thread has a unique index in a 3D grid.
-
-
 .. list-table:: CUDA Thread Indexing Example
    :header-rows: 1
    :widths: 30 70

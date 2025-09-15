@@ -84,19 +84,12 @@ GPU Architecture
 
 GPUs are composed of multiple Streaming Multiprocessors (SMs), an on-chip L2 cache, and high-bandwidth DRAM. 
 
-.. image:: ./figs/SM.png
+.. figure:: ./figs/SM.png
    :width: 600px
    :align: center
    :alt: GPU Architecture
-   :caption: GPU Architecture
 
-
-
-.. important::
-  
-  CUDA (Compute Unified Device Architecture) is a parallel computing platform and programming model 
-  developed by NVIDIA that allows software to utilize the processing power of NVIDIA GPUs for 
-  general-purpose computing.
+   GPU Architecture
 
 
 Modern NVIDIA GPUs use a hierarchical memory and compute architecture designed for high throughput and parallelism. This document explains the roles of:
@@ -152,11 +145,13 @@ While CUDA cores are often thought of as "identical tiny processors," in practic
 within an SM (Streaming Multiprocessor). 
 
 
-.. image:: ./figs/cuda_cores.png
+.. figure:: ./figs/cuda_cores.png
    :width: 600px
    :align: center
    :alt: CUDA Cores
-   :caption: CUDA Cores
+
+   CUDA Cores
+
 
 
 CUDA cores are primarily designed to handle:
@@ -190,7 +185,7 @@ L1 Cache (Level 1)
    * - Latency
      - Very low
    * - Size
-     - 32–64 KB per SM (often configurable)
+     - 192 - 256 KB depending on the GPU architecture
    * - Usage
      - Stores frequently accessed data by threads in a block; shared with shared memory
    * - Functionality
@@ -212,7 +207,7 @@ L2 Cache (Level 2)
    * - Latency
      - Higher than L1, but much lower than global memory (DRAM)
    * - Size
-     - 1 MB to 6 MB depending on the GPU architecture
+     - 40 - 50 MB depending on the GPU architecture
    * - Usage
      - Caches global memory accesses for all SMs
    * - Coherency

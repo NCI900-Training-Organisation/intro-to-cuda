@@ -11,7 +11,6 @@ GPU Workflow
 
 
 The workflow for programming GPUs using CUDA involves several key steps that are essential for efficient execution of parallel tasks. Below is a high-level overview of the GPU workflow:
-
 1. **Kernel Definition**: 
    - Define a CUDA kernel using the `__global__` keyword. This kernel will be executed on the GPU.
    - The kernel contains the code that will run on the GPU, typically involving parallel computations.
@@ -57,7 +56,7 @@ Kernel Definition
 Memory Management
 -----------------
 
-Memory management in CUDA mainly involves three key operations: 
+Memory management in CUDA mainly involves four key operations: 
 
 #. Device memory allocaation.
 #. Host to Device (H2D) memory copy.
@@ -95,7 +94,7 @@ The above code copies data from host arrays `h_a`, `h_b`, and `h_c` to device ar
 
 .. code-block:: cpp
 
-   // Copy data from host to device
+   // Copy data from device to host
    cudaMemcpy(h_a, d_a, n * sizeof(float), cudaMemcpyDeviceToHost);
    cudaMemcpy(h_b, d_b, n * sizeof(float), cudaMemcpyDeviceToHost);
    cudaMemcpy(h_c, d_c, n * sizeof(float), cudaMemcpyDeviceToHost);
@@ -103,7 +102,6 @@ The above code copies data from host arrays `h_a`, `h_b`, and `h_c` to device ar
 The above code copies data back from device arrays `d_a`, `d_b`, and `d_c` to host arrays `h_a`, `h_b`, and `h_c`. ``cudaMemcpyDeviceToHost`` specifies that data is being transferred from device memory back to host memory.
 
 Finally, it is important to free the allocated memory on the GPU, after kernel execution, to avoid memory leaks:
-
 .. code-block:: cpp
 
    // Free device memory
@@ -284,7 +282,7 @@ A better code will look like this:
     ``cudaDeviceSynchronize()`` function blocks the host (CPU) until all previously issued commands on the device (GPU) are complete.
 
 
-Commond CUDA Error Codes
+Common CUDA Error Codes
 -------------------------
 CUDA provides a set of error codes to help developers identify issues during GPU programming. These error codes are returned by CUDA API functions and can be checked to ensure that operations are successful. Below is a list of common CUDA error codes along with their meanings:
 

@@ -18,10 +18,15 @@ parallel algorithms.
 Shared Memory Characteristics
 ----------------------------
 Shared memory in CUDA has several key characteristics:
+
 1. **Scope**: Shared memory is accessible only to threads within the same block. Threads in different blocks cannot access each other's shared memory.
+
 2. **Speed**: Shared memory is on-chip memory, making it much faster than global memory (DRAM). Accessing shared memory typically has a latency of around 10-50 cycles, compared to 400-800 cycles for global memory.
+
 3. **Size**: The size of shared memory is limited, typically ranging from 48 KB to 96 KB per block, depending on the GPU architecture.
+
 4. **Coherency**: Shared memory is coherent across all threads in a block, meaning that changes made by one thread are visible to others in the same block.
+
 5. **Usage**: Shared memory is often used for data that needs to be accessed frequently by multiple threads, such as intermediate results in parallel computations.
 
 .. list-table:: Shared Memory vs DRAM in NVIDIA GPUs
@@ -39,7 +44,7 @@ Shared memory in CUDA has several key characteristics:
 
 There are two main types of shared memory in CUDA:
 
-1. Static Shared Memory: This is defined at compile time and has a fixed size. It is declared using the `__shared__` keyword in the kernel code. Static shared memory is allocated for each block and is initialized when the block is launched.
+1. **Static Shared Memory**: This is defined at compile time and has a fixed size. It is declared using the `__shared__` keyword in the kernel code. Static shared memory is allocated for each block and is initialized when the block is launched.
 
 .. code-block:: c
     :linenos:
@@ -63,7 +68,7 @@ There are two main types of shared memory in CUDA:
         output[idx] = sdata[tid];
     }
 
-2. Dynamic Shared Memory: This is allocated at runtime and can vary in size based on the needs of the kernel. It is declared using the `extern __shared__` keyword in the kernel code. Dynamic shared memory allows for more flexibility, as its size can be specified when launching the kernel.
+2. **Dynamic Shared Memory**: This is allocated at runtime and can vary in size based on the needs of the kernel. It is declared using the `extern __shared__` keyword in the kernel code. Dynamic shared memory allows for more flexibility, as its size can be specified when launching the kernel.
 
 .. code-block:: c
     :linenos:

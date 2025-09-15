@@ -10,7 +10,7 @@ Unified Memory
     #. Understand how Unified Memory simplifies memory management in CUDA applications.
 
 
-Unified Memory is a memory management feature in CUDA (CUDA 6 and above)that allows developers to write applications without 
+Unified Memory is a memory management feature in CUDA (CUDA 6 and above) that allows developers to write applications without 
 worrying about the complexities of managing memory between the host (CPU) and device (GPU). 
 It provides a single address space for both the host and device, enabling seamless data sharing and access.
 
@@ -50,6 +50,56 @@ However, there are some considerations to keep in mind when using Unified Memory
 * Not all CUDA features are compatible with Unified Memory
 * Limited support for certain data structures and algorithms
 
+
+Pinned Memory in Unified Memory
+-----------------------------
+
+Managed Memory is the default type of Unified Memory allocation (using ``cudaMemAdvise``). It allows the CUDA 
+runtime to automatically manage memory migration between the host and device. When you allocate managed memory,
+the  CUDA runtime ensures that data is available on both the host and device as needed.
+
+Another type of Unified Memory allocation is **pinned memory**. This type of Unified Memory allocation allows 
+the host memory to be pinned, which means it cannot be paged out by the operating system. Pinned memory can 
+improve performance for certain operations, such as asynchronous data transfers, but it requires more careful 
+management.
+
+
+.. code-block:: c
+    :linenos:
+
+    // Example of using Unified Memory with pinned memory
+    __global__ void kernel(int *data) {
+        int idx = blockIdx.x * blockDim.x + threadIdx.x;
+        data[idx] += 1; // Increment each element by 1
+    }
+
+    int main() {
+        int size = 1024;
+        int *data;
+
+        // Allocate Unified Memory with pinned memory
+        cudaMallocHost(&data, size * sizeof(int));
+
+        // Initialize data on the host
+        for (int i = 0; i < size; i++) {
+            data[i] = i;
+        }
+
+        // Launch kernel
+        kernel<<<(size + 255) / 256, 256>>>(data);
+
+        // Synchronize to ensure all operations are complete
+        cudaDeviceSynchronize();
+
+        // Free Unified Memory
+        cudaFreeHost(data);
+    }
+
+There are some disadvantages to using pinned memory:
+
+* Pinned memory is not pageable, which means it cannot be swapped out to disk by the operating system.
+* It can consume more system memory, as it is not eligible for paging.
+* It may lead to reduced system performance if too much pinned memory is used, as it can limit the amount of memory available for other processes.
 
 cudaMemPrefetchAsync
 -----------------------------
@@ -145,47 +195,6 @@ The different advices that can be provided using ``cudaMemAdvise`` include:
 
     // Synchronize to ensure all operations are complete
     cudaDeviceSynchronize();
-
-
-Pinned Memory 
------------------------------
-
-
-Another emory allocation is **pinned memory**. This type of Unified Memory allocation allows 
-the host memory to be pinned, which means it cannot be paged out by the operating system. Pinned memory can 
-improve performance for certain operations, such as asynchronous data transfers, but it requires more careful 
-management.
-
-
-.. code-block:: c
-    :linenos:
-
-    // Example of using Unified Memory with pinned memory
-    __global__ void kernel(int *data) {
-        int idx = blockIdx.x * blockDim.x + threadIdx.x;
-        data[idx] += 1; // Increment each element by 1
-    }
-
-    int main() {
-        int size = 1024;
-        int *data;
-
-        // Allocate Unified Memory with pinned memory
-        cudaMallocHost(&data, size * sizeof(int));
-
-        // Initialize data on the host
-        for (int i = 0; i < size; i++) {
-            data[i] = i;
-        }
-
-    }
-
-There are some disadvantages to using pinned memory:
-
-* Pinned memory is not pageable, which means it cannot be swapped out to disk by the operating system.
-* It can consume more system memory, as it is not eligible for paging.
-* It may lead to reduced system performance if too much pinned memory is used, as it can limit the amount of memory available for other processes.
-
 
 
 .. admonition:: Key Points

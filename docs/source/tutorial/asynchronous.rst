@@ -64,10 +64,8 @@ For efficient and proper use of streams, it's important to ensure that
 Main differences from the synchronous version
 ---------------------------------------------
 
-* ``cudaStream_t`` is used to create a stream for asynchronous operations.
-* ``cudaStreamCreate`` is called to create a new stream.
-* Use ``cudaMemcpyAsync()`` for asynchronous memory copies.
 * Create and use a CUDA stream with ``cudaStreamCreate()``.
+* Use ``cudaMemcpyAsync()`` for asynchronous memory copies.
 * Launch the kernel in the created stream.
 * Synchronize the stream with ``cudaStreamSynchronize()`` to wait for completion.
 * Cleanup the stream after use.

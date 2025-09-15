@@ -16,6 +16,13 @@ blocking the CPU.
 
 CUDA Event Basics
 ----------------------------
+
+.. figure:: ../figs/cuda_events.png
+   :width: 600px
+   :align: center
+   :alt: CUDA Events
+
+
 CUDA events are used to mark points in time in your CUDA application. They can be created, recorded, and 
 queried to determine when certain operations have completed. Events can be used to measure the elapsed time 
 between two points in your code, which is useful for performance profiling. CUDA events are created using 
@@ -83,7 +90,7 @@ it can be waited on in another stream. This allows you to synchronize operations
 
     ``cudaStreamWaitEvent`` is used to make a stream wait for an event recorded in another stream.
 
-Tmiming events across streams
+Timiming events across streams
 ------------------------------------------------
 
 When timing events across streams, you can record events in one stream and then wait for those events 
