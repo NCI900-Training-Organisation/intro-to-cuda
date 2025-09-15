@@ -11,28 +11,51 @@ GPU Workflow
 
 
 The workflow for programming GPUs using CUDA involves several key steps that are essential for efficient execution of parallel tasks. Below is a high-level overview of the GPU workflow:
+
 1. **Kernel Definition**: 
+
    - Define a CUDA kernel using the `__global__` keyword. This kernel will be executed on the GPU.
+
    - The kernel contains the code that will run on the GPU, typically involving parallel computations.
+
 2. **Memory Management**:
+
    - Allocate memory on the GPU using functions like `cudaMalloc()`.
+
    - Copy data from the host (CPU) to the device (GPU) using `cudaMemcpy()`.
+
    - Ensure that memory is properly managed to avoid leaks and ensure efficient access.
+
 3. **Kernel Launch**:
+
    - Launch the kernel using the `<<<grid, block>>>` syntax, where `grid` specifies the number of blocks and `block` specifies the number of threads per block.
+
    - Each thread executes the kernel code independently, allowing for parallel execution.
+
 4. **Thread Indexing**:
+
    - Use built-in variables like `threadIdx`, `blockIdx`, and `blockDim` to determine the unique index of each thread.
+
    - This indexing allows each thread to operate on different data elements, enabling parallel processing.
+
 5. **Synchronization**:
+
    - Use synchronization functions like `__syncthreads()` to ensure that all threads in a block have completed their tasks before proceeding.
+
    - This is important for operations that require data consistency among threads.
+
 6. **Memory Cleanup**:
+
    - Free the allocated memory on the GPU using `cudaFree()`.
+
    - Ensure that all resources are properly released to avoid memory leaks.
+
 7. **Error Handling**:
+
    - Implement error handling to check for issues during memory allocation, kernel execution, and data transfer.
+
    - Use functions like `cudaGetLastError()` to retrieve error codes and handle exceptions appropriately.
+   
 
 Kernel Definition
 -----------------

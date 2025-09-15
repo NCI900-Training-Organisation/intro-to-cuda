@@ -18,7 +18,7 @@ applications with complex workflows or repetitive patterns.
 CUDA Graph Basics
 ----------------------------
 
-Usuall, every kernel launch or memory copy call from CPU to GPU incurs overhead. Repeated sequences 
+Usually, every kernel launch or memory copy call from CPU to GPU incurs overhead. Repeated sequences 
 can be inefficient due to this overhead. With CUDA Graphs you record the entire sequence once, and 
 replay it as many times as needed with minimal CPU interaction.
 
@@ -324,9 +324,9 @@ how data is moved, including layout, pitch, and depth.
    improve memory access performance on the GPU. CUDA provides ``cudaPitchedPtr`` and ``cudaExtent`` 
    to describe such memory layouts.
 
-    ``cudaPitchedPtr``is a structure,which contains a pointer to the memory, the pitch (the width 
-    in bytes of each row), and the height (number of rows). This is useful for 2D arrays where 
-    each row may not be tightly packed in memory.
+   ``cudaPitchedPtr`` is a structure,which contains a pointer to the memory, the pitch (the width 
+   in bytes of each row), and the height (number of rows). This is useful for 2D arrays where 
+   each row may not be tightly packed in memory.
 
    ``make_cudaPitchedPtr`` is a utility function that creates a ``cudaPitchedPtr`` structure,
 
