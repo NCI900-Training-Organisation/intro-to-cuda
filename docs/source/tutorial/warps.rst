@@ -94,6 +94,21 @@ The GPU still treats it as a full warp in terms of scheduling. Performance-wise,
     * Ensure that threads access **contiguous memory** for coalesced memory access.
     * Aim for all threads in a warp to **follow the same path** for maximum efficiency.
 
+Some additinal details
+------------------------------
+
+* Each SM is divided into processing partitions (also called sub-partitions).
+
+* Each partition contains its own warp scheduler and instruction dispatch unit, along with a portion of the execution pipelines.
+
+* On Volta (V100), an SM has 4 processing partitions, each with a warp scheduler, for a total of 4 schedulers per SM.
+
+* An SM can host up to 64 resident warps (2048 threads).
+
+* In each cycle, up to 4 warps can issue instructions (one per scheduler), while the rest wait.
+
+* This deep pool of resident warps allows the GPU to quickly swap in ready warps when others are stalled (e.g., on memory or synchronization), ensuring high utilization and latency hiding.
+
 
 .. admonition:: Key Points
    :class: hint

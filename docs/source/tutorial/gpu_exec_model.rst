@@ -336,6 +336,33 @@ Kernel Launch for the Example would look like this:
     When the number of CUDA threads exceeds the number of array elements, extra threads are launched, but only those whose global index is within bounds 
     should perform useful work. The others must be guarded with a boundary check to avoid out-of-bounds memory access.
 
+
+.. important:: 
+
+  All recent GPUs (V100, A100, H100) allow up to 1024 threads per block. 
+
+  In addition, there are some limits on the dimensions of the grid and blocks.
+
+  Block dimension limits:
+
+  * blockDim.x ≤ 1024
+
+  * blockDim.y ≤ 1024
+
+  * blockDim.z ≤ 64
+
+  Grid dimension limits:
+
+  * gridDim.x ≤ 2^31 - 1
+
+  * gridDim.y ≤ 65535
+
+  * gridDim.z ≤ 65535
+
+
+
+
+
 * We launch enough threads to cover all elements in the array.
 * Each thread calculates a unique ``idx``.
 * Thread 0 processes index 0, thread 1 processes index 1, ..., thread 999 processes index 999.
