@@ -17,7 +17,7 @@ blocking the CPU.
 CUDA Event Basics
 ----------------------------
 
-.. figure:: ../figs/cuda_events.png
+.. figure:: ./figs/cuda_events.png
    :width: 600px
    :align: center
    :alt: CUDA Events
