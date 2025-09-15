@@ -102,6 +102,8 @@ The above code copies data from host arrays `h_a`, `h_b`, and `h_c` to device ar
 The above code copies data back from device arrays `d_a`, `d_b`, and `d_c` to host arrays `h_a`, `h_b`, and `h_c`. ``cudaMemcpyDeviceToHost`` specifies that data is being transferred from device memory back to host memory.
 
 Finally, it is important to free the allocated memory on the GPU, after kernel execution, to avoid memory leaks:
+
+
 .. code-block:: cpp
 
    // Free device memory
