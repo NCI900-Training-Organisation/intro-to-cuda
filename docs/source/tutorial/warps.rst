@@ -109,6 +109,11 @@ Some additinal details
 
 * This deep pool of resident warps allows the GPU to quickly swap in ready warps when others are stalled (e.g., on memory or synchronization), ensuring high utilization and latency hiding.
 
+.. figure:: ./figs/sm_partitions.png
+   :width: 600px
+   :align: center
+   :alt: Processing Partitions
+
 
 .. admonition:: Key Points
    :class: hint
