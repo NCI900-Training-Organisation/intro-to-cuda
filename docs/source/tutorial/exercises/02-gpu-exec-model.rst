@@ -22,5 +22,5 @@ To view the grid as plain text without Jupyter, run this command from the reposi
 The four numbers are ``grid_x grid_y block_x block_y``. Change them to explore
 different configurations; each dimension must be from 1 to 16. The output shows
 global IDs (``G``), local IDs (``L``), block coordinates (``B``), and thread
-coordinates (``T``). Four-line borders separate blocks. Only Python is required;
+coordinates (``T``). Heavy solid lines separate blocks. Only Python is required;
 these indices are calculated from formulas without GPU execution.

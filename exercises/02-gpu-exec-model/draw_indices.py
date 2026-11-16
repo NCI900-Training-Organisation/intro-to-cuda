@@ -50,27 +50,35 @@ def terminal_grid(gx, gy, bx, by, csv_path=None, records=None):
     width = max(len(line) for cell in cells for line in cell) + 2
     columns = gx * bx
 
-    def border(block_edge):
-        line = '++++'
+    def border(y):
+        heavy = y % by == 0
+        if y == 0:
+            thread_join = '┯'
+        elif y == gy * by:
+            thread_join = '┷'
+        elif heavy:
+            thread_join = '┿'
+        else:
+            thread_join = '┼'
+        line = '█'
         for x in range(columns):
-            line += ('=' if block_edge else '-') * width
-            line += '++++' if (x + 1) % bx == 0 else '+'
+            line += ('━' if heavy else '─') * width
+            line += '█' if (x + 1) % bx == 0 else thread_join
         return line
 
     lines = [f'Grid ({gx}, {gy}) blocks | Block ({bx}, {by}) threads',
              origin, 'G = global ID; L = local ID; B = block; T = threadIdx',
-             'x increases right; y increases down. Four-line borders mark block boundaries.']
-    lines.extend([border(True)] * 4)
+             'x increases right; y increases down. Heavy solid lines mark block boundaries.',
+             border(0)]
     for y in range(gy * by):
         row = cells[y * columns:(y + 1) * columns]
         for field in range(3):
-            line = '||||'
+            line = '█'
             for x, cell in enumerate(row):
                 line += cell[field].center(width)
-                line += '||||' if (x + 1) % bx == 0 else '|'
+                line += '█' if (x + 1) % bx == 0 else '│'
             lines.append(line)
-        block_edge = (y + 1) % by == 0
-        lines.extend([border(block_edge)] * (4 if block_edge else 1))
+        lines.append(border(y + 1))
     lines.append(f'{gx * gy} blocks x {bx * by} threads = {len(records)} threads')
     return '\n'.join(lines)
 
