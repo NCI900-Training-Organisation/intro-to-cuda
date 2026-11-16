@@ -10,13 +10,11 @@ cuBLAS
     #. Learn how to perform basic matrix operations using cuBLAS.
     #. Explore advanced features of cuBLAS for performance optimization.
 
-
-
-The cuBLAS library is NVIDIA's implementation of the **Basic Linear Algebra Subprograms (BLAS)** on NVIDIA 
+The cuBLAS library is NVIDIA's implementation of the **Basic Linear Algebra Subprograms (BLAS)** on NVIDIA
 GPUs. It provides highly optimized routines for performing basic linear algebra operations such as matrix
 multiplication, vector addition, and more. cuBLAS is designed to take advantage of the parallel processing
 capabilities of NVIDIA GPUs, making it a powerful tool for high-performance computing applications.
-cuBLAS is particularly useful for applications that require efficient matrix operations like scientific 
+cuBLAS is particularly useful for applications that require efficient matrix operations like scientific
 computing.
 
 cuBLAS provides highly optimized routines for common linear algebra operations, such as:
@@ -34,15 +32,13 @@ The operation is: `C = alpha * A * B + beta * C`, where `A`, `B`, and `C` are ma
 
     The header file for cuBLAS is ``cublas_v2.h``, and the library is linked with ``-lcublas``.
 
-
 Column and Row Major Order
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Row-Major Order stores matrix row by row in memory while Column-Major Order Stores matrix column 
+Row-Major Order stores matrix row by row in memory while Column-Major Order Stores matrix column
 by column in memory.
 
-
-Example for `matrix A[2][2] = {{1, 2}, {3, 4}}` is stored as 
+Example for `matrix A[2][2] = {{1, 2}, {3, 4}}` is stored as
 
 Row-major:
 
@@ -66,9 +62,7 @@ and Column-major:
    * - 2
      - 4
 
-
-
-cuBLAS uses column-major ordering (like Fortran), while C/C++ uses row-major. Use IDX2C or manually 
+cuBLAS uses column-major ordering (like Fortran), while C/C++ uses row-major. Use IDX2C or manually
 transpose if necessary.
 
 .. code-block:: c
@@ -76,11 +70,10 @@ transpose if necessary.
 
     #define IDX2C(i,j,ld) (((j)*(ld))+(i))  // Macro to index column-major order
 
-
 cuBLAS Handle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-cuBLAS is a stateful library. Instead of using global state, it uses a handle object (cublasHandle_t) 
+cuBLAS is a stateful library. Instead of using global state, it uses a handle object (cublasHandle_t)
 to track:
 
 * Which CUDA stream to use
@@ -88,24 +81,20 @@ to track:
 * Algorithm preferences
 * Error state
 
-
 .. admonition:: Explanation
    :class: attention
 
-    A stateful library is a library that maintains internal state across function calls using a context or 
-    handle. This state influences how the functions behave and allows the library to manage things like 
+    A stateful library is a library that maintains internal state across function calls using a context or
+    handle. This state influences how the functions behave and allows the library to manage things like
     configuration, resources, or execution context over time.
 
     You can have multiple cuBLAS kernels running in the same program — and even concurrently.
-
-
 
 This design allows:
 
 * Multiple independent cuBLAS contexts
 * Thread safety (you can use different handles in different threads)
 * Better control over performance tuning
-
 
 The handle is created using ``cublasCreate``, which initializes the cuBLAS library and prepares it for use.
 
@@ -115,14 +104,12 @@ The handle is created using ``cublasCreate``, which initializes the cuBLAS libra
     cublasHandle_t handle;
     cublasCreate(&handle);
 
-
 The handle must be destroyed when no longer needed to free resources:
 
 .. code-block:: c
     :linenos:
 
     cublasDestroy(handle);
-
 
 cuBLAS Operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -134,15 +121,14 @@ cuBLAS Operations
 * `B` is an n x k matrix
 * `C` is an m x k matrix
 * `alpha` is a scalar multiplier for the product A * B
-* `beta` is a scalar multiplier for the existing matrix C   
-
+* `beta` is a scalar multiplier for the existing matrix C
 
 .. admonition:: Explanation
    :class: attention
-   
-    The leading dimension (ld) is the distance in memory between the start of one column and the start 
-    of the next column. For column-major storage (used by cuBLAS), it refers to the number of rows in 
-    the matrix. For row-major storage (used by C/C++), it refers to the number of columns, but 
+
+    The leading dimension (ld) is the distance in memory between the start of one column and the start
+    of the next column. For column-major storage (used by cuBLAS), it refers to the number of rows in
+    the matrix. For row-major storage (used by C/C++), it refers to the number of columns, but
     cuBLAS doesn't use this directly unless you transpose manually.
 
 .. code-block:: c
@@ -160,34 +146,26 @@ cuBLAS Operations
         N,           // Leading dimension of A
         d_B,         // Pointer to matrix B in device memory
         N,           // Leading dimension of B
-        &beta,       // Scalar multiplier for C  
+        &beta,       // Scalar multiplier for C
         d_C,         // Pointer to matrix C in device memory
         N);          // Leading dimension of C
-
-
 
 .. admonition:: Explanation
    :class: attention
 
-    In cuBLAS don't have to manually configure thread blocks and grids like you do in raw CUDA kernel 
+    In cuBLAS don't have to manually configure thread blocks and grids like you do in raw CUDA kernel
     launches. cuBLAS internally
 
     * Inspects the matrix sizes and layout
     * Picks the best kernel and block/thread/grid configuration
     * Launches the kernel using its own internal logic
 
-
-
-
 The final result `C` is in column-major order, which is the default for cuBLAS. So tp print the result,
 we can use the following code:
-
-
 
 .. code-block:: c
     :linenos:
 
-    
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             std::cout << h_C[IDX2C(i, j, N)] << " ";
@@ -203,4 +181,3 @@ we can use the following code:
     * Matrix multiplication is performed using `cublasSgemm`, which requires specifying the operation type, dimensions, and pointers to the matrices.
     * cuBLAS uses column-major order for matrices, which is different from the row-major order used in C/C++.
     * The leading dimension is important for correctly accessing matrix elements in memory.
-

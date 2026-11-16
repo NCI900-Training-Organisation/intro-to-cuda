@@ -29,13 +29,13 @@ Hook Rejected
     Project:            vp91
     Exit Status:        -17 (Job execution failed due to hook rejection; delete the job at end)
     Service Units:      0.00
-    NCPUs Requested:    12                     NCPUs Used: 12              
-                                                CPU Time Used: 00:00:00        
-    Memory Requested:   95.0GB                Memory Used: 0B              
-    NGPUs Requested:    1                 GPU Utilisation: 0%              
-                                            GPU Memory Used: 0B              
-    Walltime requested: 08:00:00            Walltime Used: 00:00:00        
-    JobFS requested:    10.0GB                 JobFS used: 0B              
+    NCPUs Requested:    12                     NCPUs Used: 12
+                                                CPU Time Used: 00:00:00
+    Memory Requested:   95.0GB                Memory Used: 0B
+    NGPUs Requested:    1                 GPU Utilisation: 0%
+                                            GPU Memory Used: 0B
+    Walltime requested: 08:00:00            Walltime Used: 00:00:00
+    JobFS requested:    10.0GB                 JobFS used: 0B
 
 This error is related to a PBS hook rejection. Relaunch the job to resolve the issue.
 

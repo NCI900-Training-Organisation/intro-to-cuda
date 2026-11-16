@@ -9,10 +9,9 @@ GPU Workflow
     #. Learn the workflow for programming GPUs using CUDA.
     #. Understand the key steps involved in GPU programming.
 
-
 The workflow for programming GPUs using CUDA involves several key steps that are essential for efficient execution of parallel tasks. Below is a high-level overview of the GPU workflow:
 
-1. **Kernel Definition**: 
+1. **Kernel Definition**:
 
    - Define a CUDA kernel using the `__global__` keyword. This kernel will be executed on the GPU.
 
@@ -55,7 +54,6 @@ The workflow for programming GPUs using CUDA involves several key steps that are
    - Implement error handling to check for issues during memory allocation, kernel execution, and data transfer.
 
    - Use functions like `cudaGetLastError()` to retrieve error codes and handle exceptions appropriately.
-   
 
 Kernel Definition
 -----------------
@@ -69,17 +67,15 @@ Kernel Definition
            c[idx] = a[idx] + b[idx];
    }
 
-
 #. ``__global__`` : Indicates that this function is a kernel that runs on the GPU.
 #. ``void`` : CUDA kernels **must return void**
 #. Parameters: Pointers, that are passed to a kernel must reference **device memory**.
 #. Thread Indexing:  Each thread should have a unique index and can access different elements of the data (input arrays).
 
-
 Memory Management
 -----------------
 
-Memory management in CUDA mainly involves four key operations: 
+Memory management in CUDA mainly involves four key operations:
 
 #. Device memory allocaation.
 #. Host to Device (H2D) memory copy.
@@ -87,8 +83,6 @@ Memory management in CUDA mainly involves four key operations:
 #. Device memory deallocation.
 
 Proper memory management is crucial for performance and avoiding memory leaks.
-
-
 
 ``cudaMalloc`` is used to allocate memory on the GPU.
 
@@ -104,14 +98,12 @@ Proper memory management is crucial for performance and avoiding memory leaks.
 
 The above code allocates memory on the GPU for three float arrays, each of size `n`. Data transfer between the host (CPU) and device (GPU) is done using `cudaMemcpy`.
 
-
 .. code-block:: cpp
 
    // Copy data from host to device
    cudaMemcpy(d_a, h_a, n * sizeof(float), cudaMemcpyHostToDevice);
    cudaMemcpy(d_b, h_b, n * sizeof(float), cudaMemcpyHostToDevice);
    cudaMemcpy(d_c, h_c, n * sizeof(float), cudaMemcpyHostToDevice);
-
 
 The above code copies data from host arrays `h_a`, `h_b`, and `h_c` to device arrays `d_a`, `d_b`, and `d_c`. ``cudaMemcpyHostToDevice`` specifies the direction of the copy operation, indicating that data is being transferred from host memory to device memory.
 
@@ -126,7 +118,6 @@ The above code copies data back from device arrays `d_a`, `d_b`, and `d_c` to ho
 
 Finally, it is important to free the allocated memory on the GPU, after kernel execution, to avoid memory leaks:
 
-
 .. code-block:: cpp
 
    // Free device memory
@@ -136,15 +127,14 @@ Finally, it is important to free the allocated memory on the GPU, after kernel e
 
 This code releases the memory allocated on the GPU for the arrays `d_a`, `d_b`, and `d_c`.
 
-The complete code will look like this:  
+The complete code will look like this:
 
 .. code-block:: cpp
 
    #include <stdio.h>
    #include <cuda_runtime.h> // Provides access to CUDA runtime API functions
 
- 
-   __global__ void add_vectors(float *a, float *b, float *c, int n) 
+   __global__ void add_vectors(float *a, float *b, float *c, int n)
    {
        int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -152,7 +142,7 @@ The complete code will look like this:
            c[idx] = a[idx] + b[idx];
    }
 
-   int main() 
+   int main()
    {
        int n = 1024;
        float *h_a, *h_b, *h_c;
@@ -197,7 +187,6 @@ The complete code will look like this:
        return 0;
    }
 
-
 In the above code ``cudaMalloc`` and ``cudaMemcpy`` are both is a synchronous call — it blocks until the copy is finished and all prior device work is complete.
 Kernel launches are asynchronous, meaning they return immediately and the CPU can continue executing code while the GPU processes the kernel. But in this case, there is an implicit synchronozation beacuse we are using a default steam (will be discussed later).
 
@@ -208,14 +197,14 @@ A better code will look like this:
     #include <stdio.h>
     #include <cuda_runtime.h>
 
-    __global__ void add_vectors(float *a, float *b, float *c, int n) 
+    __global__ void add_vectors(float *a, float *b, float *c, int n)
     {
         int idx = blockIdx.x * blockDim.x + threadIdx.x;
         if (idx < n)
             c[idx] = a[idx] + b[idx];
     }
 
-    int main() 
+    int main()
     {
         int n = 1024;
         float *h_a, *h_b, *h_c;
@@ -287,7 +276,6 @@ A better code will look like this:
             return -1;
         }
 
-     
         // Free device memory
         cudaFree(d_a);
         cudaFree(d_b);
@@ -305,7 +293,6 @@ A better code will look like this:
     :class: attention
 
     ``cudaDeviceSynchronize()`` function blocks the host (CPU) until all previously issued commands on the device (GPU) are complete.
-
 
 Common CUDA Error Codes
 -------------------------
@@ -346,8 +333,6 @@ CUDA provides a set of error codes to help developers identify issues during GPU
      - 30
      - Unknown error occurred.
 
-
-
 .. admonition:: Key Points
    :class: hint
 
@@ -356,4 +341,3 @@ CUDA provides a set of error codes to help developers identify issues during GPU
     #. Thread indexing is essential for parallel execution, allowing each thread to work on different data elements.
     #. Synchronization ensures that threads complete their tasks before proceeding, maintaining data consistency.
     #. Error handling is important to catch issues during execution and ensure robustness of the code.
-

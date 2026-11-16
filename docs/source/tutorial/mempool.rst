@@ -10,14 +10,14 @@ Memory Pool
     #. Learn how to create and manage memory pools using the CUDA API.
     #. Explore the benefits of using memory pools for performance optimization.
 
-In CUDA, memory pools are a way to efficiently manage device memory allocations by reducing the 
-overhead of frequent cudaMalloc and cudaFree calls. The memory pool gives you more control over 
+In CUDA, memory pools are a way to efficiently manage device memory allocations by reducing the
+overhead of frequent cudaMalloc and cudaFree calls. The memory pool gives you more control over
 how memory is allocated and reused on the GPU.
 
 Traditional cudaMalloc and cudaFree are expensive operations. In workloads with frequent allocations
-and deallocations this overhead can become a performance bottleneck. A memory pool is a pre-allocated 
-chunk of memory from which smaller allocations are served. Instead of going to the OS or CUDA 
-driver each time, memory requests are fulfilled from this pool. It allows for 
+and deallocations this overhead can become a performance bottleneck. A memory pool is a pre-allocated
+chunk of memory from which smaller allocations are served. Instead of going to the OS or CUDA
+driver each time, memory requests are fulfilled from this pool. It allows for
 
 * Faster memory allocation/deallocation
 * Better memory reuse
@@ -27,12 +27,10 @@ The mian differnce in implementation is that
 * ``cudaMallocAsync()`` replaces ``cudaMalloc()``
 * ``cudaFreeAsync()`` replaces ``cudaFree()``
 
-
 Default Memory Pool
 ----------------------
 
-
-The default memory pool in CUDA does not have a fixed size. Instead, it grows and shrinks 
+The default memory pool in CUDA does not have a fixed size. Instead, it grows and shrinks
 dynamically based on allocation needs, up to the limits of the available device memory.
 
 * The default pool starts empty.
@@ -44,7 +42,6 @@ dynamically based on allocation needs, up to the limits of the available device 
 
 When memory is freed using ``cudaFreeAsync()``, it is returned to the pool for reuse, rather than being
 returned to the system immediately. This allows for faster subsequent allocations from the memory pool.
-
 
 .. code-block:: c
     :linenos:
@@ -65,7 +62,6 @@ returned to the system immediately. This allows for faster subsequent allocation
 
     cudaStreamDestroy(stream);
 
-
 We can get the attributes of the default memory pool using the following code:
 
 .. code-block:: c
@@ -74,16 +70,15 @@ We can get the attributes of the default memory pool using the following code:
     cudaMemPoolGetAttribute(pool, cudaMemPoolAttrReservedMemCurrent, &current);
     cudaMemPoolGetAttribute(pool, cudaMemPoolAttrReservedMemHigh, &high);
 
-where ``cudaMemPoolAttrReservedMemCurrent`` gives the current size of the reserved memory in the 
-pool, and ``cudaMemPoolAttrReservedMemHigh`` gives the maximum size of the reserved memory at any 
+where ``cudaMemPoolAttrReservedMemCurrent`` gives the current size of the reserved memory in the
+pool, and ``cudaMemPoolAttrReservedMemHigh`` gives the maximum size of the reserved memory at any
 point in the pool.
-
 
 Custom Memory Pool
 ----------------------
 
-Custom memory pools allow you to create and manage your own memory allocator instead of relying on 
-the default memory pool. This gives you more control over how and when memory is reserved and 
+Custom memory pools allow you to create and manage your own memory allocator instead of relying on
+the default memory pool. This gives you more control over how and when memory is reserved and
 reused, which is useful in performance-critical or memory-constrained applications.
 
 Custom memory pools allows to:
@@ -93,7 +88,6 @@ Custom memory pools allows to:
 * Control release thresholds
 * Isolate subsystems or tasks using separate allocators
 
-
 .. admonition:: Explanation
    :class: attention
 
@@ -102,7 +96,6 @@ Custom memory pools allows to:
 
 Create a memory pool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 .. code-block:: c
     :linenos:
@@ -116,9 +109,7 @@ Create a memory pool
 
     cudaMemPoolCreate(&myPool, &props);
 
-
-
-The `cudaMemPoolProps` structure defines the properties for a custom CUDA memory pool. Below is a 
+The `cudaMemPoolProps` structure defines the properties for a custom CUDA memory pool. Below is a
 detailed explanation of each field:
 
 .. list-table::
@@ -129,24 +120,23 @@ detailed explanation of each field:
      - Description
    * - `allocType`
      - Specifies the type of memory to allocate. Options include:
-       
+
        - `cudaMemAllocationTypeDevice`: Device memory (GPU global memory).
        - `cudaMemAllocationTypePinned`: Pinned host memory, page-locked.
        - `cudaMemAllocationTypeManaged`: Unified memory accessible by both host and device.
    * - `handleTypes`
      - Specifies how memory handles can be shared across processes. Options include:
-       
+
        - `cudaMemHandleTypeNone`: No inter-process sharing.
        - `cudaMemHandleTypePosixFd`: Shareable via POSIX file descriptors (Linux).
        - `cudaMemHandleTypeWin32`: Shareable via Windows handles.
    * - `location.type`
      - Indicates the location type of the memory. Commonly set to:
-       
+
        - `cudaMemLocationTypeDevice`: Memory pool is tied to a specific GPU.
        - `cudaMemLocationTypeHost`: Host-based memory pool (rare).
    * - `location.id`
      - Specifies the device or host ID. For device memory pools, this is the GPU ID (e.g., `0` for `cudaSetDevice(0)`).
-
 
 Set attributes (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -159,7 +149,6 @@ Attribute
     cudaMemPoolSetAttribute(myPool, cudaMemPoolAttrReleaseThreshold, 1024 * 1024); // 1 MB threshold
     cudaMemPoolSetAttribute(myPool, cudaMemPoolAttrReservedMemCurrent, 512 * 1024 * 1024); // 512 MB reserved
     cudaMemPoolSetAttribute(myPool, cudaMemPoolAttrReservedMemHigh, 1024 * 1024 * 1024); // 1 GB high limit
-    
 
 The following attributes are configured for a custom memory pool using `cudaMemPoolSetAttribute`. Each attribute influences the behavior of memory allocation, reuse, and release.
 
@@ -175,7 +164,6 @@ The following attributes are configured for a custom memory pool using `cudaMemP
      - (Optional/Advanced) Suggests setting the current reserved memory to 512 MB. Not always user-configurable—used more for querying.
    * - `cudaMemPoolAttrReservedMemHigh = 1024 * 1024 * 1024`
      - Sets a soft cap (1 GB) for the high watermark of memory usage within the pool, useful for monitoring purposes.
-   
 
 .. admonition:: Explanation
    :class: attention
@@ -185,11 +173,10 @@ The following attributes are configured for a custom memory pool using `cudaMemP
     * It doesn't enforce a strict limit but serves as a reference point to monitor or track how much memory the pool is using at its peak.
     * This can help developers understand memory usage patterns and detect if memory consumption approaches or exceeds expected values.
 
-
 Use the memory pool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-cudaMallocFromPoolAsync() allocates memory from the specified memory pool instead of the default device 
+cudaMallocFromPoolAsync() allocates memory from the specified memory pool instead of the default device
 memory allocator.
 
 .. code-block:: c
@@ -201,17 +188,15 @@ memory allocator.
     void* ptr;
     cudaMallocFromPoolAsync(&ptr, size, myPool, stream);
 
-
-Pool trimming 
+Pool trimming
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pool trimming in CUDA memory management refers to the process where the memory pool releases unused 
+Pool trimming in CUDA memory management refers to the process where the memory pool releases unused
 memory back to the operating system or underlying system allocator.
 
 * Over time, the pool can accumulate unused memory chunks that are no longer needed by the application.
 * Pool trimming is the act of freeing these unused memory chunks, reducing the memory footprint of the pool.
 * This helps in controlling memory usage and preventing the application from holding excessive unused memory.
-
 
 .. code-block:: c
     :linenos:
@@ -221,7 +206,7 @@ memory back to the operating system or underlying system allocator.
 .. admonition:: Explanation
    :class: attention
 
-    The ``releaseThreshold`` is amount of unused memory (in bytes) you want the pool to release back to the 
+    The ``releaseThreshold`` is amount of unused memory (in bytes) you want the pool to release back to the
     system. This controls how aggressively the pool trims unused allocations
 
 .. list-table::
@@ -247,8 +232,6 @@ memory back to the operating system or underlying system allocator.
      - Tied to context/device
      - You manage it
 
-
-
 .. admonition:: Key Points
    :class: hint
 
@@ -257,4 +240,3 @@ memory back to the operating system or underlying system allocator.
     * Custom memory pools provide more control over allocation limits, reuse policies, and release thresholds.
     * Use `cudaMallocFromPoolAsync()` to allocate from a custom memory pool.
     * Pool trimming helps manage memory usage by releasing unused chunks back to the system.
-

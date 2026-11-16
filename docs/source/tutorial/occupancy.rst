@@ -10,19 +10,19 @@ Finding Optimal GPU Occupancy
     #. Learn how to calculate and optimize GPU occupancy.
     #. Use CUDA API functions to determine optimal block sizes and active blocks per multiprocessor.
 
-GPU occupancy is a measure of how effectively the GPU's resources are utilized by a kernel. High occupancy 
-can lead to better performance, 
+GPU occupancy is a measure of how effectively the GPU's resources are utilized by a kernel. High occupancy
+can lead to better performance,
 
 .. important::
 
-    Occupancy is not the only factor that determines performance; memory bandwidth and instruction throughput 
+    Occupancy is not the only factor that determines performance; memory bandwidth and instruction throughput
     also play significant roles.
 
-cudaOccupancyMaxPotentialBlockSize() 
+cudaOccupancyMaxPotentialBlockSize()
 ---------------------------------------
 
-``cudaOccupancyMaxPotentialBlockSize()``  is a CUDA API function that helps determine the maximum number of 
-threads per block that can be launched on a GPU while maximizing occupancy. It calculates the optimal 
+``cudaOccupancyMaxPotentialBlockSize()``  is a CUDA API function that helps determine the maximum number of
+threads per block that can be launched on a GPU while maximizing occupancy. It calculates the optimal
 block size and the minimum number of blocks required to achieve maximum occupancy for a given kernel.
 
 This function takes into account the kernel's resource usage, such as shared memory and registers, and
@@ -58,11 +58,9 @@ the maximum number of active blocks that can be launched per multiprocessor for 
         blockSize,   // Block size
         0)           // Per-block dynamic shared memory usage intended, in bytes
 
-
-
 .. admonition:: Key Points
    :class: hint
-   
+
     * GPU occupancy is a measure of how well the GPU's resources are utilized by a kernel.
     * High occupancy can lead to better performance, but it is not the only factor.
     * Use `cudaOccupancyMaxPotentialBlockSize()` to find the optimal block size for maximum occupancy.

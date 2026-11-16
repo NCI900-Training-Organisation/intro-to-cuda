@@ -1,4 +1,3 @@
-
 Dynamic Parallelism in CUDA
 ===============================
 
@@ -7,15 +6,11 @@ Dynamic Parallelism in CUDA
 
     * **Tutorial:** 20 min
 
-    
     #. Understand the concept of dynamic parallelism in CUDA.
     #. Learn how to implement nested kernel launches on the GPU.
     #. Explore the advantages and use cases of dynamic parallelism.
 
-
-
-
-Dynamic parallelism allows a CUDA kernel running on the GPU to launch additional kernels **from the device itself**, without needing to return control to the 
+Dynamic parallelism allows a CUDA kernel running on the GPU to launch additional kernels **from the device itself**, without needing to return control to the
 CPU. This enables **nested parallelism** directly on the GPU, allowing for more flexible and adaptive computation models.
 
 Advantages of Dynamic Parallelism:
@@ -54,8 +49,6 @@ Dynamic parallelism allows you to implement these algorithms **cleanly**, withou
 - Avoids unnecessary memory transfers and sync points.
 - Allows decision logic to remain on the GPU, improving efficiency.
 
-
-
 .. list-table::
    :header-rows: 1
    :widths: 30 70
@@ -72,7 +65,6 @@ Dynamic parallelism allows you to implement these algorithms **cleanly**, withou
      - Natural expression of hierarchical logic
    * - More GPU autonomy
      - Allows more decisions to be made directly on the device
-
 
 Compilation Requirements
 -----------------------------
@@ -101,53 +93,50 @@ Code Example
           data[idx] += 1;
       }
   }
-  
+
   // Parent kernel (launched from the host, and launches child from device)
   __global__ void parentKernel(int *data, int n)
   {
       int threads = 256;
       int blocks = (n + threads - 1) / threads;
-  
+
       // Launch child kernel from the device (this is dynamic parallelism!)
       childKernel<<<blocks, threads>>>(data, n);
       // Implicit sync: no cudaDeviceSynchronize() inside a device kernel!
   }
-  
+
   int main()
   {
       const int N = 1024;
       size_t size = N * sizeof(int);
-  
+
       int *h_data = (int *)malloc(size);
       for (int i = 0; i < N; ++i) {
           h_data[i] = i;
       }
-  
+
       int *d_data;
       cudaMalloc(&d_data, size);
       cudaMemcpy(d_data, h_data, size, cudaMemcpyHostToDevice);
-  
+
       // Launch parent kernel
       parentKernel<<<1, 1>>>(d_data, N);
-  
-      
+
       cudaMemcpy(h_data, d_data, size, cudaMemcpyDeviceToHost);
-  
+
       for (int i = 0; i < 10; ++i) {
           printf("h_data[%d] = %d\n", i, h_data[i]);
       }
-  
+
       cudaFree(d_data);
       free(h_data);
       return 0;
   }
 
-
 .. admonition:: Key Points
    :class: hint
-   
+
     #. Dynamic parallelism allows kernels to launch other kernels from the device.
     #. It is useful for irregular workloads and recursive algorithms.
     #. Requires compute capability ≥ 3.5 and specific NVCC flags.
     #. Reduces CPU-GPU synchronization overhead, improving performance.
-

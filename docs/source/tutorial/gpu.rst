@@ -1,4 +1,4 @@
-Graphics Processing Unit (GPU) 
+Graphics Processing Unit (GPU)
 ========================================
 
 .. admonition:: Overview
@@ -10,10 +10,9 @@ Graphics Processing Unit (GPU)
     #. Learn the basic architecture of a GPU.
     #. Learn how one vendor differs from another.
 
-
 GPU Overview
 ----------------------------
-A Graphics Processing Unit (GPU) is a specialized processor designed to accelerate computations. Unlike a Central Processing Unit (CPU), which is 
+A Graphics Processing Unit (GPU) is a specialized processor designed to accelerate computations. Unlike a Central Processing Unit (CPU), which is
 optimized for general-purpose tasks, a GPU is optimized for parallel processing, making it particularly effective for tasks that can be performed cuncurrently.
 
 .. important::
@@ -21,14 +20,14 @@ optimized for general-purpose tasks, a GPU is optimized for parallel processing,
    Concurrency is the ability to perform multiple tasks simultaneously, while parallelism is the simultaneous execution of multiple tasks.
    All cincuurrent tasks are not parallel, but all parallel tasks are concurrent.
 
-A GPU is not a replacement for a CPU, but rather a complementary processor that can significantly speed up certain types of computations, especially those 
+A GPU is not a replacement for a CPU, but rather a complementary processor that can significantly speed up certain types of computations, especially those
 involving large datasets or complex mathematical operations.
 
 CPU vs GPU
 ----------------------------
 
 A CPU is designed for general-purpose computing and is optimized for tasks that require high single-threaded performance. It has a few cores (typically 4 to 16)
-that can handle multiple threads, but it is not optimized for parallel processing. In contrast, a GPU has thousands of smaller cores that can handle many 
+that can handle multiple threads, but it is not optimized for parallel processing. In contrast, a GPU has thousands of smaller cores that can handle many
 threads simultaneously, making it ideal for tasks that can be parallelized.
 
 .. list-table:: Difference Between CPU and GPU
@@ -71,18 +70,16 @@ threads simultaneously, making it ideal for tasks that can be parallelized.
      - Operating systems, office software, web browsing, database management.
      - Deep learning, scientific simulations, image/video processing, 3D rendering.
 
-
 GPU Architecture
 ----------------------------
 
 .. admonition:: Explanation
    :class: attention
 
-   Gadi only has NVIDIA GPUs. So when we say GPUs we mean NVIDIA GPUs. Nevertheless, most concepts discussed here 
-   are the same across different vendors. 
+   Gadi only has NVIDIA GPUs. So when we say GPUs we mean NVIDIA GPUs. Nevertheless, most concepts discussed here
+   are the same across different vendors.
 
-
-GPUs are composed of multiple Streaming Multiprocessors (SMs), an on-chip L2 cache, and high-bandwidth DRAM. 
+GPUs are composed of multiple Streaming Multiprocessors (SMs), an on-chip L2 cache, and high-bandwidth DRAM.
 
 .. figure:: ./figs/SM.png
    :width: 600px
@@ -91,14 +88,11 @@ GPUs are composed of multiple Streaming Multiprocessors (SMs), an on-chip L2 cac
 
    GPU Architecture
 
-
 Modern NVIDIA GPUs use a hierarchical memory and compute architecture designed for high throughput and parallelism. This document explains the roles of:
-
 
 * Streaming Multiprocessors (SMs)
 * CUDA cores
 * L1 and L2 caches
-
 
 These components work together to accelerate parallel tasks such as scientific computing, deep learning, and graphics rendering.
 
@@ -119,11 +113,9 @@ Streaming Multiprocessors (SMs)
      - Executes multiple warps (groups of 32 threads) in parallel
    * - Independent Execution
      - Each SM can execute multiple thread blocks concurrently (if resources allow)
-     
+
 CUDA Cores
 ----------
-
-
 
 .. list-table::
    :header-rows: 1
@@ -140,10 +132,8 @@ CUDA Cores
    * - Highly Parallel
      - Thousands of CUDA cores on a GPU enable massive parallel execution
 
-
-While CUDA cores are often thought of as "identical tiny processors," in practice, not all CUDA cores are the same in capability or function, especially 
-within an SM (Streaming Multiprocessor). 
-
+While CUDA cores are often thought of as "identical tiny processors," in practice, not all CUDA cores are the same in capability or function, especially
+within an SM (Streaming Multiprocessor).
 
 .. figure:: ./figs/cuda_cores.png
    :width: 600px
@@ -151,8 +141,6 @@ within an SM (Streaming Multiprocessor).
    :alt: CUDA Cores
 
    CUDA Cores
-
-
 
 CUDA cores are primarily designed to handle:
 
@@ -169,7 +157,7 @@ For example:
 
 * Multiply two FP32 arrays → goes to CUDA cores
 * Apply sin() → goes to SFU (Special Function Unit)
-* Multiply matrices → goes to Tensor cores 
+* Multiply matrices → goes to Tensor cores
 
 L1 Cache (Level 1)
 ------------------
@@ -213,7 +201,6 @@ L2 Cache (Level 2)
    * - Coherency
      - Coherent across all SMs — changes made in one SM are visible to others
 
-
 Difference Between Shared Memory and DRAM
 -------------------------------
 Shared memory and DRAM (Global Memory) are two types of memory used in NVIDIA GPUs, each serving different purposes and having distinct characteristics.
@@ -254,7 +241,6 @@ Shared memory and DRAM (Global Memory) are two types of memory used in NVIDIA GP
      - Thread cooperation, temporary data sharing
      - Input/output, persistent global data
 
-
 How They Work Together
 -------------------------------
 
@@ -263,8 +249,6 @@ How They Work Together
 3. Data not found in L1 is fetched from the **L2 cache**, which acts as a buffer before accessing **global memory** (DRAM).
 4. This hierarchy helps reduce latency, increase memory throughput, and enable high-performance parallel execution.
 
-
-
 .. admonition:: Key Points
    :class: hint
 
@@ -272,4 +256,3 @@ How They Work Together
     #. It has thousands of smaller cores optimized for concurrent tasks.
     #. The architecture includes Streaming Multiprocessors (SMs), CUDA cores, and multiple levels of cache.
     #. GPUs are not a replacement for CPUs but complement them for specific tasks.
-

@@ -11,22 +11,21 @@ CUDA Graphs
     #. Explore the advantages and use cases of CUDA graphs.
 
 CUDA graphs are a powerful feature in CUDA that allow you to capture a sequence of operations (kernels, memory
-copies, etc.) into a graph structure. This enables more efficient execution by reducing the overhead of 
-launching individual kernels and memory operations. CUDA graphs can significantly improve performance for 
+copies, etc.) into a graph structure. This enables more efficient execution by reducing the overhead of
+launching individual kernels and memory operations. CUDA graphs can significantly improve performance for
 applications with complex workflows or repetitive patterns.
 
 CUDA Graph Basics
 ----------------------------
 
-Usually, every kernel launch or memory copy call from CPU to GPU incurs overhead. Repeated sequences 
-can be inefficient due to this overhead. With CUDA Graphs you record the entire sequence once, and 
+Usually, every kernel launch or memory copy call from CPU to GPU incurs overhead. Repeated sequences
+can be inefficient due to this overhead. With CUDA Graphs you record the entire sequence once, and
 replay it as many times as needed with minimal CPU interaction.
 
 Components of CUDA Graphs
 ----------------------------
 
 CUDA graphs consist of several components:
-
 
 1. Nodes: Each node represents an operation:
     * Kernel launch
@@ -44,8 +43,6 @@ There are some key limitations to keep in mind:
 * Capturing must happen in a single stream.
 * Proper synchronization and stream management are crucial.
 * Debugging can be harder than traditional launches.
-
-
 
 The steps to create and launch a CUDA graph are as follows:
 
@@ -70,33 +67,29 @@ Create CUDA Stream:
 
 * Starts capturing all GPU operations submitted to stream.
 
-
 .. admonition:: Explanation
    :class: attention
 
    ``cudaStreamCaptureModeGlobal`` means all GPU work in the stream is recorded as graph nodes.
-
-
 
 Record each operation as a node in the graph:
 
 .. code-block:: c
     :linenos:
 
-    cudaMemcpyAsync(d_A, h_A, size, cudaMemcpyHostToDevice, stream); 
+    cudaMemcpyAsync(d_A, h_A, size, cudaMemcpyHostToDevice, stream);
     cudaMemcpyAsync(d_B, h_B, size, cudaMemcpyHostToDevice, stream);
 
     vectorAdd<<<(N + 255)/256, 256, 0, stream>>>(d_A, d_B, d_C, N);
 
     cudaMemcpyAsync(h_C, d_C, size, cudaMemcpyDeviceToHost, stream);
 
-
 This creates a foure nodes in the graph:
-* Two H2D memory  copy nodes 
+* Two H2D memory  copy nodes
 * One kernel launch node (vectorAdd)
-* One D2H memory copy node 
+* One D2H memory copy node
 
-End CUDA Graph Capture: 
+End CUDA Graph Capture:
 
 .. code-block:: c
     :linenos:
@@ -115,7 +108,7 @@ Instantiate the CUDA graph for execution
 .. admonition:: Explanation
    :class: attention
 
-   The third, fourth and fifth parameters in ``cudaGraphInstantiate``are optional and can be used 
+   The third, fourth and fifth parameters in ``cudaGraphInstantiate``are optional and can be used
    for error handling and debugging.
 
 Launch the CUDA graph multiple times
@@ -142,13 +135,10 @@ Finall destroy the graph and stream:
     cudaGraphExecDestroy(graphExec);
     cudaStreamDestroy(stream);
 
-
-
-
 Custom CUDA Graphs
 ----------------------------
 
-Custom CUDA graphs allow you to define your own graph structures and operations, providing flexibility 
+Custom CUDA graphs allow you to define your own graph structures and operations, providing flexibility
 for advanced use cases. You can create custom nodes, edges, and even define your own execution logic.
 
 We have the followiing program that demonstrates how to create a custom CUDA graph. We have a simple
@@ -161,7 +151,7 @@ kernel that:
 .. code-block:: c
     :linenos:
 
-    __global__ void square(float *d_data, int N) 
+    __global__ void square(float *d_data, int N)
     {
         int idx = threadIdx.x + blockIdx.x * blockDim.x;
         if (idx < N)
@@ -188,14 +178,11 @@ We define the initial set of instruction that:
 
     for (int i = 0; i < N; ++i) h_input[i] = (float)i;
 
-
     float *d_data;
     check(cudaMalloc(&d_data, size), "Alloc d_data");
 
     cudaStream_t stream;
     check(cudaStreamCreate(&stream), "Create stream");
-
-
 
 Then we create an empty CUDA graph:
 
@@ -205,13 +192,11 @@ Then we create an empty CUDA graph:
     cudaGraph_t graph;
     check(cudaGraphCreate(&graph, 0), "Create graph");
 
-
 .. admonition:: Explanation
    :class: attention
 
    The second parameter is flags, which can be set to 0 for default behavior.
    It is reserved for future use — currently must be 0.
-
 
 Now create the first node in the graph which is a memset operation:
 
@@ -228,7 +213,6 @@ Now create the first node in the graph which is a memset operation:
 
     cudaGraphNode_t memsetNode;
     check(cudaGraphAddMemsetNode(&memsetNode, graph, NULL, 0, &memsetParams), "Add memset");
-
 
 ``cudaMemsetParams`` is a structure used with CUDA Graph API to describe a memory set operation
 as part of a graph node.
@@ -259,8 +243,6 @@ as part of a graph node.
      - size_t
      - Number of rows to set. Use 1 for 1D arrays.
 
-
-
 The we create a H2D copy node to copy the input data from host to device:
 
 .. code-block:: c
@@ -275,19 +257,17 @@ The we create a H2D copy node to copy the input data from host to device:
     cudaGraphNode_t memcpyH2DNode;
     check(cudaGraphAddMemcpyNode(&memcpyH2DNode, graph, NULL, 0, &copyH2D), "Add memcpy H2D");
 
-
 .. admonition:: Explanation
    :class: attention
 
     ``cudaGraphAddMemsetNode``, ``cudaGraphAddMemcpyNode`` and ``cudaGraphAddKernelNode``
     are functions used to add nodes to a CUDA graph. Each function creates a specific type of node
     in the graph. The third parameter is an array of dependencies, which can be NULL if there are
-    no dependencies. The fourth parameter is the number of dependencies, which can be 0 if there 
+    no dependencies. The fourth parameter is the number of dependencies, which can be 0 if there
     are none.
 
-
-``cudaMemcpy3DParms`` is a structure used to describe complex memory copy operations, including 
-1D, 2D, and 3D copies between host and device memory. It provides fine-grained control over 
+``cudaMemcpy3DParms`` is a structure used to describe complex memory copy operations, including
+1D, 2D, and 3D copies between host and device memory. It provides fine-grained control over
 how data is moved, including layout, pitch, and depth.
 
 .. list-table:: `cudaMemcpy3DParms` Field Summary
@@ -316,16 +296,15 @@ how data is moved, including layout, pitch, and depth.
      - cudaMemcpyKind
      - Type of memory transfer (e.g., ``cudaMemcpyHostToDevice``).
 
-
 .. admonition:: Explanation
    :class: attention
 
-   In CUDA, pitched memory is a way of allocating 2D (or 3D) memory that aligns rows in memory to 
-   improve memory access performance on the GPU. CUDA provides ``cudaPitchedPtr`` and ``cudaExtent`` 
+   In CUDA, pitched memory is a way of allocating 2D (or 3D) memory that aligns rows in memory to
+   improve memory access performance on the GPU. CUDA provides ``cudaPitchedPtr`` and ``cudaExtent``
    to describe such memory layouts.
 
-   ``cudaPitchedPtr`` is a structure,which contains a pointer to the memory, the pitch (the width 
-   in bytes of each row), and the height (number of rows). This is useful for 2D arrays where 
+   ``cudaPitchedPtr`` is a structure,which contains a pointer to the memory, the pitch (the width
+   in bytes of each row), and the height (number of rows). This is useful for 2D arrays where
    each row may not be tightly packed in memory.
 
    ``make_cudaPitchedPtr`` is a utility function that creates a ``cudaPitchedPtr`` structure,
@@ -333,7 +312,7 @@ how data is moved, including layout, pitch, and depth.
    ``cudaExtent`` is a structure that describes the size of a 3D region in memory, including width, height, and depth.
    It is used to specify the dimensions of the memory copy operation.
 
-   ``make_cudaExtent`` is a utility function that creates a ``cudaExtent`` structure, which contains the width, height, and depth of the memory region to be copied.    
+   ``make_cudaExtent`` is a utility function that creates a ``cudaExtent`` structure, which contains the width, height, and depth of the memory region to be copied.
 
 Next we add a kernel node to launch the square kernel:
 
@@ -352,7 +331,6 @@ Next we add a kernel node to launch the square kernel:
     cudaGraphNode_t kernelNode;
     check(cudaGraphAddKernelNode(&kernelNode, graph, NULL, 0, &kernelParams), "Add kernel");
 
-
 Finally, we add a D2H copy node to copy the output data from device to host:
 
 .. code-block:: c
@@ -367,11 +345,8 @@ Finally, we add a D2H copy node to copy the output data from device to host:
     cudaGraphNode_t memcpyD2HNode;
     check(cudaGraphAddMemcpyNode(&memcpyD2HNode, graph, NULL, 0, &copyD2H), "Add memcpy D2H");
 
-
 .. admonition:: Explanation
    :class: attention
-
-
 
 So we have created for nodes in the graph. Now we need to specify the dependencies between them:
 
@@ -382,12 +357,11 @@ So we have created for nodes in the graph. Now we need to specify the dependenci
     check(cudaGraphAddDependencies(graph, &memcpyH2DNode, &kernelNode, 1), "H2D → kernel");
     check(cudaGraphAddDependencies(graph, &kernelNode, &memcpyD2HNode, 1), "kernel → D2H");
 
-The above code specifed the execution order (DAG) of the nodes. 
+The above code specifed the execution order (DAG) of the nodes.
 * Memset must finish before Host→Device memcpy.
 * Host→Device memcpy must finish before kernel launch.
 * Kernel must finish before Device→Host memcpy.
 Edges the nodes will be automatically created by the CUDA graph API.
-
 
 Finally instantiate the graph and launch it:
 
@@ -398,9 +372,6 @@ Finally instantiate the graph and launch it:
     check(cudaGraphInstantiate(&graphExec, graph, NULL, NULL, 0), "Instantiate graph");
     check(cudaGraphLaunch(graphExec, stream), "Launch graph");
     check(cudaStreamSynchronize(stream), "Synchronize stream");
-
-
-
 
 Updating node parameters
 ----------------------------
@@ -417,15 +388,13 @@ To do this we can update memcpy H2D node parameters:
     copyH2D.dstPtr = make_cudaPitchedPtr(d_data[i], size, N, 1);
     check(cudaGraphExecMemcpyNodeSetParams(graphExec, memcpyH2DNode, &copyH2D), "Update memcpy H2D params");
 
-
 .. admonition:: Explanation
    :class: attention
 
-   ``cudaGraphExecMemcpyNodeSetParams`` and ``cudaGraphExecKernelNodeSetParams`` are functions used 
-   to update the parameters of existing nodes in a CUDA graph execution instance. They allow you to 
-   change the source and destination pointers, sizes, and other parameters of memory copy and kernel 
-   nodes without needing to recreate the entire graph.  
-
+   ``cudaGraphExecMemcpyNodeSetParams`` and ``cudaGraphExecKernelNodeSetParams`` are functions used
+   to update the parameters of existing nodes in a CUDA graph execution instance. They allow you to
+   change the source and destination pointers, sizes, and other parameters of memory copy and kernel
+   nodes without needing to recreate the entire graph.
 
 Then we can launch the graph again with the updated parameters:
 
@@ -442,7 +411,6 @@ Then we can launch the graph again with the updated parameters:
     kernelParamsNew.extra = NULL;
     check(cudaGraphExecKernelNodeSetParams(graphExec, kernelNode, &kernelParamsNew), "Update kernel params");
 
-
 Update memcpy D2H node parameters:
 
 .. code-block:: c
@@ -452,7 +420,6 @@ Update memcpy D2H node parameters:
     copyD2H.dstPtr = make_cudaPitchedPtr(h_output[i], size, N, 1);
     check(cudaGraphExecMemcpyNodeSetParams(graphExec, memcpyD2HNode, &copyD2H), "Update memcpy D2H params");
 
-
 Launch graph and synchronize:
 
  .. code-block:: c
@@ -460,7 +427,6 @@ Launch graph and synchronize:
 
     check(cudaGraphLaunch(graphExec, stream), "Launch graph");
     check(cudaStreamSynchronize(stream), "Sync stream");
-
 
 In In each iteration:
 

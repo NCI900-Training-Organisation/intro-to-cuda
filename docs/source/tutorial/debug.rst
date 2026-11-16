@@ -8,8 +8,7 @@ Debug using cuda-gdb
 
     * Learn how to use **cuda-gdb** for Debugging.
 
-
-To debug a CUDA program, use cuda-gdb, NVIDIA’s debugger designed for CUDA C/C++ applications. 
+To debug a CUDA program, use cuda-gdb, NVIDIA’s debugger designed for CUDA C/C++ applications.
 It works similarly to gdb, but with additional support for GPUs.
 
 To start compile the application with debug flags
@@ -18,7 +17,6 @@ To start compile the application with debug flags
     :linenos:
 
     nvcc -G -g -o my_program my_program.cu
-
 
 .. admonition:: Explanation
    :class: attention
@@ -33,10 +31,8 @@ Then launch the application with ``cuda-gdb``
 
     cuda-gdb ./vector_add
 
-
 .. admonition:: Key Points
    :class: hint
 
-   
     * Debugging CUDA code is similar to debugging CPU code with gdb, but includes GPU-specific features.
     * Always ensure you are running the debug build when using `cuda-gdb`.

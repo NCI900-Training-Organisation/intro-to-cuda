@@ -8,10 +8,10 @@ CUDA Events
 
     #. Learn about CUDA events and their usage.
     #. Understand how to measure elapsed time using CUDA events.
-    
-CUDA events are a powerful feature that allows you to measure the time taken by operations on the GPU. 
-They can be used to synchronize between different streams and to profile the performance of your CUDA 
-applications. Events are lightweight and provide a way to track the completion of operations without 
+
+CUDA events are a powerful feature that allows you to measure the time taken by operations on the GPU.
+They can be used to synchronize between different streams and to profile the performance of your CUDA
+applications. Events are lightweight and provide a way to track the completion of operations without
 blocking the CPU.
 
 CUDA Event Basics
@@ -22,10 +22,9 @@ CUDA Event Basics
    :align: center
    :alt: CUDA Events
 
-
-CUDA events are used to mark points in time in your CUDA application. They can be created, recorded, and 
-queried to determine when certain operations have completed. Events can be used to measure the elapsed time 
-between two points in your code, which is useful for performance profiling. CUDA events are created using 
+CUDA events are used to mark points in time in your CUDA application. They can be created, recorded, and
+queried to determine when certain operations have completed. Events can be used to measure the elapsed time
+between two points in your code, which is useful for performance profiling. CUDA events are created using
 the `cudaEventCreate` function, and you can record an event using `cudaEventRecord`.
 
 .. code-block:: c
@@ -49,7 +48,6 @@ the `cudaEventCreate` function, and you can record an event using `cudaEventReco
     float milliseconds = 0;
     cudaEventElapsedTime(&milliseconds, start, stop);
     printf("Elapsed time: %f ms\n", milliseconds);
-
 
 Cross stream Synchronization
 ----------------------------
@@ -84,7 +82,6 @@ it can be waited on in another stream. This allows you to synchronize operations
     cudaStreamDestroy(stream1);
     cudaStreamDestroy(stream2);
 
-
 .. admonition:: Explanation
    :class: attention
 
@@ -93,8 +90,8 @@ it can be waited on in another stream. This allows you to synchronize operations
 Timiming events across streams
 ------------------------------------------------
 
-When timing events across streams, you can record events in one stream and then wait for those events 
-in another stream. This allows you to measure the time taken by operations in different streams without 
+When timing events across streams, you can record events in one stream and then wait for those events
+in another stream. This allows you to measure the time taken by operations in different streams without
 blocking the CPU.
 
 .. code-block:: c
@@ -125,16 +122,14 @@ blocking the CPU.
     cudaEventElapsedTime(&milliseconds, start, stop);
     printf("Elapsed time across streams: %f ms\n", milliseconds);
 
-
 .. important::
 
     #. You cannot use an event recorded in one stream to measure the execution time of operations that occur in another stream unless you enforce proper synchronization.
     #. If streams are non-blocking and concurrent, incorrect usage may lead to race conditions or invalid timings.
 
-
 .. admonition:: Key Points
    :class: hint
-   
+
     #. CUDA events are used to measure elapsed time and synchronize operations across streams.
     #. Events can be created, recorded, and queried to determine the completion of operations.
     #. Cross-stream synchronization is achieved using `cudaStreamWaitEvent`.

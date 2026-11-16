@@ -9,9 +9,8 @@ Unified Memory
     #. Learn about Unified Memory in CUDA.
     #. Understand how Unified Memory simplifies memory management in CUDA applications.
 
-
-Unified Memory is a memory management feature in CUDA (CUDA 6 and above) that allows developers to write applications without 
-worrying about the complexities of managing memory between the host (CPU) and device (GPU). 
+Unified Memory is a memory management feature in CUDA (CUDA 6 and above) that allows developers to write applications without
+worrying about the complexities of managing memory between the host (CPU) and device (GPU).
 It provides a single address space for both the host and device, enabling seamless data sharing and access.
 
 In Unified Memory we use ``cudaMallocManaged`` to allocate memory that is accessible from both the host and device.
@@ -34,8 +33,8 @@ In Unified Memory we use ``cudaMallocManaged`` to allocate memory that is access
     cudaDeviceSynchronize();
 
 Under the hood, Unified Memory automatically migrates data between the host and device as needed.
-This means that when the host accesses data that is currently on the device, Unified Memory will 
-automatically transfer it to the host memory, and vice versa. This migration is managed by the CUDA runtime, 
+This means that when the host accesses data that is currently on the device, Unified Memory will
+automatically transfer it to the host memory, and vice versa. This migration is managed by the CUDA runtime,
 which tracks memory accesses and performs the necessary transfers transparently.
 
 The advantage of Unified Memory is:
@@ -50,19 +49,17 @@ However, there are some considerations to keep in mind when using Unified Memory
 * Not all CUDA features are compatible with Unified Memory
 * Limited support for certain data structures and algorithms
 
-
 Pinned Memory in Unified Memory
 -----------------------------
 
-Managed Memory is the default type of Unified Memory allocation (using ``cudaMemAdvise``). It allows the CUDA 
+Managed Memory is the default type of Unified Memory allocation (using ``cudaMemAdvise``). It allows the CUDA
 runtime to automatically manage memory migration between the host and device. When you allocate managed memory,
 the  CUDA runtime ensures that data is available on both the host and device as needed.
 
-Another type of Unified Memory allocation is **pinned memory**. This type of Unified Memory allocation allows 
-the host memory to be pinned, which means it cannot be paged out by the operating system. Pinned memory can 
-improve performance for certain operations, such as asynchronous data transfers, but it requires more careful 
+Another type of Unified Memory allocation is **pinned memory**. This type of Unified Memory allocation allows
+the host memory to be pinned, which means it cannot be paged out by the operating system. Pinned memory can
+improve performance for certain operations, such as asynchronous data transfers, but it requires more careful
 management.
-
 
 .. code-block:: c
     :linenos:
@@ -104,8 +101,8 @@ There are some disadvantages to using pinned memory:
 cudaMemPrefetchAsync
 -----------------------------
 
-The ``cudaMemPrefetchAsync`` function is used to prefetch data from the device to the host or vice versa in a 
-non-blocking manner. This can help improve performance by ensuring that data is available in the desired 
+The ``cudaMemPrefetchAsync`` function is used to prefetch data from the device to the host or vice versa in a
+non-blocking manner. This can help improve performance by ensuring that data is available in the desired
 memory space before it is accessed.
 
 .. code-block:: c
@@ -132,12 +129,10 @@ memory space before it is accessed.
     // Synchronize to ensure all operations are complete
     cudaDeviceSynchronize();
 
-
 .. admonition:: Explanation
    :class: attention
 
     ``cudaCpuDeviceId`` is a special device ID that refers to the host CPU.
-
 
 cudaMemAdvise
 -----------------------------
@@ -163,8 +158,6 @@ The ``cudaMemAdvise`` function is used to provide advice to the CUDA runtime abo
 
     // 3. Specify that GPU 0 will access this memory
     cudaMemAdvise(data, N * sizeof(int), cudaMemAdviseSetAccessedBy, 0);
-
-
 
 The different advices that can be provided using ``cudaMemAdvise`` include:
 
@@ -196,10 +189,9 @@ The different advices that can be provided using ``cudaMemAdvise`` include:
     // Synchronize to ensure all operations are complete
     cudaDeviceSynchronize();
 
-
 .. admonition:: Key Points
    :class: hint
-   
+
     #. Unified Memory provides a single address space for both host and device memory.
     #. It simplifies memory management by automatically migrating data between host and device.
     #. Use ``cudaMallocManaged`` to allocate Unified Memory.
@@ -208,4 +200,3 @@ The different advices that can be provided using ``cudaMemAdvise`` include:
     #. Pinned memory can improve performance for certain operations but requires careful management.
     #. Use ``cudaMemPrefetchAsync`` to prefetch data between host and device in a non-blocking manner.
     #. Use ``cudaMemAdvise`` to provide advice to the CUDA runtime about memory management.
-

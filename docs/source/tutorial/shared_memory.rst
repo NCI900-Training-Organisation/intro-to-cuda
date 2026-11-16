@@ -9,10 +9,9 @@ Shared Memory in CUDA
     #. Learn about shared memory in CUDA.
     #. Understand the characteristics and usage of shared memory.
 
-
-Shared memory is a type of memory that is shared among threads within the same block in CUDA. It is much 
-faster than global memory and can be used to store data that needs to be accessed by multiple threads. 
-Shared memory is particularly useful for reducing global memory accesses and improving performance in 
+Shared memory is a type of memory that is shared among threads within the same block in CUDA. It is much
+faster than global memory and can be used to store data that needs to be accessed by multiple threads.
+Shared memory is particularly useful for reducing global memory accesses and improving performance in
 parallel algorithms.
 
 Shared Memory Characteristics
@@ -32,13 +31,13 @@ Shared memory in CUDA has several key characteristics:
 .. list-table:: Shared Memory vs DRAM in NVIDIA GPUs
     - Very fast (10–50 cycles)
     - Slow (400–800 cycles)
-    - 
+    -
     - Small (48–96 KB per SM)
     - Large (GBs)
-    - 
+    -
     - Used for frequently accessed data within a block
     - Used for data shared across all blocks
-    - 
+    -
     - Reduces global memory traffic and accelerates access
     - Higher latency, but larger capacity
 
@@ -49,7 +48,7 @@ There are two main types of shared memory in CUDA:
 .. code-block:: c
     :linenos:
 
-     __global__ void addKernel(int *input, int *output) 
+     __global__ void addKernel(int *input, int *output)
     {
         __shared__ int sdata[256];  // dynamic shared memory
 
@@ -73,8 +72,7 @@ There are two main types of shared memory in CUDA:
 .. code-block:: c
     :linenos:
 
-    
-    __global__ void addKernel(int *input, int *output) 
+    __global__ void addKernel(int *input, int *output)
     {
         extern __shared__ int sdata[];  // dynamic shared memory
         int tid = threadIdx.x;
@@ -92,7 +90,7 @@ There are two main types of shared memory in CUDA:
         output[idx] = sdata[tid];
     }
 
-    int main() 
+    int main()
     {
         int threads = 256;
         int sharedMemSize = threads * sizeof(int);  // Size of dynamic shared memory
@@ -104,8 +102,6 @@ There are two main types of shared memory in CUDA:
         addKernel<<<1, threads, sharedMemSize>>>(d_input, d_output);
     }
 
-
-
 .. important::
 
     You declare only one ``extern __shared__ array`` inside your kernel.
@@ -113,7 +109,7 @@ There are two main types of shared memory in CUDA:
 .. admonition:: Explanation
    :class: attention
 
-    ``__syncthreads()`` is a barrier synchronization function in CUDA that ensures all threads in the same 
+    ``__syncthreads()`` is a barrier synchronization function in CUDA that ensures all threads in the same
     thread block:
 
     1. Reach the barrier, and
@@ -123,7 +119,7 @@ There are two main types of shared memory in CUDA:
 
 .. admonition:: Key Points
    :class: hint
-   
+
     #. Shared memory is a fast, on-chip memory accessible by threads within the same block.
     #. It is used to reduce global memory accesses and improve performance in parallel algorithms.
     #. There are two types of shared memory: static (fixed size) and dynamic (runtime size).

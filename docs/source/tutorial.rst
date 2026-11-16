@@ -1,16 +1,16 @@
 Tutorial
 ========
 
-This hands-on CUDA workshop is designed to introduce developers, researchers, and engineers to GPU 
-programming using NVIDIA CUDA. Through a combination of theory, practical examples, and guided exercises, 
+This hands-on CUDA workshop is designed to introduce developers, researchers, and engineers to GPU
+programming using NVIDIA CUDA. Through a combination of theory, practical examples, and guided exercises,
 participants will learn how to harness the computational power of GPUs to accelerate their applications.
 
 **Basic Topics**:
 
-.. list-table::   
+.. list-table::
   :widths: 50 50
-  :header-rows: 1   
- 
+  :header-rows: 1
+
   * - Topics
     - Duration
   * - GPU Overview
@@ -46,8 +46,6 @@ participants will learn how to harness the computational power of GPUs to accele
   * - Exercise 08: Unified Memory
     - 20 minutes
 
-
-
 .. toctree::
 
     tutorial/gpu.rst
@@ -66,15 +64,13 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercises/07-events.rst
     tutorial/unified_mem.rst
     tutorial/exercises/08-unified-memory.rst
-  
 
-  
 **Advanced Topics**:
 
-.. list-table::   
+.. list-table::
   :widths: 50 50
-  :header-rows: 1   
- 
+  :header-rows: 1
+
   * - Topics
     - Duration
   * - Dynamic Parallelism
@@ -109,11 +105,9 @@ participants will learn how to harness the computational power of GPUs to accele
     - 15 minutes
   * - Exercise 16: Debugging with cuda-gdb
     - 15 minutes
-  
-
 
 .. toctree::
-    
+
     tutorial/dynamic.rst
     tutorial/exercises/09-dynamic-parallelism.rst
     tutorial/occupancy.rst
@@ -130,7 +124,3 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercises/15-profiling.rst
     tutorial/debug.rst
     tutorial/exercises/16-debugging.rst
-    
-    
-
-  

@@ -9,18 +9,16 @@ Profile using Nsight Systems
     * Learn how to use **nsys** for performance analysis.
     * Learn how to generate detailed reports for optimization.
 
-
 NVIDIA Nsight Systems (nsys)
 --------------------------------
 
-``nsys`` is NVIDIA's system-wide performance analysis tool used to profile CUDA applications and 
-understand how your GPU and CPU interact. It provides timeline-based visualization and runtime 
+``nsys`` is NVIDIA's system-wide performance analysis tool used to profile CUDA applications and
+understand how your GPU and CPU interact. It provides timeline-based visualization and runtime
 statistics for:
 
 * GPU kernel launches and memory transfers
 * CPU threads and system calls
 * CUDA runtime/API calls
-
 
 To profile the code first compile with line info
 
@@ -28,7 +26,6 @@ To profile the code first compile with line info
     :linenos:
 
     nvcc -O2 -lineinfo -o vector_add_unified vector_add_unified.cu
-
 
 then profile the executable
 
@@ -41,7 +38,6 @@ then profile the executable
         --cuda-memory-usage=true \
         -o vector_add_unified_profile \
         ./vector_add_unified
-
 
 .. list-table:: Explanation of `nsys profile` flags
    :widths: 20 80
@@ -64,7 +60,6 @@ then profile the executable
        - `${exe}_profile.sqlite`: Structured performance data
    * - ``./${exe}``
      - Runs the compiled executable being profiled.
-
 
 .. admonition:: Key Points
    :class: hint

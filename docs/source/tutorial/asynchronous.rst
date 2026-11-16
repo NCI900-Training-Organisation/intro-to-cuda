@@ -9,23 +9,21 @@ Asynchronous CUDA Calls
     #. Learn how to use asynchronous CUDA APIs to improve performance.
     #. Understand the concept of CUDA streams and how they can be used to overlap memory transfers and kernel execution.
 
-
-This section provides an example of how to use asynchronous CUDA APIs to improve the performance of a simple vector addition program. 
+This section provides an example of how to use asynchronous CUDA APIs to improve the performance of a simple vector addition program.
 By using CUDA streams, we can overlap memory transfers and kernel execution, leading to better GPU utilization.
 
 CUDA Streams
 -----------------------------
 
-A stream is a sequence of operations that execute on the GPU in the order they are issued. Streams allow for concurrent execution of multiple operations, such 
+A stream is a sequence of operations that execute on the GPU in the order they are issued. Streams allow for concurrent execution of multiple operations, such
 as memory transfers and kernel launches, which can significantly improve performance by overlapping computation and data transfer.
 
 .. image:: ./figs/streams.png
     :width: 600px
-    :align: center      
+    :align: center
     :alt: Streams Overview
 
-
-Streams are particularly useful in scenarios where you want to perform multiple operations on the GPU without waiting for each operation to complete before 
+Streams are particularly useful in scenarios where you want to perform multiple operations on the GPU without waiting for each operation to complete before
 starting the next one. By using streams, you can maximize the utilization of the GPU and reduce idle time.
 
 Why streams result in more concurrency?
@@ -43,23 +41,16 @@ Why streams result in more concurrency?
     * This means that while one stream is executing a kernel, another stream can perform memory transfers without waiting for the first to finish.
     * This overlap allows for better utilization of the GPU's resources.
 
-
 For efficient and proper use of streams, it's important to ensure that
 
 * The GPU must support concurrent kernel execution.
 * There must be no resource conflict (e.g., using different memory regions).
 * Streams must be independent — no implicit synchronization (e.g., from using the default stream).
 
-
 .. important::
 
-   Streams are not a replacement for parallelism; they are a way to manage concurrency on the GPU. You can have multiple streams executing concurrently, 
+   Streams are not a replacement for parallelism; they are a way to manage concurrency on the GPU. You can have multiple streams executing concurrently,
    but each stream's operations will still be executed in order.
-
-
-
-
-
 
 Main differences from the synchronous version
 ---------------------------------------------
@@ -70,13 +61,9 @@ Main differences from the synchronous version
 * Synchronize the stream with ``cudaStreamSynchronize()`` to wait for completion.
 * Cleanup the stream after use.
 
-
-
 .. important::
 
     ``cudaMalloc`` and ``cudaFree`` are still synchronous operations, meaning they block the host until the memory allocation or deallocation is complete.
-
-
 
 .. code-block:: cpp
 
@@ -84,7 +71,7 @@ Main differences from the synchronous version
     #include <cuda_runtime.h>
 
     // Kernel 1: Adds 1 to each element
-    __global__ void kernel1(float* data, int n) 
+    __global__ void kernel1(float* data, int n)
     {
         int idx = blockIdx.x * blockDim.x + threadIdx.x;
         if (idx < n)
@@ -92,14 +79,14 @@ Main differences from the synchronous version
     }
 
     // Kernel 2: Multiplies each element by 2
-    __global__ void kernel2(float* data, int n) 
+    __global__ void kernel2(float* data, int n)
     {
         int idx = blockIdx.x * blockDim.x + threadIdx.x;
         if (idx < n)
             data[idx] *= 2.0f;
     }
 
-    int main() 
+    int main()
     {
         const int n1 = 512;
         const int n2 = 512;
@@ -158,8 +145,6 @@ Main differences from the synchronous version
         return 0;
     }
 
-
-
 .. list-table::
    :header-rows: 1
    :widths: 30 70
@@ -176,8 +161,6 @@ Main differences from the synchronous version
      - Blocks host until all commands in the stream have completed.
    * - ``cudaStreamDestroy()``
      - Destroys the CUDA stream and frees associated resources.
-
-
 
 .. admonition:: Key Points
    :class: hint

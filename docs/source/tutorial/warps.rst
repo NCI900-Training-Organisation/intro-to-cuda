@@ -1,4 +1,3 @@
-
 Understanding Warps in CUDA
 ==============================
 
@@ -10,9 +9,8 @@ Understanding Warps in CUDA
     #. Learn about warps in CUDA programming.
     #. Understand how warps affect performance and execution in CUDA kernels.
 
-
-Warps are a fundamental concept in CUDA programming, representing how threads are organized and executed on NVIDIA GPUs. Understanding warps is crucial 
-for writing efficient CUDA kernels. 
+Warps are a fundamental concept in CUDA programming, representing how threads are organized and executed on NVIDIA GPUs. Understanding warps is crucial
+for writing efficient CUDA kernels.
 
 What is a Warp?
 ------------------
@@ -67,11 +65,10 @@ Example:
         // Odd threads do that
     }
 
-In this example, even and odd threads follow different branches, leading to warp divergence. This means that the warp will execute the even threads first, 
+In this example, even and odd threads follow different branches, leading to warp divergence. This means that the warp will execute the even threads first,
 then the odd threads, effectively serializing the execution and reducing performance.
 
-
-Similaly it is a bad parctice to have threads numbers that are not a multiple of 32 in a warp. This can lead to inefficient use of resources and increased 
+Similaly it is a bad parctice to have threads numbers that are not a multiple of 32 in a warp. This can lead to inefficient use of resources and increased
 execution time.
 
 For example, if a CUDA thread block has 30 threads, the last two threads in the warp will not be utilized, leading to wasted resources.
@@ -86,7 +83,6 @@ So, the block will contain 2 warps, but the second warp is partially full (only 
 * Warp 1 will execute with only 8 active threads and the remaining 24 threads inactive (masked out).
 
 The GPU still treats it as a full warp in terms of scheduling. Performance-wise, you're paying the cost of a full warp but using only part of it.
-
 
 .. important::
 
@@ -113,7 +109,6 @@ Some additinal details
    :width: 600px
    :align: center
    :alt: Processing Partitions
-
 
 .. admonition:: Key Points
    :class: hint
