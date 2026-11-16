@@ -12,33 +12,20 @@ Colour pixels by the GPU timestamp recorded by each thread.
 
 The timestamp is a measurement point, not a guarantee of warp execution order. Plotting uses NumPy and Matplotlib.
 
-Build with CMake
-----------------
-
-From the repository root on Gadi, configure CMake and build this exercise's
-executables manually. CMake 3.18 or newer must be available.
-
-.. code-block:: bash
-
-   module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
-   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
-   cmake --build exercises/build --target ex_04_warps_warp_timing --parallel 4
-
-The executable is written directly into ``exercises/build``:
-
-.. code-block:: text
-
-   exercises/build/ex_04_warps_warp_timing
-
-Run the executable inside a GPU allocation, or submit the batch job below.
-Rebuild after changing the source; the job script does not compile it.
-
 Submit a batch job
 ------------------
 
-Build the executables in ``exercises/build`` first (see :doc:`../../job_submission`).
-From the repository root,
-change to ``job-script`` and submit the prebuilt program on Gadi:
+From the repository root, change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. note::
+
+   Before submitting, load the GCC, CUDA and MKL modules and run this single
+   command from the repository root to compile all exercises. Executables are
+   written to ``exercises/build``:
+
+   .. code-block:: bash
+
+      cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
 
 .. code-block:: bash
 

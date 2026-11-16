@@ -14,7 +14,7 @@ Inspect ``exercises/02-gpu-exec-model/print_launch.cu``. Its kernel launches
    print_launch_info<<<2, 4>>>();
 
 Each thread prints ``threadIdx.x``, ``blockIdx.x``, ``blockDim.x`` and ``gridDim.x``.
-Compile manually using the **Build with CMake** instructions below.
+Compile manually using the build command in the note below.
 
 Run the executable inside an allocated GPU session:
 
@@ -147,42 +147,20 @@ global IDs (``G``), local IDs (``L``), block coordinates (``B``), and thread
 coordinates (``T``). Heavy solid lines separate blocks. Only Python is required;
 these indices are calculated from formulas without GPU execution.
 
-Build with CMake
-----------------
-
-From the repository root on Gadi, configure CMake and build this exercise's
-executables manually. CMake 3.18 or newer must be available.
-
-.. code-block:: bash
-
-   module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
-   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
-   cmake --build exercises/build --parallel 4 --target \
-     ex_02_gpu_exec_model_double_global_index \
-     ex_02_gpu_exec_model_double_thread_index \
-     ex_02_gpu_exec_model_print_global_index \
-     ex_02_gpu_exec_model_print_launch \
-     ex_02_gpu_exec_model_thread_indexing
-
-The executables are written directly into ``exercises/build``:
-
-.. code-block:: text
-
-   exercises/build/ex_02_gpu_exec_model_double_global_index
-   exercises/build/ex_02_gpu_exec_model_double_thread_index
-   exercises/build/ex_02_gpu_exec_model_print_global_index
-   exercises/build/ex_02_gpu_exec_model_print_launch
-   exercises/build/ex_02_gpu_exec_model_thread_indexing
-
-Run the executables inside a GPU allocation, or submit the batch job below.
-Rebuild after changing the source; the job script does not compile it.
-
 Submit a batch job
 ------------------
 
-Build the executables in ``exercises/build`` first (see :doc:`../../job_submission`).
-From the repository root,
-change to ``job-script`` and submit the prebuilt program on Gadi:
+From the repository root, change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. note::
+
+   Before submitting, load the GCC, CUDA and MKL modules and run this single
+   command from the repository root to compile all exercises. Executables are
+   written to ``exercises/build``:
+
+   .. code-block:: bash
+
+      cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
 
 .. code-block:: bash
 

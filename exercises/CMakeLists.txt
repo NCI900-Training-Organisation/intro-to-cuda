@@ -62,8 +62,9 @@ foreach(exercise_dir IN LISTS exercise_dirs)
                 target_link_libraries(${target} PRIVATE CUDA::cublas)
             endif()
             if(folder STREQUAL "09-dynamic-parallelism")
+                # CMake/nvcc handle device-runtime linking for separable CUDA
+                # compilation; FindCUDAToolkit does not define CUDA::cudadevrt.
                 set_target_properties(${target} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
-                target_link_libraries(${target} PRIVATE CUDA::cudadevrt)
             elseif(folder STREQUAL "15-profiling")
                 target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>)
             elseif(folder STREQUAL "16-debugging")

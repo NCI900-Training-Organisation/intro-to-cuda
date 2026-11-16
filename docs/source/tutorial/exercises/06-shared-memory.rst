@@ -13,33 +13,20 @@ Adjust a grayscale image using its average brightness.
 
 Threads cooperate through a shared-memory reduction. The CPU combines block totals, and another kernel applies the brightness gain. ``exercises/06-shared-memory/image_tools.py`` generates the image and CPU reference without extra Python dependencies.
 
-Build with CMake
-----------------
-
-From the repository root on Gadi, configure CMake and build this exercise's
-executables manually. CMake 3.18 or newer must be available.
-
-.. code-block:: bash
-
-   module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
-   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
-   cmake --build exercises/build --target ex_06_shared_memory_brightness --parallel 4
-
-The executable is written directly into ``exercises/build``:
-
-.. code-block:: text
-
-   exercises/build/ex_06_shared_memory_brightness
-
-Run the executable inside a GPU allocation, or submit the batch job below.
-Rebuild after changing the source; the job script does not compile it.
-
 Submit a batch job
 ------------------
 
-Build the executables in ``exercises/build`` first (see :doc:`../../job_submission`).
-From the repository root,
-change to ``job-script`` and submit the prebuilt program on Gadi:
+From the repository root, change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. note::
+
+   Before submitting, load the GCC, CUDA and MKL modules and run this single
+   command from the repository root to compile all exercises. Executables are
+   written to ``exercises/build``:
+
+   .. code-block:: bash
+
+      cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
 
 .. code-block:: bash
 
