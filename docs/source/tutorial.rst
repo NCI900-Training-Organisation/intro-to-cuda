@@ -48,21 +48,21 @@ participants will learn how to harness the computational power of GPUs to accele
 
 .. toctree::
 
-    tutorial/gpu.rst
+    tutorial/01-gpu.rst
     tutorial/exercises/01-gpu.rst
-    tutorial/gpu_exec_model.rst
+    tutorial/02-gpu-exec-model.rst
     tutorial/exercises/02-gpu-exec-model.rst
-    tutorial/GPU_workflow.rst
+    tutorial/03-gpu-workflow.rst
     tutorial/exercises/03-gpu-workflow.rst
-    tutorial/warps.rst
+    tutorial/04-warps.rst
     tutorial/exercises/04-warps.rst
-    tutorial/asynchronous.rst
+    tutorial/05-asynchronous.rst
     tutorial/exercises/05-asynchronous.rst
-    tutorial/shared_memory.rst
+    tutorial/06-shared-memory.rst
     tutorial/exercises/06-shared-memory.rst
-    tutorial/events.rst
+    tutorial/07-events.rst
     tutorial/exercises/07-events.rst
-    tutorial/unified_mem.rst
+    tutorial/08-unified-memory.rst
     tutorial/exercises/08-unified-memory.rst
 
 **Advanced Topics**:
@@ -108,19 +108,19 @@ participants will learn how to harness the computational power of GPUs to accele
 
 .. toctree::
 
-    tutorial/dynamic.rst
+    tutorial/09-dynamic-parallelism.rst
     tutorial/exercises/09-dynamic-parallelism.rst
-    tutorial/occupancy.rst
+    tutorial/10-occupancy.rst
     tutorial/exercises/10-occupancy.rst
-    tutorial/cuda_graphs.rst
+    tutorial/11-cuda-graphs.rst
     tutorial/exercises/11-cuda-graphs.rst
-    tutorial/mempool.rst
+    tutorial/12-memory-pools.rst
     tutorial/exercises/12-memory-pools.rst
-    tutorial/cuBLAS.rst
+    tutorial/13-cublas.rst
     tutorial/exercises/13-cublas.rst
-    tutorial/multi-GPU.rst
+    tutorial/14-multi-gpu.rst
     tutorial/exercises/14-multi-gpu.rst
-    tutorial/profiling.rst
+    tutorial/15-profiling.rst
     tutorial/exercises/15-profiling.rst
-    tutorial/debug.rst
+    tutorial/16-debugging.rst
     tutorial/exercises/16-debugging.rst
