@@ -2,6 +2,17 @@
 
 Folders 01–08 match the numbered notebooks. Advanced topics continue the sequence in documentation order. Source filenames describe their purpose; each existing Makefile builds its local sources.
 
+To run any numbered exercise on Gadi without Jupyter, use the
+[PBS job scripts](../job-script/README.md). For example, from the repository root:
+
+```bash
+make -C exercises/02-gpu-exec-model
+cd job-script
+qsub 02-gpu-exec-model.pbs
+```
+
+Compile separately before submitting; the job scripts only run the prebuilt executables.
+
 | Folder | Notebook | Documentation |
 | --- | --- | --- |
 | [01-gpu](01-gpu/) | [01-gpu.ipynb](../notebooks/01-gpu.ipynb) | [GPU Architecture](../docs/source/tutorial/exercises/01-gpu.rst) |

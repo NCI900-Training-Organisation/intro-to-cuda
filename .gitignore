@@ -71,6 +71,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# Exercise batch-job outputs
+/job-script/cuda[0-9][0-9].o*
+/job-script/cuda[0-9][0-9].e*
+
 # PyBuilder
 .pybuilder/
 target/
