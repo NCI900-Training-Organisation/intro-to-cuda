@@ -12,3 +12,17 @@ Adjust a grayscale image using its average brightness.
 #. Try image dimensions that produce an incomplete final block. Explain why unused threads contribute zero but still reach every barrier.
 
 Threads cooperate through a shared-memory reduction. The CPU combines block totals, and another kernel applies the brightness gain. ``exercises/06-shared-memory/image_tools.py`` generates the image and CPU reference without extra Python dependencies.
+
+Submit a batch job
+------------------
+
+Compile this exercise separately with ``make`` first. From the repository root,
+change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. code-block:: bash
+
+   cd job-script
+   qsub 06-shared-memory.pbs
+
+If you are already in ``job-script``, run only the ``qsub`` command.
+See :doc:`../../job_submission` for setup, monitoring and output locations.

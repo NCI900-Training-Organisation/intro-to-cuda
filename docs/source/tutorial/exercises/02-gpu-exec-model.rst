@@ -24,3 +24,17 @@ different configurations; each dimension must be from 1 to 16. The output shows
 global IDs (``G``), local IDs (``L``), block coordinates (``B``), and thread
 coordinates (``T``). Heavy solid lines separate blocks. Only Python is required;
 these indices are calculated from formulas without GPU execution.
+
+Submit a batch job
+------------------
+
+Compile this exercise separately with ``make`` first. From the repository root,
+change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. code-block:: bash
+
+   cd job-script
+   qsub 02-gpu-exec-model.pbs
+
+If you are already in ``job-script``, run only the ``qsub`` command.
+See :doc:`../../job_submission` for setup, monitoring and output locations.

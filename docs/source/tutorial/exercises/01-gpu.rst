@@ -18,3 +18,17 @@ Exercise 01: GPU Architecture
 
     1. Check the GPU architecture of your system using the command ``nvidia-smi``.
     2. Run the code ``exercises/01-gpu/architecture.cu`` and check the output.
+
+Submit a batch job
+------------------
+
+Compile this exercise separately with ``make`` first. From the repository root,
+change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. code-block:: bash
+
+   cd job-script
+   qsub 01-gpu.pbs
+
+If you are already in ``job-script``, run only the ``qsub`` command.
+See :doc:`../../job_submission` for setup, monitoring and output locations.

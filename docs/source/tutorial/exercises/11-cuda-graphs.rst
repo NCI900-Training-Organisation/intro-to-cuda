@@ -10,3 +10,17 @@ Exercise 11: CUDA Graphs
       2. Inspect and then run the code ``exercises/11-cuda-graphs/compare_graphs.cu`` to comare the performance of the CUDA graphs with normal kernel laucnhes.
       3. Inspect and then run the code ``exercises/11-cuda-graphs/custom_graph.cu`` to see how to create a custom graph.
       4. Inspect and then run the code ``exercises/11-cuda-graphs/update_node_args.cu`` to see how to update the arguments of a node in a graph.
+
+Submit a batch job
+------------------
+
+Compile this exercise separately with ``make`` first. From the repository root,
+change to ``job-script`` and submit the prebuilt program on Gadi:
+
+.. code-block:: bash
+
+   cd job-script
+   qsub 11-cuda-graphs.pbs
+
+If you are already in ``job-script``, run only the ``qsub`` command.
+See :doc:`../../job_submission` for setup, monitoring and output locations.
