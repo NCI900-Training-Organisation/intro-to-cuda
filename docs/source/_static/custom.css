@@ -1,0 +1,20 @@
+img.logo__image {
+    width: 120px;
+    height: auto;
+}
+
+.bd-main .bd-content .bd-article-container {
+    max-width: 1000px;
+}
+
+code.literal {
+    color: #8c1b13;
+}
+
+.admonition.exercise {
+    border-left: 4px solid #2980b9;
+}
+
+.image-spaced {
+    margin-bottom: 1.5rem;
+}
