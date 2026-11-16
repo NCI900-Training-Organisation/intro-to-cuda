@@ -11,12 +11,12 @@
     } \
 } while (0)
 
-__global__ void double_values(int *values, int count)
+__global__ void double_values(int *values)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < count) {
-        values[i] *= 2;
-    }
+
+    values[i] *= 2;
+
 }
 
 int main()
@@ -34,7 +34,7 @@ int main()
     CUDA_CHECK(cudaMemcpy(device_values, input, sizeof(input), cudaMemcpyHostToDevice));
 
     // Two blocks, four threads per block: eight threads for eight elements.
-    double_values<<<2, 4>>>(device_values, count);
+    double_values<<<2, 4>>>(device_values);
     CUDA_CHECK(cudaGetLastError());
     CUDA_CHECK(cudaDeviceSynchronize());
     CUDA_CHECK(cudaMemcpy(output, device_values, sizeof(output), cudaMemcpyDeviceToHost));
