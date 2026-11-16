@@ -8,16 +8,16 @@
 #PBS -l wd
 #PBS -j oe
 
-# Run make separately. Submit from job-script: qsub 02-gpu-exec-model.pbs
+# Build separately with CMake in exercises/build. Submit from job-script: qsub 02-gpu-exec-model.pbs
 set -e
 module load gcc/14.2.0 cuda/12.9.0
 module load python3/3.11.0
 cd "$PBS_O_WORKDIR/../exercises/02-gpu-exec-model"
 
-./print_launch
-./print_global_index
-./double_thread_index
-./double_global_index
+"../build/ex_02_gpu_exec_model_print_launch"
+"../build/ex_02_gpu_exec_model_print_global_index"
+"../build/ex_02_gpu_exec_model_double_thread_index"
+"../build/ex_02_gpu_exec_model_double_global_index"
 # grid_x grid_y block_x block_y
-./thread_indexing 2 2 2 2 threads.csv
+"../build/ex_02_gpu_exec_model_thread_indexing" 2 2 2 2 threads.csv
 python3 draw_indices.py 2 2 2 2 --csv threads.csv --terminal --output threads.svg

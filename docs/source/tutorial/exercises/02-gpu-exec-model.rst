@@ -18,13 +18,14 @@ Compile manually from the repository root:
 
 .. code-block:: bash
 
-   make -C exercises/02-gpu-exec-model
+   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+   cmake --build exercises/build --parallel 4
 
 Run the executable inside an allocated GPU session:
 
 .. code-block:: bash
 
-   ./exercises/02-gpu-exec-model/print_launch
+   ./exercises/build/ex_02_gpu_exec_model_print_launch
 
 To submit only this example, run from ``job-script``:
 
@@ -52,11 +53,11 @@ values, plus a unique global thread index:
 
    unsigned int global_index = blockIdx.x * blockDim.x + threadIdx.x;
 
-The same ``make`` command builds both examples. In an allocated GPU session, run:
+The same CMake build command builds both examples. In an allocated GPU session, run:
 
 .. code-block:: bash
 
-   ./exercises/02-gpu-exec-model/print_global_index
+   ./exercises/build/ex_02_gpu_exec_model_print_global_index
 
 To submit only this example, run from ``job-script``:
 
@@ -77,7 +78,7 @@ Double an array: local index versus global index
 
 These two separate programs start with ``{1, 2, 3, 4, 5, 6, 7, 8}`` and launch
 two blocks of four threads. Each prints the input, actual output and expected
-output. The same ``make`` command builds both programs.
+output. The same CMake build command builds both programs.
 
 First, inspect ``double_thread_index.cu``, which intentionally uses the wrong index:
 
@@ -108,8 +109,8 @@ Run in an allocated GPU session, from the repository root:
 
 .. code-block:: bash
 
-   ./exercises/02-gpu-exec-model/double_thread_index
-   ./exercises/02-gpu-exec-model/double_global_index
+   ./exercises/build/ex_02_gpu_exec_model_double_thread_index
+   ./exercises/build/ex_02_gpu_exec_model_double_global_index
 
 Or, after compiling manually, submit the individual jobs from ``job-script``:
 
@@ -154,7 +155,8 @@ these indices are calculated from formulas without GPU execution.
 Submit a batch job
 ------------------
 
-Compile this exercise separately with ``make`` first. From the repository root,
+Build the executables in ``exercises/build`` first (see :doc:`../../job_submission`).
+From the repository root,
 change to ``job-script`` and submit the prebuilt program on Gadi:
 
 .. code-block:: bash

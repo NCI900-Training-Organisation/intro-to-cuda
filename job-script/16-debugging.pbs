@@ -8,10 +8,10 @@
 #PBS -l wd
 #PBS -j oe
 
-# Run make separately. Submit from job-script: qsub 16-debugging.pbs
+# Build separately with CMake in exercises/build. Submit from job-script: qsub 16-debugging.pbs
 set -e
 module load gcc/14.2.0 cuda/12.9.0
 cd "$PBS_O_WORKDIR/../exercises/16-debugging"
 
 # Capture the intentional bug and backtrace without an interactive debugger.
-cuda-gdb --batch -ex run -ex bt ./vector_add
+cuda-gdb --batch -ex run -ex bt "../build/ex_16_debugging_vector_add"

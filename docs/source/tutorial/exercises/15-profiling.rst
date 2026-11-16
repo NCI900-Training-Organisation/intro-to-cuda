@@ -13,7 +13,8 @@ Exercise 15: Profiling with Nsight Systems
 Submit a batch job
 ------------------
 
-Compile this exercise separately with ``make`` first. From the repository root,
+Build the executables in ``exercises/build`` first (see :doc:`../../job_submission`).
+From the repository root,
 change to ``job-script`` and submit the prebuilt program on Gadi:
 
 .. code-block:: bash

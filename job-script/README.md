@@ -1,14 +1,18 @@
 # Gadi PBS job scripts
 
-Compile each exercise separately with `make`. Then submit its job from this directory:
+Build separately with CMake from the repository root, then submit from `job-script`:
 
 ```bash
+cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake --build exercises/build --parallel 4
 cd job-script
 qsub 02-gpu-exec-model.pbs
 ```
 
 There is one script for every exercise, numbered 00–16. Each script loads the
-modules, changes to `../exercises/<exercise>`, and runs the prebuilt executable(s).
+modules, changes to `../exercises/<exercise>`, and runs the prebuilt executable(s) from
+`../exercises/build/` (relative to `job-script`). Names include the exercise
+folder, for example `ex_03_gpu_workflow_vector_add`.
 There are no build steps or shared shell helpers.
 
 The defaults are project `vp91`, queue `gpuvolta`, 15 minutes, one GPU, 12 CPUs and

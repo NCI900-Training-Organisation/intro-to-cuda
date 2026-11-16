@@ -1,12 +1,38 @@
 # CUDA exercises
 
+Build all C/C++ and CUDA programs, including nested legacy solutions, with CMake
+3.18 or newer. On Gadi, load the compiler, CUDA, MKL and an available CMake module,
+then run from the repository root:
+
+```bash
+module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
+cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake --build exercises/build --parallel 4
+```
+
+Executables appear directly in `exercises/build/` with unique names matching
+their CMake targets, such as
+`ex_02_gpu_exec_model_double_global_index`, so you can build one program:
+
+```bash
+cmake --build exercises/build --target ex_02_gpu_exec_model_double_global_index
+```
+
+The PBS scripts use these uniquely named binaries directly in `exercises/build/`.
+
+The default CUDA architecture is `70` for Gadi's V100 GPUs; override with
+`-DCMAKE_CUDA_ARCHITECTURES=80`, for example, for an A100. Without MKL, add
+`-DEXERCISES_BUILD_MKL=OFF` to skip only the CPU MKL benchmark. Python helpers
+run directly and are not compiled. Existing per-folder Makefiles still work.
+
 Folders 01–08 match the numbered notebooks. Advanced topics continue the sequence in documentation order. Source filenames describe their purpose; each existing Makefile builds its local sources.
 
 To run any numbered exercise on Gadi without Jupyter, use the
 [PBS job scripts](../job-script/README.md). For example, from the repository root:
 
 ```bash
-make -C exercises/02-gpu-exec-model
+cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake --build exercises/build --parallel 4
 cd job-script
 qsub 02-gpu-exec-model.pbs
 ```
