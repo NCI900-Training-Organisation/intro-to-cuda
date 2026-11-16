@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N cuda09
+#PBS -N 09-dynamic-parallelism
 #PBS -P vp91
 #PBS -q gpuvolta
 #PBS -l walltime=00:15:00

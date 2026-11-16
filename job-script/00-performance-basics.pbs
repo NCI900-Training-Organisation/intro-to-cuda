@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N cuda00
+#PBS -N 00-performance-basics
 #PBS -P vp91
 #PBS -q gpuvolta
 #PBS -l walltime=00:15:00

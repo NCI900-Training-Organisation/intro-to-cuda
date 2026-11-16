@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N cuda11
+#PBS -N 11-cuda-graphs
 #PBS -P vp91
 #PBS -q gpuvolta
 #PBS -l walltime=00:15:00

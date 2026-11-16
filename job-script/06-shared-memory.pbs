@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N cuda06
+#PBS -N 06-shared-memory
 #PBS -P vp91
 #PBS -q gpuvolta
 #PBS -l walltime=00:15:00

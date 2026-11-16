@@ -15,7 +15,7 @@ The defaults are project `vp91`, queue `gpuvolta`, 15 minutes, one GPU, 12 CPUs 
 48 GB memory. Exercise 14 requests two GPUs, 24 CPUs and 96 GB. Change the PBS
 project and storage lines if using another allocation or filesystem.
 
-PBS logs appear in `job-script`, for example `cuda02.o123456`. Generated CSV,
+PBS logs appear in `job-script`, for example `02-gpu-exec-model.o123456`. Generated CSV,
 SVG, raw-image and profiling files are saved in the corresponding exercise folder.
 Repeated runs overwrite those generated files; run one job per exercise at a time.
 

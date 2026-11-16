@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N cuda12
+#PBS -N 12-memory-pools
 #PBS -P vp91
 #PBS -q gpuvolta
 #PBS -l walltime=00:15:00
