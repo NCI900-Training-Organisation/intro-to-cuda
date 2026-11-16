@@ -2,6 +2,7 @@
 
 Without --csv, draw the mathematical index mapping (no GPU execution).
 With --csv, validate and draw records produced by thread_indexing.cu.
+Use --terminal for a plain-text grid, --output for an SVG, or both.
 """
 import argparse
 import csv
@@ -16,7 +17,7 @@ def reference_records(gx, gy, bx, by):
                        bx=x // bx, by=y // by, tx=x % bx, ty=y % by, x=x, y=y)
 
 
-def draw(gx, gy, bx, by, output, csv_path=None, records=None):
+def validated_records(gx, gy, bx, by, csv_path=None, records=None):
     expected = list(reference_records(gx, gy, bx, by))
     if csv_path and records is not None:
         raise ValueError("Provide CSV input or notebook records, not both")
@@ -36,6 +37,45 @@ def draw(gx, gy, bx, by, output, csv_path=None, records=None):
     else:
         records = expected
         origin = 'Reference diagram calculated from indexing formulas; no GPU execution'
+    return records, origin
+
+
+def terminal_grid(gx, gy, bx, by, csv_path=None, records=None):
+    records, origin = validated_records(gx, gy, bx, by, csv_path, records)
+    cells = [
+        (f"G {r['global_']} L {r['local']}",
+         f"B ({r['bx']},{r['by']})", f"T ({r['tx']},{r['ty']})")
+        for r in records
+    ]
+    width = max(len(line) for cell in cells for line in cell) + 2
+    columns = gx * bx
+
+    def border(block_edge):
+        line = '++'
+        for x in range(columns):
+            line += ('=' if block_edge else '-') * width
+            line += '++' if (x + 1) % bx == 0 else '+'
+        return line
+
+    lines = [f'Grid ({gx}, {gy}) blocks | Block ({bx}, {by}) threads',
+             origin, 'G = global ID; L = local ID; B = block; T = threadIdx',
+             'x increases right; y increases down. Double bars mark block boundaries.',
+             border(True)]
+    for y in range(gy * by):
+        row = cells[y * columns:(y + 1) * columns]
+        for field in range(3):
+            line = '||'
+            for x, cell in enumerate(row):
+                line += cell[field].center(width)
+                line += '||' if (x + 1) % bx == 0 else '|'
+            lines.append(line)
+        lines.append(border((y + 1) % by == 0))
+    lines.append(f'{gx * gy} blocks x {bx * by} threads = {len(records)} threads')
+    return '\n'.join(lines)
+
+
+def draw(gx, gy, bx, by, output, csv_path=None, records=None):
+    records, origin = validated_records(gx, gy, bx, by, csv_path, records)
     cw, ch, margin, top = 108, 76, 32, 120
     width, height = gx * bx * cw + margin * 2, gy * by * ch + top + 48
     width = max(width, 740)
@@ -70,12 +110,18 @@ def draw(gx, gy, bx, by, output, csv_path=None, records=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('dimensions', type=int, nargs=4, metavar='DIM', help='grid_x grid_y block_x block_y')
-    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--output', type=Path, help='Save an SVG image')
+    parser.add_argument('--terminal', action='store_true', help='Print a plain-text grid')
     parser.add_argument('--csv', type=Path)
     args = parser.parse_args()
     if any(d < 1 or d > 16 for d in args.dimensions):
         parser.error('Each dimension must be from 1 to 16')
-    print(draw(*args.dimensions, args.output, args.csv))
+    if not args.output and not args.terminal:
+        parser.error('Provide --output, --terminal, or both')
+    if args.terminal:
+        print(terminal_grid(*args.dimensions, csv_path=args.csv))
+    if args.output:
+        print(draw(*args.dimensions, args.output, args.csv))
 
 
 if __name__ == '__main__':
