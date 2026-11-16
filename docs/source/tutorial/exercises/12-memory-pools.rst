@@ -9,6 +9,30 @@ Exercise 12: Memory Pools
       1. Inspect and then run the code ``exercises/12-memory-pools/default_mempool.cu`` to see you CUDA graphs work.
       2. Inspect and then run the code ``exercises/12-memory-pools/custom_mempool.cu`` to comare the performance of the CUDA graphs with normal kernel laucnhes.
 
+Build with CMake
+----------------
+
+From the repository root on Gadi, configure CMake and build this exercise's
+executables manually. CMake 3.18 or newer must be available.
+
+.. code-block:: bash
+
+   module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
+   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+   cmake --build exercises/build --parallel 4 --target \
+     ex_12_memory_pools_custom_mempool \
+     ex_12_memory_pools_default_mempool
+
+The executables are written directly into ``exercises/build``:
+
+.. code-block:: text
+
+   exercises/build/ex_12_memory_pools_custom_mempool
+   exercises/build/ex_12_memory_pools_default_mempool
+
+Run the executables inside a GPU allocation, or submit the batch job below.
+Rebuild after changing the source; the job script does not compile it.
+
 Submit a batch job
 ------------------
 
