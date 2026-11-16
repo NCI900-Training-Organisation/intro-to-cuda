@@ -1,5 +1,5 @@
-Exercise 1
-================
+Exercise 01: GPU Architecture
+=============================
 
 
 
@@ -18,4 +18,4 @@ Exercise 1
 
 
     1. Check the GPU architecture of your system using the command ``nvidia-smi``.
-    2. Run the code `exercises/exercise_1/1_architecture.cu` and check the output.`
+    2. Run the code ``exercises/01-gpu/architecture.cu`` and check the output.

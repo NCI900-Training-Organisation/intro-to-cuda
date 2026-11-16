@@ -15,27 +15,35 @@ participants will learn how to harness the computational power of GPUs to accele
     - Duration
   * - GPU Overview
     - 30 minutes
-  * - Exercise 1
+  * - Exercise 01: GPU Architecture
     - 20 minutes
   * - GPU Execution Model
     - 60 minutes
+  * - Exercise 02: GPU Execution Model
+    - 25 minutes
   * - GPU Workflow
     - 60 minutes
-  * - Exercise 2
+  * - Exercise 03: GPU Workflow
+    - 20 minutes
+  * - Warps
+    - 30 minutes
+  * - Exercise 04: Warps
     - 20 minutes
   * - Asynchronous CUDA Calls
     - 60 minutes
-  * - Exercise 3
+  * - Exercise 05: Asynchronous CUDA Calls
     - 20 minutes
   * - Shared Memory
     - 30 minutes
+  * - Exercise 06: Shared Memory
+    - 30 minutes
   * - CUDA Events
     - 30 minutes
-  * - Exercise 4
+  * - Exercise 07: CUDA Events
     - 20 minutes
   * - Unified Memory
     - 30 minutes
-  * - Exercise 5
+  * - Exercise 08: Unified Memory
     - 20 minutes
 
 
@@ -43,18 +51,21 @@ participants will learn how to harness the computational power of GPUs to accele
 .. toctree::
 
     tutorial/gpu.rst
-    tutorial/exercise_1.rst
+    tutorial/exercises/01-gpu.rst
     tutorial/gpu_exec_model.rst
+    tutorial/exercises/02-gpu-exec-model.rst
     tutorial/GPU_workflow.rst
-    tutorial/exercise_2.rst
+    tutorial/exercises/03-gpu-workflow.rst
     tutorial/warps.rst
+    tutorial/exercises/04-warps.rst
     tutorial/asynchronous.rst
-    tutorial/exercise_3.rst
+    tutorial/exercises/05-asynchronous.rst
     tutorial/shared_memory.rst
+    tutorial/exercises/06-shared-memory.rst
     tutorial/events.rst
-    tutorial/exercise_4.rst
+    tutorial/exercises/07-events.rst
     tutorial/unified_mem.rst
-    tutorial/exercise_5.rst
+    tutorial/exercises/08-unified-memory.rst
   
 
   
@@ -68,35 +79,35 @@ participants will learn how to harness the computational power of GPUs to accele
     - Duration
   * - Dynamic Parallelism
     - 30 minutes
-  * - Exercise 6
+  * - Exercise 09: Dynamic Parallelism
     - 20 minutes
   * - Occupancy
     - 20 minutes
-  * - Exercise 7
+  * - Exercise 10: Occupancy
     - 20 minutes
   * - CUDA Graphs
     - 60 minutes
-  * - Exercise 8
+  * - Exercise 11: CUDA Graphs
     - 45 minutes
   * - Memory pools
     - 45 minutes
-  * - Exercise 9
+  * - Exercise 12: Memory Pools
     - 30 minutes
   * - cuBLAS
     - 30 minutes
-  * - Exercise 10
+  * - Exercise 13: cuBLAS
     - 30 minutes
   * - Multi-GPU Workflow
     - 20 minutes
-  * - Exercise 11
+  * - Exercise 14: Multi-GPU Workflow
     - 15 minutes
   * - Profiling using Nsight Systems
     - 15 minutes
-  * - Exercise 12
+  * - Exercise 15: Profiling with Nsight Systems
     - 20 minutes
   * - Debugging using cuda-gdb
     - 15 minutes
-  * - Exercise 13
+  * - Exercise 16: Debugging with cuda-gdb
     - 15 minutes
   
 
@@ -104,21 +115,21 @@ participants will learn how to harness the computational power of GPUs to accele
 .. toctree::
     
     tutorial/dynamic.rst
-    tutorial/exercise_6.rst
+    tutorial/exercises/09-dynamic-parallelism.rst
     tutorial/occupancy.rst
-    tutorial/exercise_7.rst
+    tutorial/exercises/10-occupancy.rst
     tutorial/cuda_graphs.rst
-    tutorial/exercise_8.rst
+    tutorial/exercises/11-cuda-graphs.rst
     tutorial/mempool.rst
-    tutorial/exercise_9.rst
+    tutorial/exercises/12-memory-pools.rst
     tutorial/cuBLAS.rst
-    tutorial/exercise_10.rst
+    tutorial/exercises/13-cublas.rst
     tutorial/multi-GPU.rst
-    tutorial/exercise_11.rst
+    tutorial/exercises/14-multi-gpu.rst
     tutorial/profiling.rst
-    tutorial/exercise_12.rst
+    tutorial/exercises/15-profiling.rst
     tutorial/debug.rst
-    tutorial/exercise_13.rst
+    tutorial/exercises/16-debugging.rst
     
     
 

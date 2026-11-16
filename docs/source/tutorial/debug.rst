@@ -31,7 +31,7 @@ Then launch the application with ``cuda-gdb``
 .. code-block:: bash
     :linenos:
 
-    cuda-gdb ./18_vector_add
+    cuda-gdb ./vector_add
 
 
 .. admonition:: Key Points

@@ -27,7 +27,7 @@ To profile the code first compile with line info
 .. code-block:: bash
     :linenos:
 
-    nvcc -O2 -lineinfo -o 17_vector_add_unified 17_vector_add_unified.cu
+    nvcc -O2 -lineinfo -o vector_add_unified vector_add_unified.cu
 
 
 then profile the executable
@@ -39,8 +39,8 @@ then profile the executable
         --stats=true \
         --trace=cuda,nvtx,osrt \
         --cuda-memory-usage=true \
-        -o 17_vector_add_unified_profile \
-        ./17_vector_add_unified
+        -o vector_add_unified_profile \
+        ./vector_add_unified
 
 
 .. list-table:: Explanation of `nsys profile` flags
