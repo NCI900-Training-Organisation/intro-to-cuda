@@ -33,6 +33,10 @@ Choose the job for the exercise you want to run.
      - ``qsub 02a-print-launch.pbs``
    * - 02b: Thread and block information plus global index
      - ``qsub 02b-print-global-index.pbs``
+   * - 02c: Double an array using the local index (intentional bug)
+     - ``qsub 02c-double-thread-index.pbs``
+   * - 02d: Double an array using the global index
+     - ``qsub 02d-double-global-index.pbs``
    * - 03-gpu-workflow
      - ``qsub 03-gpu-workflow.pbs``
    * - 04-warps

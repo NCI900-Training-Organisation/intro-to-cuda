@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N 02d-double-global-index
+#PBS -P vp91
+#PBS -q gpuvolta
+#PBS -l walltime=00:15:00
+#PBS -l ncpus=12,ngpus=1,mem=48GB
+#PBS -l storage=scratch/vp91
+#PBS -l wd
+#PBS -j oe
+
+# Run make separately. Submit from job-script: qsub 02d-double-global-index.pbs
+set -e
+module load gcc/14.2.0 cuda/12.9.0
+cd "$PBS_O_WORKDIR/../exercises/02-gpu-exec-model"
+
+
+./double_global_index

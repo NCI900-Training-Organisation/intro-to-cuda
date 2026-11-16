@@ -16,6 +16,8 @@ cd "$PBS_O_WORKDIR/../exercises/02-gpu-exec-model"
 
 ./print_launch
 ./print_global_index
+./double_thread_index
+./double_global_index
 # grid_x grid_y block_x block_y
 ./thread_indexing 2 2 2 2 threads.csv
 python3 draw_indices.py 2 2 2 2 --csv threads.csv --terminal --output threads.svg

@@ -72,6 +72,58 @@ from 0 to 7 across the whole grid. Block dimension is 4 and grid dimension is 2.
 #. Change the launch to ``<<<4, 2>>>`` and predict all five printed values.
    Does the number of threads or the range of global indices change?
 
+Double an array: local index versus global index
+------------------------------------------------
+
+These two separate programs start with ``{1, 2, 3, 4, 5, 6, 7, 8}`` and launch
+two blocks of four threads. Each prints the input, actual output and expected
+output. The same ``make`` command builds both programs.
+
+First, inspect ``double_thread_index.cu``, which intentionally uses the wrong index:
+
+.. code-block:: cuda
+
+   int i = threadIdx.x;
+   if (i < count) {
+       values[i] *= 2;
+   }
+
+Both blocks address indices 0–3; neither addresses indices 4–7. The overlapping
+read/modify/write operations also create a **data race**. Do not expect a fixed
+result for the first four elements or assume that they are reliably doubled twice.
+``cudaDeviceSynchronize()`` on the host waits for completion; it does not prevent
+these conflicting accesses within the kernel.
+
+Next, inspect ``double_global_index.cu``. It changes the index calculation to:
+
+.. code-block:: cuda
+
+   int i = blockIdx.x * blockDim.x + threadIdx.x;
+
+Now the first block handles indices 0–3 and the second handles indices 4–7.
+Every element is doubled exactly once, producing ``2 4 6 8 10 12 14 16``.
+The program verifies all eight results against the CPU expectation.
+
+Run in an allocated GPU session, from the repository root:
+
+.. code-block:: bash
+
+   ./exercises/02-gpu-exec-model/double_thread_index
+   ./exercises/02-gpu-exec-model/double_global_index
+
+Or, after compiling manually, submit the individual jobs from ``job-script``:
+
+.. code-block:: bash
+
+   qsub 02c-double-thread-index.pbs
+   qsub 02d-double-global-index.pbs
+
+The main ``02-gpu-exec-model.pbs`` job also runs both programs.
+
+#. Predict which elements each block modifies before running either program.
+#. Why does ``if (i < count)`` fail to fix the local-index version?
+#. Try one block with eight threads. Why does the local-index bug disappear for that launch?
+
 Explore thread indexing
 -----------------------
 
