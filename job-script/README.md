@@ -21,6 +21,8 @@ Repeated runs overwrite those generated files; run one job per exercise at a tim
 
 - **00:** Requires the MKL module when compiling and running the CPU benchmark.
 - **02:** Edit the four dimensions in both commands together.
+  To run just the print exercises, submit `qsub 02a-print-launch.pbs` or
+  `qsub 02b-print-global-index.pbs` from this directory after compiling manually.
 - **04:** Writes `timestamps.csv` and prints its first 16 thread records.
 - **06:** Generates `input.raw`, runs the brightness kernel and prints `stats.json`.
 - **08:** Runs the version you compiled. Edit prefetch calls and rebuild to compare.

@@ -29,6 +29,10 @@ Choose the job for the exercise you want to run.
      - ``qsub 01-gpu.pbs``
    * - 02-gpu-exec-model
      - ``qsub 02-gpu-exec-model.pbs``
+   * - 02a: Thread and block information only
+     - ``qsub 02a-print-launch.pbs``
+   * - 02b: Thread and block information plus global index
+     - ``qsub 02b-print-global-index.pbs``
    * - 03-gpu-workflow
      - ``qsub 03-gpu-workflow.pbs``
    * - 04-warps
@@ -79,7 +83,7 @@ Monitor jobs and find results
    qstat -u "$USER"
 
 PBS writes the merged output/error log in ``job-script``, for example
-``cuda02.o123456``. Generated CSV, SVG, raw-image and profiling files appear in
+``02-gpu-exec-model.o123456``. Generated CSV, SVG, raw-image and profiling files appear in
 the corresponding exercise directory. Repeated runs overwrite generated files;
 run one job per exercise at a time. After editing CUDA source, rebuild manually
 before submitting again.
