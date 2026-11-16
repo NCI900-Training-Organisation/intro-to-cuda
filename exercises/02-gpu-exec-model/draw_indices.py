@@ -52,18 +52,12 @@ def terminal_grid(gx, gy, bx, by, csv_path=None, records=None):
 
     def border(y):
         heavy = y % by == 0
-        if y == 0:
-            thread_join = '┯'
-        elif y == gy * by:
-            thread_join = '┷'
-        elif heavy:
-            thread_join = '┿'
-        else:
-            thread_join = '┼'
+        if heavy:
+            return '█' * (columns * (width + 1) + 1)
         line = '█'
         for x in range(columns):
-            line += ('━' if heavy else '─') * width
-            line += '█' if (x + 1) % bx == 0 else thread_join
+            line += '─' * width
+            line += '█' if (x + 1) % bx == 0 else '┼'
         return line
 
     lines = [f'Grid ({gx}, {gy}) blocks | Block ({bx}, {by}) threads',
