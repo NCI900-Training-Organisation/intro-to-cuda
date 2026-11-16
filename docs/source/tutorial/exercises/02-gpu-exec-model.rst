@@ -17,6 +17,8 @@ To view the grid as plain text without Jupyter, run this command from the reposi
 
 .. code-block:: bash
 
+   source /g/data/vp91/Training-Venvs/intro-to-cuda/bin/activate
+   
    python3 exercises/02-gpu-exec-model/draw_indices.py 2 2 2 2 --terminal
 
 The four numbers are ``grid_x grid_y block_x block_y``. Change them to explore
