@@ -174,7 +174,7 @@ We define the initial set of instruction that:
     const int size = N * sizeof(float);
 
     float *h_input = (float*)malloc(size);
-    float *h-output = (float*)malloc(size);
+    float *h_output = (float*)malloc(size);
 
     for (int i = 0; i < N; ++i) h_input[i] = (float)i;
 
@@ -338,7 +338,7 @@ Finally, we add a D2H copy node to copy the output data from device to host:
 
     cudaMemcpy3DParms copyD2H = {};
     copyD2H.srcPtr = make_cudaPitchedPtr(d_data, size, N, 1);
-    copyD2H.dstPtr = make_cudaPitchedPtr(h-output, size, N, 1);
+    copyD2H.dstPtr = make_cudaPitchedPtr(h_output, size, N, 1);
     copyD2H.extent = make_cudaExtent(size, 1, 1);
     copyD2H.kind = cudaMemcpyDeviceToHost;
 
@@ -417,7 +417,7 @@ Update memcpy D2H node parameters:
     :linenos:
 
     copyD2H.srcPtr = make_cudaPitchedPtr(d_data[i], size, N, 1);
-    copyD2H.dstPtr = make_cudaPitchedPtr(h-output[i], size, N, 1);
+    copyD2H.dstPtr = make_cudaPitchedPtr(h_output[i], size, N, 1);
     check(cudaGraphExecMemcpyNodeSetParams(graphExec, memcpyD2HNode, &copyD2H), "Update memcpy D2H params");
 
 Launch graph and synchronize:

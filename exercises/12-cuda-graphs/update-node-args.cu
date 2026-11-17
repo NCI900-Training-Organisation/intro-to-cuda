@@ -22,10 +22,10 @@ int main()
     const int size = N * sizeof(float);
 
     // Host buffers
-    float *h_input[3], *h-output[3];
+    float *h_input[3], *h_output[3];
     for (int i = 0; i < 3; ++i) {
         h_input[i] = (float*)malloc(size);
-        h-output[i] = (float*)malloc(size);
+        h_output[i] = (float*)malloc(size);
         for (int j = 0; j < N; ++j)
             h_input[i][j] = (float)(j + i * 1000);  // Different input data
     }
@@ -78,7 +78,7 @@ int main()
     // Memcpy D2H node for d_data[0]
     cudaMemcpy3DParms copyD2H = {};
     copyD2H.srcPtr = make_cudaPitchedPtr(d_data[0], size, N, 1);
-    copyD2H.dstPtr = make_cudaPitchedPtr(h-output[0], size, N, 1);
+    copyD2H.dstPtr = make_cudaPitchedPtr(h_output[0], size, N, 1);
     copyD2H.extent = make_cudaExtent(size, 1, 1);
     copyD2H.kind = cudaMemcpyDeviceToHost;
     cudaGraphNode_t memcpyD2HNode;
@@ -113,7 +113,7 @@ int main()
 
         // Update memcpy D2H node params
         copyD2H.srcPtr = make_cudaPitchedPtr(d_data[i], size, N, 1);
-        copyD2H.dstPtr = make_cudaPitchedPtr(h-output[i], size, N, 1);
+        copyD2H.dstPtr = make_cudaPitchedPtr(h_output[i], size, N, 1);
         check(cudaGraphExecMemcpyNodeSetParams(graphExec, memcpyD2HNode, &copyD2H), "Update memcpy D2H params");
 
         // Launch graph
@@ -121,7 +121,7 @@ int main()
         check(cudaStreamSynchronize(stream), "Sync stream");
 
         // Check results
-        printf("Result sample for buffer %d: h-output[%d] = %f\n", i, 10, h-output[i][10]);
+        printf("Result sample for buffer %d: h_output[%d] = %f\n", i, 10, h_output[i][10]);
     }
 
     // Cleanup
@@ -131,7 +131,7 @@ int main()
     for (int i = 0; i < 3; ++i) {
         cudaFree(d_data[i]);
         free(h_input[i]);
-        free(h-output[i]);
+        free(h_output[i]);
     }
 
     return 0;

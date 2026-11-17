@@ -78,10 +78,10 @@ int main(int argc, char **argv)
         std::fprintf(stderr, "Input must contain exactly width * height grayscale bytes.\n");
         return EXIT_FAILURE;
     }
-    unsigned char *device_input = nullptr, *device-output = nullptr;
+    unsigned char *device_input = nullptr, *device_output = nullptr;
     unsigned long long *device_sums = nullptr;
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&device_input), count));
-    CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&device-output), count));
+    CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&device_output), count));
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&device_sums), blocks * sizeof(unsigned long long)));
     CUDA_CHECK(cudaMemcpy(device_input, input.data(), count, cudaMemcpyHostToDevice));
 
@@ -95,12 +95,12 @@ int main(int argc, char **argv)
     for (auto sum : sums) total += sum;
     double mean = static_cast<double>(total) / count;
     double gain = mean > 0.0 ? target / mean : 1.0;
-    adjust_pixels<<<blocks, threads>>>(device_input, device-output, count, gain);
+    adjust_pixels<<<blocks, threads>>>(device_input, device_output, count, gain);
     CUDA_CHECK(cudaGetLastError());
     CUDA_CHECK(cudaDeviceSynchronize());
-    CUDA_CHECK(cudaMemcpy(output.data(), device-output, count, cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(output.data(), device_output, count, cudaMemcpyDeviceToHost));
     CUDA_CHECK(cudaFree(device_input));
-    CUDA_CHECK(cudaFree(device-output));
+    CUDA_CHECK(cudaFree(device_output));
     CUDA_CHECK(cudaFree(device_sums));
 
     std::ofstream result(argv[6], std::ios::binary);

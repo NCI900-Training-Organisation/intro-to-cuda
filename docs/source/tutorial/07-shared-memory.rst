@@ -99,7 +99,7 @@ There are two main types of shared memory in CUDA:
         ...
         ...
 
-        addKernel<<<1, threads, sharedMemSize>>>(d_input, d-output);
+        addKernel<<<1, threads, sharedMemSize>>>(d_input, d_output);
     }
 
 .. important::

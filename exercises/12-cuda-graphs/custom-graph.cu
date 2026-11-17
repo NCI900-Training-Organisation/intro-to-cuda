@@ -22,7 +22,7 @@ int main()
     const int size = N * sizeof(float);
 
     float *h_input = (float*)malloc(size);
-    float *h-output = (float*)malloc(size);
+    float *h_output = (float*)malloc(size);
     for (int i = 0; i < N; ++i) h_input[i] = (float)i;
 
     float *d_data;
@@ -73,7 +73,7 @@ int main()
     // Prepare memcpy D2H params
     cudaMemcpy3DParms copyD2H = {};
     copyD2H.srcPtr = make_cudaPitchedPtr(d_data, size, N, 1);
-    copyD2H.dstPtr = make_cudaPitchedPtr(h-output, size, N, 1);
+    copyD2H.dstPtr = make_cudaPitchedPtr(h_output, size, N, 1);
     copyD2H.extent = make_cudaExtent(size, 1, 1);
     copyD2H.kind = cudaMemcpyDeviceToHost;
 
@@ -90,7 +90,7 @@ int main()
     check(cudaGraphLaunch(graphExec, stream), "Launch graph");
     check(cudaStreamSynchronize(stream), "Synchronize stream");
 
-    printf("Result sample: h-output[10] = %f\n", h-output[10]);  // Should print 100 (10*10)
+    printf("Result sample: h_output[10] = %f\n", h_output[10]);  // Should print 100 (10*10)
 
     // Cleanup
     cudaGraphExecDestroy(graphExec);
@@ -98,7 +98,7 @@ int main()
     cudaStreamDestroy(stream);
     cudaFree(d_data);
     free(h_input);
-    free(h-output);
+    free(h_output);
 
     return 0;
 }
