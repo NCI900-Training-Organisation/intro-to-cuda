@@ -1,17 +1,18 @@
 Exercise 07: Shared Memory
 ==========================
 
-**Time:** 30 min
+**Time:** 10 min
 
-Adjust a grayscale image using its average brightness.
+Four threads in one block exchange values through a shared array. Each thread
+writes its own slot, waits at ``__syncthreads()``, then reads the next slot.
+Thread 3 wraps around and reads slot 0.
 
-#. Open ``notebooks/07-shared-memory.ipynb`` and inspect the before-and-after previews and reduction diagram.
-#. Compile and run ``exercises/07-shared-memory/brightness.cu`` using the notebook cells.
-#. Check that every GPU block sum and adjusted pixel matches the CPU reference.
-#. Change ``darkness``, ``target_brightness``, and ``threads_per_block`` and compare results.
-#. Try image dimensions that produce an incomplete final block. Explain why unused threads contribute zero but still reach every barrier.
-
-Threads cooperate through a shared-memory reduction. The CPU combines block totals, and another kernel applies the brightness gain. ``exercises/07-shared-memory/image-tools.py`` generates the image and CPU reference without extra Python dependencies.
+#. Open ``notebooks/07-shared-memory.ipynb`` and inspect the kernel in
+   ``exercises/07-shared-memory/swap-neighbours.cu``.
+#. Predict which value each thread reads, then run the program and check the PBS
+   output. The read values in thread order should be 20, 30, 40, and 10.
+#. Explain why each thread must reach the barrier before any thread reads its
+   neighbour's slot.
 
 Submit a batch job
 ------------------

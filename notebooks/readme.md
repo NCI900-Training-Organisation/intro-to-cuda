@@ -17,9 +17,8 @@ of displaying the entire file inline. Images are displayed using Python
 `Image`/`SVG` calls. Exercise 03 renders
 `draw-indices.py` inline from notebook variables without a GPU. Its four GPU step jobs are submitted separately in teaching order.
 
-Warps and brightness results are read from the files created in their exercise
-folders by the PBS jobs. The shared-memory notebook's preview settings do not
-override the batch job's parameters; edit the job script to change its GPU inputs.
+Warp timing results are read from files created by the PBS jobs. The shared-memory
+notebook reads the neighbour exchange results from the PBS log.
 The unified-memory comparison submits the same documented job before and after
 editing/rebuilding the original prefetch calls.
 

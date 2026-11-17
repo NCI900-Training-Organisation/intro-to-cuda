@@ -34,7 +34,7 @@ Repeated runs overwrite those generated files; run one job per exercise at a tim
 - **05:** Writes `timestamps.csv` and prints its first 16 thread records.
   Use `qsub 05-thread-timing.pbs` for a separate one-block, 1,024-thread example;
   its `thread-timestamps.csv` is plotted per thread in `05-warps.ipynb`.
-- **07:** Generates `input.raw`, runs the brightness kernel and prints `stats.json`.
+- **07:** Runs the four-thread shared-memory exchange and prints the values read by each thread.
 - **09:** Runs the version you compiled. Edit prefetch calls and rebuild to compare.
 - **16:** Requires `nsys`; writes `vector-add-unified-profile.nsys-rep`.
 - **17:** Uses `cuda-gdb` in batch mode to capture the intentional bug and backtrace.
