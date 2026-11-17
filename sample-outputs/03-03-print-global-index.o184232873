@@ -1,0 +1,22 @@
+Thread index: 0 | Block index: 0 | Block dim: 4 | Grid dim: 2 | Global index: 0
+Thread index: 1 | Block index: 0 | Block dim: 4 | Grid dim: 2 | Global index: 1
+Thread index: 2 | Block index: 0 | Block dim: 4 | Grid dim: 2 | Global index: 2
+Thread index: 3 | Block index: 0 | Block dim: 4 | Grid dim: 2 | Global index: 3
+Thread index: 0 | Block index: 1 | Block dim: 4 | Grid dim: 2 | Global index: 4
+Thread index: 1 | Block index: 1 | Block dim: 4 | Grid dim: 2 | Global index: 5
+Thread index: 2 | Block index: 1 | Block dim: 4 | Grid dim: 2 | Global index: 6
+Thread index: 3 | Block index: 1 | Block dim: 4 | Grid dim: 2 | Global index: 7
+
+======================================================================================
+                  Resource Usage on 2026-11-17 11:35:19:
+   Job Id:             184232873.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.02
+   NCPUs Requested:    12                  CPU Time Used: 00:00:00        
+   Memory Requested:   48.0GB                Memory Used: 33.26MB         
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:02        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

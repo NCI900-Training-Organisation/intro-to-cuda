@@ -1,0 +1,14 @@
+
+======================================================================================
+                  Resource Usage on 2026-11-17 11:40:55:
+   Job Id:             184234171.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.01
+   NCPUs Requested:    12                  CPU Time Used: 00:00:00        
+   Memory Requested:   48.0GB                Memory Used: 26.55MB         
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:01        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

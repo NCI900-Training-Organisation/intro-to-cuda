@@ -1,0 +1,20 @@
+Loading python3/3.11.0
+  Loading requirement: intel-mkl/2022.2.0
+GPU: Tesla V100-SXM2-32GB
+Blocks: 387, threads per block: 256
+Input mean: 51.328, target: 128, gain: 2.494
+{"sum":5078660,"mean":51.328111577138813,"gain":2.4937601650829158,"blocks":387,"threads":256}
+
+======================================================================================
+                  Resource Usage on 2026-11-17 11:40:56:
+   Job Id:             184234243.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.02
+   NCPUs Requested:    12                  CPU Time Used: 00:00:01        
+   Memory Requested:   48.0GB                Memory Used: 27.39MB         
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:02        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

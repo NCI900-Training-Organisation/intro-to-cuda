@@ -1,0 +1,19 @@
+Input:   1 2 3 4 5 6 7 8 
+Output:  2 4 6 8 5 6 7 8 
+Expected: 2 4 6 8 10 12 14 16
+Intentional bug: both blocks address elements 0-3; elements 4-7 are never addressed.
+The overlapping read/modify/write operations race: do not rely on the first four results.
+
+======================================================================================
+                  Resource Usage on 2026-11-17 11:35:18:
+   Job Id:             184232865.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.01
+   NCPUs Requested:    12                  CPU Time Used: 00:00:00        
+   Memory Requested:   48.0GB                Memory Used: 26.98MB         
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:01        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

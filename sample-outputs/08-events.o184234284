@@ -1,0 +1,25 @@
+Iteration 0 took 4.6046 ms
+Iteration 1 took 4.4762 ms
+Iteration 2 took 4.4920 ms
+Iteration 3 took 4.5010 ms
+Iteration 4 took 4.3296 ms
+Iteration 5 took 4.4969 ms
+Iteration 6 took 4.5309 ms
+Iteration 7 took 4.3740 ms
+Iteration 8 took 4.4682 ms
+Iteration 9 took 4.4982 ms
+Result verification: PASSED
+
+======================================================================================
+                  Resource Usage on 2026-11-17 11:40:50:
+   Job Id:             184234284.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.02
+   NCPUs Requested:    12                  CPU Time Used: 00:00:00        
+   Memory Requested:   48.0GB                Memory Used: 146.35MB        
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:02        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================
