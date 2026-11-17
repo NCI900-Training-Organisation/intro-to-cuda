@@ -3,14 +3,17 @@ Exercise 05: Warps
 
 **Time:** 20 min
 
-Colour pixels by the GPU timestamp recorded by each thread.
+Visualize warp membership and when each warp reaches a clock-reading instruction.
 
 #. Open ``notebooks/05-warps.ipynb``.
-#. Compile and run ``exercises/05-warps/warp-timing.cu`` using the notebook cells.
-#. Compare the warp-ID image with the timestamp image. One block of 256 threads forms eight warps on one streaming multiprocessor.
+#. Build once in ``02-gpu.ipynb``, then submit the warp-timing job from the notebook.
+#. Compare the warp-membership image with the timestamp dot plot. One block of 256 threads forms eight warps on one streaming multiprocessor.
 #. Repeat the measurement. Does warp 0 always record its timestamp first?
 
-The timestamp is a measurement point, not a guarantee of warp execution order. Plotting uses NumPy and Matplotlib.
+Each dot marks a warp's earliest clock reading; its horizontal line extends to the
+latest reading among that warp's 32 threads. Equal readings collapse to one dot.
+These are clock-read offsets, not execution durations or a guarantee of warp
+execution order. Plotting uses standard Python and inline SVG.
 
 Submit a batch job
 ------------------
