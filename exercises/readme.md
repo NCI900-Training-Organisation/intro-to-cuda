@@ -1,5 +1,9 @@
 # CUDA exercises
 
+[Final project: image blur](00-project/readme.md) combines shared memory,
+asynchronous streams, CUDA events and unified memory. Its commented skeleton
+leaves the GPU implementation for students to complete.
+
 Build all C/C++ and CUDA programs, including nested legacy solutions, with CMake
 3.18 or newer and Ninja. On Gadi, load the compiler, CUDA, MKL, CMake and Ninja,
 then run from the repository root:

@@ -47,6 +47,8 @@ participants will learn how to harness the computational power of GPUs to accele
     - 30 minutes
   * - Exercise 09: Unified Memory
     - 20 minutes
+  * - Final Project: Image Blur
+    - 60–90 minutes
 
 .. toctree::
 
@@ -67,6 +69,7 @@ participants will learn how to harness the computational power of GPUs to accele
     tutorial/exercises/08-events.rst
     tutorial/09-unified-memory.rst
     tutorial/exercises/09-unified-memory.rst
+    tutorial/exercises/00-project.rst
 
 **Advanced Topics**:
 
