@@ -1,4 +1,4 @@
-// One block of 100 threads: record one clock reading per thread on the same SM.
+// One block of 1,024 threads: record one clock reading per thread on the same SM.
 #include <cuda_runtime.h>
 #include <cstdio>
 #include <cstdlib>
@@ -25,9 +25,13 @@ int main(int argc, char **argv)
         std::fprintf(stderr, "Usage: %s output.csv\n", argv[0]);
         return EXIT_FAILURE;
     }
-    constexpr int threads = 100;
+    constexpr int threads = 1024;
     cudaDeviceProp properties;
     CUDA_CHECK(cudaGetDeviceProperties(&properties, 0));
+    if (threads > properties.maxThreadsPerBlock || threads > properties.maxThreadsDim[0]) {
+        std::fprintf(stderr, "This GPU cannot launch a one-dimensional block of %d threads.\n", threads);
+        return EXIT_FAILURE;
+    }
     const int warps = (threads + properties.warpSize - 1) / properties.warpSize;
     const int last_warp_threads = threads - (warps - 1) * properties.warpSize;
     std::fprintf(stderr, "GPU: %s; one block, %d threads, %d warps\n",
@@ -36,8 +40,8 @@ int main(int argc, char **argv)
     unsigned long long *device_timestamps = nullptr;
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&device_timestamps),
                           threads * sizeof(unsigned long long)));
-    // The fourth warp is partial on a GPU with 32-thread warps. Every launched
-    // thread still participates in the barrier; inactive lanes are not threads.
+    // One block contains 32 full warps on a GPU with 32-thread warps.
+    // Every thread participates in the barrier before taking its clock reading.
     record_thread_timestamps<<<1, threads>>>(device_timestamps);
     CUDA_CHECK(cudaGetLastError());
     CUDA_CHECK(cudaDeviceSynchronize());

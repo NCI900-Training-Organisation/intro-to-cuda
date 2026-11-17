@@ -55,7 +55,7 @@ Choose the job for the exercise you want to run.
      - ``qsub 04-gpu-workflow.pbs``
    * - 05-warps
      - ``qsub 05-warps.pbs``
-   * - 05: Per-thread timing, one block of 100 threads
+   * - 05: Per-thread timing, one block of 1,024 threads
      - ``qsub 05-thread-timing.pbs``
    * - 06-asynchronous
      - ``qsub 06-asynchronous.pbs``

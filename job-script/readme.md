@@ -32,7 +32,7 @@ Repeated runs overwrite those generated files; run one job per exercise at a tim
   (intentional indexing bug and data race) and `03-04-double-global-index.pbs`
   (correct global indexing). The main Exercise 03 job runs all four examples.
 - **05:** Writes `timestamps.csv` and prints its first 16 thread records.
-  Use `qsub 05-thread-timing.pbs` for a separate one-block, 100-thread example;
+  Use `qsub 05-thread-timing.pbs` for a separate one-block, 1,024-thread example;
   its `thread-timestamps.csv` is plotted per thread in `05-warps.ipynb`.
 - **07:** Generates `input.raw`, runs the brightness kernel and prints `stats.json`.
 - **09:** Runs the version you compiled. Edit prefetch calls and rebuild to compare.
