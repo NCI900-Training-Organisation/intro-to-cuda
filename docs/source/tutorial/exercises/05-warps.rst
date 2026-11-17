@@ -15,6 +15,33 @@ latest reading among that warp's 32 threads. Equal readings collapse to one dot.
 These are clock-read offsets, not execution durations or a guarantee of warp
 execution order. Plotting uses standard Python and inline SVG.
 
+One block with 100 threads
+--------------------------
+
+Next, inspect ``exercises/05-warps/thread-timing.cu``. It launches exactly one
+block of 100 threads, with the same barrier and clock-read operation as the
+256-thread example. With 32 threads per warp, threads 0–31 form warp 0, 32–63
+form warp 1, 64–95 form warp 2, and 96–99 occupy four active lanes in warp 3.
+
+The program writes all 100 readings to ``thread-timestamps.csv``. In the notebook,
+the additional dot plot shows **one dot per thread**: horizontal position is the
+thread index, vertical position is its clock-reading offset from the earliest
+reading in the block, and colour identifies its warp. Background bands separate
+warps. Threads with identical timestamps appear at the same vertical height.
+
+Build using the shared build cell in ``02-gpu.ipynb``, then submit from
+``job-script``:
+
+.. code-block:: bash
+
+   qsub 05-thread-timing.pbs
+   qstat -u "$USER"
+
+After the job finishes, run the additional plotting cell in ``05-warps.ipynb``.
+Compare the three full warps with the partial fourth warp. Does every thread in
+a warp record the same value? Repeat the job to see whether the pattern changes.
+The differences show when the clock was read, not how long a thread ran.
+
 Submit a batch job
 ------------------
 
