@@ -99,6 +99,14 @@ These components work together to accelerate parallel tasks such as scientific c
 Streaming Multiprocessors (SMs)
 -------------------------------
 
+.. figure:: ./figs/sm-internal.png
+   :width: 650px
+   :align: center
+   :alt: One SM containing an instruction cache, warp schedulers, registers, CUDA cores, load/store units, and shared memory/L1 cache.
+
+   Simplified components inside one Streaming Multiprocessor. The layout and
+   number of execution units depend on the GPU architecture.
+
 .. list-table::
    :header-rows: 1
    :widths: 25 75
