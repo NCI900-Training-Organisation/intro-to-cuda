@@ -20,13 +20,14 @@ From the repository root, change to ``job-script`` and submit the prebuilt progr
 
 .. note::
 
-   Before submitting, load the GCC, CUDA and MKL modules and run this single
+   Before submitting, ensure CMake and Ninja are available, load the GCC, CUDA
+   and MKL modules, and run this single
    command from the repository root to compile all exercises. Executables are
    written to ``exercises/build``:
 
    .. code-block:: bash
 
-      cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
+      cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
 
 .. code-block:: bash
 

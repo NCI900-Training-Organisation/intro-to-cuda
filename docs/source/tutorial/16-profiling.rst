@@ -25,7 +25,7 @@ To profile the code first compile with line info
 .. code-block:: bash
     :linenos:
 
-    cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+    cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
     cmake --build exercises/build --target ex-16-profiling-vector-add-unified
 
 then profile the executable

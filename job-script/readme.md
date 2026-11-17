@@ -1,9 +1,10 @@
 # Gadi PBS job scripts
 
-Build separately with CMake from the repository root, then submit from `job-script`:
+With CMake and Ninja available, build separately from the repository root,
+then submit from `job-script`:
 
 ```bash
-cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
 cmake --build exercises/build --parallel 4
 cd job-script
 qsub 03-gpu-exec-model.pbs

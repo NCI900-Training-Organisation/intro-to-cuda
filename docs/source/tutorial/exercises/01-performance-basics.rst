@@ -18,12 +18,13 @@ Submit a batch job
 
 .. note::
 
-   Load GCC, CUDA and Intel MKL, then run this single command from the repository
+   Ensure CMake and Ninja are available, load GCC, CUDA and Intel MKL, then run
+   this single command from the repository
    root. All executables are written directly into ``exercises/build``.
 
    .. code-block:: bash
 
-      cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
+      cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release && cmake --build exercises/build --parallel 4
 
 From the repository root, change to ``job-script`` and submit:
 

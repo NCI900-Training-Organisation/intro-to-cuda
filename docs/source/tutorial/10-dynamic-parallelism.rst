@@ -76,7 +76,7 @@ To use dynamic parallelism:
 
 .. code-block:: bash
 
-    cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+    cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
     cmake --build exercises/build --target ex-10-dynamic-parallelism-dynamic-parallelism
 
 * ``-rdc=true`` enables Relocatable Device Code, required for device-side kernel launches.

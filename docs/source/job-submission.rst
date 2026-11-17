@@ -4,6 +4,7 @@ Submitting exercise jobs on Gadi
 Build the exercises manually with CMake in ``exercises/build`` before submitting. The PBS
 scripts only run prebuilt executables; they do not compile them. Use the same
 compiler and CUDA modules when building as the scripts load at runtime.
+CMake and Ninja must also be available when compiling.
 
 For example, starting from the repository root on Gadi:
 
@@ -11,10 +12,16 @@ For example, starting from the repository root on Gadi:
 
    module load gcc/14.2.0 cuda/12.9.0
    module load intel-mkl/2024.2.1
-   cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+   cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
    cmake --build exercises/build --parallel 4
    cd job-script
    qsub 03-gpu-exec-model.pbs
+
+.. note::
+
+   If ``exercises/build`` was configured with a different generator, move that
+   directory aside and start with a fresh ``exercises/build`` before using Ninja.
+   An existing CMake cache cannot switch generators.
 
 Executables are read directly from ``exercises/build/`` with unique names such
 as ``ex-04-gpu-workflow-vector-add``. Names include the exercise folder to

@@ -1,12 +1,12 @@
 # CUDA exercises
 
 Build all C/C++ and CUDA programs, including nested legacy solutions, with CMake
-3.18 or newer. On Gadi, load the compiler, CUDA, MKL and an available CMake module,
+3.18 or newer and Ninja. On Gadi, load the compiler, CUDA, MKL, CMake and Ninja,
 then run from the repository root:
 
 ```bash
 module load gcc/14.2.0 cuda/12.9.0 intel-mkl/2024.2.1
-cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
 cmake --build exercises/build --parallel 4
 ```
 
@@ -31,7 +31,7 @@ To run any numbered exercise on Gadi without Jupyter, use the
 [PBS job scripts](../job-script/readme.md). For example, from the repository root:
 
 ```bash
-cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
 cmake --build exercises/build --parallel 4
 cd job-script
 qsub 03-gpu-exec-model.pbs
@@ -74,3 +74,6 @@ The execution-model exercise has numbered steps in this order:
 Asset and solution subfolders are numbered too. Filenames and executable names
 use kebab-case. `CMakeLists.txt` keeps the filename required by CMake. Notebook
 generated-source examples also use CMake via `EXERCISES_EXTRA_SOURCES`.
+
+If `exercises/build` was configured with another generator, move it aside and
+start with a fresh `exercises/build` directory before selecting Ninja.

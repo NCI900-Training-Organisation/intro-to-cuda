@@ -16,7 +16,7 @@ To start compile the application with debug flags
 .. code-block:: bash
     :linenos:
 
-    cmake -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
+    cmake -G Ninja -S exercises -B exercises/build -DCMAKE_BUILD_TYPE=Release
     cmake --build exercises/build --target ex-17-debugging-vector-add
 
 .. admonition:: Explanation
