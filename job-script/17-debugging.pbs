@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N 17-debugging
+#PBS -P vp91
+#PBS -q gpuvolta
+#PBS -l walltime=00:15:00
+#PBS -l ncpus=12,ngpus=1,mem=48GB
+#PBS -l storage=scratch/vp91
+#PBS -l wd
+#PBS -j oe
+
+# Build separately with CMake in exercises/build. Submit from job-script: qsub 17-debugging.pbs
+set -e
+module load gcc/14.2.0 cuda/12.9.0
+cd "$PBS_O_WORKDIR/../exercises/17-debugging"
+
+# Capture the intentional bug and backtrace without an interactive debugger.
+cuda-gdb --batch -ex run -ex bt "../build/ex-17-debugging-vector-add"

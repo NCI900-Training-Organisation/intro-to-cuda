@@ -18,6 +18,6 @@ Contents
 
    prerequisite
    outcomes
-   job_submission
+   job-submission
    tutorial
    references

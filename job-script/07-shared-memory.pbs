@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N 07-shared-memory
+#PBS -P vp91
+#PBS -q gpuvolta
+#PBS -l walltime=00:15:00
+#PBS -l ncpus=12,ngpus=1,mem=48GB
+#PBS -l storage=scratch/vp91
+#PBS -l wd
+#PBS -j oe
+
+# Build separately with CMake in exercises/build. Submit from job-script: qsub 07-shared-memory.pbs
+set -e
+module load gcc/14.2.0 cuda/12.9.0
+module load python3/3.11.0
+cd "$PBS_O_WORKDIR/../exercises/07-shared-memory"
+
+# Create input for the brightness example (no notebook needed).
+python3 - <<'PYTHON'
+from pathlib import Path
+import runpy
+make_scene = runpy.run_path("image-tools.py")["make_scene"]
+Path("input.raw").write_bytes(make_scene(385, 257, 0.35))
+PYTHON
+"../build/ex-07-shared-memory-brightness" input.raw 385 257 128 256 adjusted.raw stats.json block-sums.txt
+cat stats.json
