@@ -1,23 +1,24 @@
-Iteration 0 took 4.6046 ms
-Iteration 1 took 4.4762 ms
-Iteration 2 took 4.4920 ms
-Iteration 3 took 4.5010 ms
-Iteration 4 took 4.3296 ms
-Iteration 5 took 4.4969 ms
-Iteration 6 took 4.5309 ms
-Iteration 7 took 4.3740 ms
-Iteration 8 took 4.4682 ms
-Iteration 9 took 4.4982 ms
+Total time for 10 iterations using 4 streams: 35.3372 ms
 Result verification: PASSED
+Vector-add output: first 8 of 1048576 elements (iteration 9)
+Index        A        B    C = A + B
+    0      9.0      0.0          9.0
+    1      9.0      1.0         10.0
+    2      9.0      2.0         11.0
+    3      9.0      3.0         12.0
+    4      9.0      4.0         13.0
+    5      9.0      5.0         14.0
+    6      9.0      6.0         15.0
+    7      9.0      7.0         16.0
 
 ======================================================================================
-                  Resource Usage on 2026-11-17 11:40:50:
-   Job Id:             184234284.gadi-pbs
+                  Resource Usage on 2026-11-18 10:15:15:
+   Job Id:             184402151.gadi-pbs
    Project:            vp91
    Exit Status:        0
    Service Units:      0.02
    NCPUs Requested:    12                  CPU Time Used: 00:00:00        
-   Memory Requested:   48.0GB                Memory Used: 146.35MB        
+   Memory Requested:   48.0GB                Memory Used: 26.7MB          
    NGPUs Requested:    1                 GPU Utilisation: 0%              
                                          GPU Memory Used: 0B              
    Walltime Requested: 00:15:00            Walltime Used: 00:00:02        

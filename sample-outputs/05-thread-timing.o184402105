@@ -1,0 +1,34 @@
+GPU: Tesla V100-SXM2-32GB; one block, 1024 threads, 32 warps
+The final warp contains 32 active threads.
+Saved 1024 thread clock readings to thread-timestamps.csv. Plot them in 05-warps.ipynb.
+thread,warp,lane,clock
+0,0,0,891212338289948
+1,0,1,891212338289948
+2,0,2,891212338289948
+3,0,3,891212338289948
+4,0,4,891212338289948
+5,0,5,891212338289948
+6,0,6,891212338289948
+7,0,7,891212338289948
+8,0,8,891212338289948
+9,0,9,891212338289948
+10,0,10,891212338289948
+11,0,11,891212338289948
+12,0,12,891212338289948
+13,0,13,891212338289948
+14,0,14,891212338289948
+15,0,15,891212338289948
+
+======================================================================================
+                  Resource Usage on 2026-11-18 10:13:22:
+   Job Id:             184402105.gadi-pbs
+   Project:            vp91
+   Exit Status:        0
+   Service Units:      0.01
+   NCPUs Requested:    12                  CPU Time Used: 00:00:00        
+   Memory Requested:   48.0GB                Memory Used: 26.81MB         
+   NGPUs Requested:    1                 GPU Utilisation: 0%              
+                                         GPU Memory Used: 0B              
+   Walltime Requested: 00:15:00            Walltime Used: 00:00:01        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

@@ -1,22 +1,16 @@
-Run 1 completed in 96.764 ms
-Run 2 completed in 23.477 ms
-Run 3 completed in 25.143 ms
-Run 4 completed in 24.040 ms
-Run 5 completed in 22.820 ms
-Run 1 completed in 10.977 ms.
-Run 2 completed in 0.415 ms.
-Run 3 completed in 0.393 ms.
-Run 4 completed in 0.391 ms.
-Run 5 completed in 0.392 ms.
+Input:   1 2 3 4 5 6 7 8 
+Output:  2 4 6 8 10 12 14 16 
+Expected: 2 4 6 8 10 12 14 16
+PASS: every element was doubled exactly once.
 
 ======================================================================================
-                  Resource Usage on 2026-11-17 11:35:25:
-   Job Id:             184232824.gadi-pbs
+                  Resource Usage on 2026-11-18 10:13:16:
+   Job Id:             184402072.gadi-pbs
    Project:            vp91
    Exit Status:        0
    Service Units:      0.03
    NCPUs Requested:    12                  CPU Time Used: 00:00:01        
-   Memory Requested:   48.0GB                Memory Used: 529.67MB        
+   Memory Requested:   48.0GB                Memory Used: 54.83MB         
    NGPUs Requested:    1                 GPU Utilisation: 0%              
                                          GPU Memory Used: 0B              
    Walltime Requested: 00:15:00            Walltime Used: 00:00:03        

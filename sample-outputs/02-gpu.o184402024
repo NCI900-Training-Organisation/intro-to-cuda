@@ -1,12 +1,23 @@
+Device Model: Tesla V100-SXM2-32GB
+Compute Capability: 7.0
+Number of SMs: 80
+CUDA Cores per SM: 64
+Total CUDA Cores: 5120
+Max threads per block: 1024
+Max threads per SM: 2048
+Estimated max blocks per SM: 2
+Tensor cores available: Yes
+Shared memory per block (approx. L1 cache): 48.00 KB
+L2 Cache size: 6144.00 KB
 
 ======================================================================================
-                  Resource Usage on 2026-11-17 11:40:55:
-   Job Id:             184234171.gadi-pbs
+                  Resource Usage on 2026-11-18 10:11:48:
+   Job Id:             184402024.gadi-pbs
    Project:            vp91
    Exit Status:        0
    Service Units:      0.01
    NCPUs Requested:    12                  CPU Time Used: 00:00:00        
-   Memory Requested:   48.0GB                Memory Used: 26.55MB         
+   Memory Requested:   48.0GB                Memory Used: 28.83MB         
    NGPUs Requested:    1                 GPU Utilisation: 0%              
                                          GPU Memory Used: 0B              
    Walltime Requested: 00:15:00            Walltime Used: 00:00:01        

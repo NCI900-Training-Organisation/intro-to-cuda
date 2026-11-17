@@ -1,17 +1,22 @@
-Input:   1 2 3 4 5 6 7 8 
-Output:  2 4 6 8 5 6 7 8 
-Expected: 2 4 6 8 10 12 14 16
-Intentional bug: both blocks address elements 0-3; elements 4-7 are never addressed.
-The overlapping read/modify/write operations race: do not rely on the first four results.
+Vector-add output: first 8 of 1024 elements
+Index        A        B    C = A + B
+    0      0.0      0.0          0.0
+    1      1.0      1.0          2.0
+    2      2.0      2.0          4.0
+    3      3.0      3.0          6.0
+    4      4.0      4.0          8.0
+    5      5.0      5.0         10.0
+    6      6.0      6.0         12.0
+    7      7.0      7.0         14.0
 
 ======================================================================================
-                  Resource Usage on 2026-11-17 11:35:18:
-   Job Id:             184232865.gadi-pbs
+                  Resource Usage on 2026-11-18 10:13:21:
+   Job Id:             184402082.gadi-pbs
    Project:            vp91
    Exit Status:        0
    Service Units:      0.01
    NCPUs Requested:    12                  CPU Time Used: 00:00:00        
-   Memory Requested:   48.0GB                Memory Used: 26.98MB         
+   Memory Requested:   48.0GB                Memory Used: 26.71MB         
    NGPUs Requested:    1                 GPU Utilisation: 0%              
                                          GPU Memory Used: 0B              
    Walltime Requested: 00:15:00            Walltime Used: 00:00:01        
