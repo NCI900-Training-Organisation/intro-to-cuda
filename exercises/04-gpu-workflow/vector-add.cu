@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h> // Provides access to CUDA runtime API functions
 
@@ -41,6 +42,9 @@ int main()
 
     // Copy result back to host
     cudaMemcpy(h_c, d_c, n * sizeof(float), cudaMemcpyDeviceToHost);
+
+    // The blocking device-to-host copy above has completed.
+    print_vector_add_output(h_a, h_b, h_c, n);
 
     // Free device memory
     cudaFree(d_a);

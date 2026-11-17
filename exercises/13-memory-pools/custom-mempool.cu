@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 
@@ -86,6 +87,9 @@ int main()
     cudaStreamSynchronize(stream);
 
     printf("C[100] = %f\n", h_C[100]);  // Should be 100 + 2*100 = 300
+
+    // The stream synchronization above completed the result copy.
+    print_vector_add_output(h_A, h_B, h_C, N);
 
     // Free device memory asynchronously
     cudaFreeAsync(d_A, stream);

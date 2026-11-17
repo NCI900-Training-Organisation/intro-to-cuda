@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 #include <chrono> // For timing the execution
@@ -80,6 +81,9 @@ int main()
     // Print result and total GPU time including memory copies
     printf("Vector addition with 2D threads %s!\n", success ? "succeeded" : "failed");
     printf("Total GPU time (H2D + kernel + D2H): %.4f ms\n", duration.count());
+
+    // This is reached after students fix the intentional allocation bug.
+    print_vector_add_output(h_A, h_B, h_C, N);
 
     // Free memory on both host and device
     cudaFree(d_A);

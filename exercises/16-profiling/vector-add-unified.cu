@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 #include <stdlib.h>
@@ -94,6 +95,10 @@ int main()
     }
 
     printf("Result verification: %s\n", allPassed ? "PASSED" : "FAILED");
+
+    // Read managed results only after stream completion, outside timing.
+    print_vector_add_output(A[NUM_ITERATIONS - 1], B[NUM_ITERATIONS - 1],
+                            C[NUM_ITERATIONS - 1], N, NUM_ITERATIONS - 1);
 
     // Cleanup
     for (int i = 0; i < NUM_ITERATIONS; ++i) {

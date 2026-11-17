@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 
@@ -58,6 +59,9 @@ int main()
     printf("[Traditional] Time: %.3f ms (avg %.3f ms/iteration)\n",
            time_traditional, time_traditional / iterations);
 
+    puts("Traditional execution result:");
+    print_vector_add_output(h_A, h_B, h_C, N);
+
     // --- CUDA Graph execution ---
     cudaGraph_t graph;
     cudaGraphExec_t graphExec;
@@ -78,6 +82,9 @@ int main()
     cudaEventElapsedTime(&time_graph, start, stop);
     printf("[Graph]       Time: %.3f ms (avg %.3f ms/iteration)\n",
            time_graph, time_graph / iterations);
+
+    puts("CUDA Graph execution result:");
+    print_vector_add_output(h_A, h_B, h_C, N);
 
     // --- Cleanup ---
     cudaGraphExecDestroy(graphExec);

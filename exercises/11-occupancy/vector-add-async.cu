@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -125,6 +126,10 @@ int main()
         CUDA_CHECK(cudaEventElapsedTime(&ms, startEvents[iter], stopEvents[iter]));
         printf("Iteration %d took %.3f ms\n", iter, ms);
     }
+
+    // All streams have completed; show the final iteration outside timing.
+    print_vector_add_output(h_A[NUM_ITERATIONS - 1], h_B[NUM_ITERATIONS - 1],
+                            h_C[NUM_ITERATIONS - 1], N, NUM_ITERATIONS - 1);
 
     // Cleanup
     for (int i = 0; i < NUM_ITERATIONS; ++i) {

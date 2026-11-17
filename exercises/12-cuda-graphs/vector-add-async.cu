@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 
@@ -59,6 +60,9 @@ int main()
         cudaStreamSynchronize(stream);
         printf("Run %d: C[100] = %f\n", i, h_C[100]);  // Should be 300 (100 + 200)
     }
+
+    // The final graph execution and its result copy have completed.
+    print_vector_add_output(h_A, h_B, h_C, N);
 
     // Clean up
     cudaGraphExecDestroy(graphExec);

@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <cuda_runtime.h>
 #include <stdio.h>
 
@@ -65,6 +66,9 @@ int main()
     for (int i = 0; i < 5; ++i)
         printf("%f ", h_C[i]);
     printf("...\n");
+
+    puts("Vector-add result copied back from GPU 1:");
+    print_vector_add_output(h_A, h_B, h_C, N);
 
     // Cleanup
     cudaSetDevice(0);

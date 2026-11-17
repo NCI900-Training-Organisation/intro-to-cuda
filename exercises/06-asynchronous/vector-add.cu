@@ -1,3 +1,4 @@
+#include "../vector-add-output.h"
 #include <stdio.h>
 #include <cuda_runtime.h>
 #include <chrono>
@@ -77,6 +78,9 @@ int main()
     std::chrono::duration<double, std::milli> totalDuration = stop - start;
 
     printf("Total GPU time for %d vector additions: %.4f ms\n", NUM_ITERATIONS, totalDuration.count());
+
+    // Buffers contain the final iteration; print after stopping the timer.
+    print_vector_add_output(h_A, h_B, h_C, N, NUM_ITERATIONS - 1);
 
     // Cleanup
     cudaFree(d_A);
