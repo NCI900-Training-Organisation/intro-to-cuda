@@ -24,10 +24,11 @@ block of 1,024 threads, with the same barrier and clock-read operation as the
 The program checks that the GPU supports the requested block size.
 
 The program writes all 1,024 readings to ``thread-timestamps.csv``. The notebook
-plots one dot per thread in four panels of 256 threads, so the individual dots
-remain readable. Horizontal position is the thread index, vertical position is
-its clock-reading offset from the earliest reading in the entire block, and
-colour identifies its warp. Every panel uses the same vertical scale.
+plots them in a single compact line chart. The horizontal axis is the thread
+index and the vertical axis is the clock-reading offset from the earliest
+reading in the plotted data. For a full saved run, copy that CSV into
+``sample-outputs/thread-timestamps.csv``. The archived PBS log contains only the
+first 16 readings.
 
 Rebuild using the shared build cell in ``02-gpu.ipynb``, then submit from
 ``job-script``:

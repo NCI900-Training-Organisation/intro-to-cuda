@@ -26,7 +26,8 @@ To generate graphs from saved output, expand the collapsed code cell just before
 the graph in `03-gpu-exec-model.ipynb` or before the first graph in
 `05-warps.ipynb`. Set its flag to `True`, run the cell, then run the graph cell.
 Set it back to `False` and rerun the cell to restore the default.
-Each saved warp plot uses the 16 readings captured in its PBS log.
+The saved warp logs have 16 readings each. To plot a full saved thread-timing
+run, place its CSV at `sample-outputs/thread-timestamps.csv`.
 
 Derived notebook images are saved under `notebook-output`. Saved execution outputs
 are cleared so the notebooks do not show results from an earlier source version.
