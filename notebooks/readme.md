@@ -22,5 +22,11 @@ notebook reads the neighbour exchange results from the PBS log.
 The unified-memory comparison submits the same documented job before and after
 editing/rebuilding the original prefetch calls.
 
+To generate graphs from saved output, expand the collapsed code cell just before
+the graph in `03-gpu-exec-model.ipynb` or before the first graph in
+`05-warps.ipynb`. Set its flag to `True`, run the cell, then run the graph cell.
+Set it back to `False` and rerun the cell to restore the default.
+Each saved warp plot uses the 16 readings captured in its PBS log.
+
 Derived notebook images are saved under `notebook-output`. Saved execution outputs
 are cleared so the notebooks do not show results from an earlier source version.
