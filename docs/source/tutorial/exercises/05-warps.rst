@@ -26,9 +26,10 @@ The program checks that the GPU supports the requested block size.
 The program writes all 1,024 readings to ``thread-timestamps.csv``. The notebook
 plots them in a single compact line chart. The horizontal axis is the thread
 index and the vertical axis is the clock-reading offset from the earliest
-reading in the plotted data. For a full saved run, copy that CSV into
-``sample-outputs/thread-timestamps.csv``. The archived PBS log contains only the
-first 16 readings.
+reading in the plotted data. The notebook includes complete saved runs in
+``sample-outputs/timestamps.csv`` (256 readings) and
+``sample-outputs/thread-timestamps.csv`` (1,024 readings). The PBS logs show the
+first 16 readings as a preview.
 
 Rebuild using the shared build cell in ``02-gpu.ipynb``, then submit from
 ``job-script``:
