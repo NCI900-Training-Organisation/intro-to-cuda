@@ -77,7 +77,7 @@ def terminal_grid(gx, gy, bx, by, csv_path=None, records=None):
     return '\n'.join(lines)
 
 
-def draw(gx, gy, bx, by, output, csv_path=None, records=None, *, source_label=None):
+def draw(gx, gy, bx, by, output, csv_path=None, records=None):
     records, origin = validated_records(gx, gy, bx, by, csv_path, records)
     cw, ch, margin, top = 108, 76, 32, 120
     width, height = gx * bx * cw + margin * 2, gy * by * ch + top + 48
@@ -91,7 +91,7 @@ def draw(gx, gy, bx, by, output, csv_path=None, records=None, *, source_label=No
     text(margin, 28, f'Grid ({gx}, {gy}) blocks | Block ({bx}, {by}) threads', 17)
     text(margin, 52, 'G = global ID; L = local ID within block; B = block (x,y)')
     text(margin, 74, 'T = threadIdx (x,y). Thick outlines mark blocks. x increases right; y down.')
-    text(margin, 96, source_label or origin, 11)
+    text(margin, 96, origin, 11)
     for r in records:
         x, y = margin + r['x'] * cw, top + r['y'] * ch
         color = palette[(r['by'] * gx + r['bx']) % len(palette)]

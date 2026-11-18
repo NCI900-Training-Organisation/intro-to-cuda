@@ -17,11 +17,8 @@ of displaying the entire file inline. Images are displayed using Python
 `Image`/`SVG` calls. Exercise 03 renders
 `draw-indices.py` inline from notebook variables without a GPU. Its four GPU step jobs are submitted separately in teaching order.
 
-Each notebook has a saved-output cell after its live PBS log cell. Run the setup
-cell first. The performance comparison and thread-index diagram can use the
-selected logs. The warp plots use the live CSVs when ready, or the first 16
-clock readings captured in each saved log. Saved plots are labelled as excerpts.
-The shared-memory notebook includes expected output for the neighbour exchange.
+Warp timing results are read from files created by the PBS jobs. The shared-memory
+notebook reads the neighbour exchange results from the PBS log.
 The unified-memory comparison submits the same documented job before and after
 editing/rebuilding the original prefetch calls.
 
